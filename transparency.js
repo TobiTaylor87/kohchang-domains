@@ -25,25 +25,25 @@ const TRANSPARENCY = {
     {
       id:    'rescue',
       emoji: '🚑',
-      name:  { de: 'Koh Chang Rescue', en: 'Koh Chang Rescue', th: 'กู้ภัยเกาะช้าง' },
+      name:  { de: 'Koh Chang Rescue — Tong', en: 'Koh Chang Rescue — Tong', th: 'กู้ภัยเกาะช้าง — ต้อง' },
       desc:  {
-        de: 'Ehrenamtlicher Rettungsdienst, der täglich Leben auf der Insel rettet — rund um die Uhr, ohne Bezahlung.',
-        en: 'Volunteer rescue service saving lives on the island every day — around the clock, unpaid.',
-        th: 'หน่วยกู้ภัยอาสาสมัครที่ช่วยชีวิตผู้คนบนเกาะทุกวัน ตลอด 24 ชั่วโมง โดยไม่ได้รับค่าตอบแทน'
+        de: 'Ehrenamtlicher Rettungsdienst unter der Leitung von Tong, der täglich Leben auf der Insel rettet — rund um die Uhr, ohne Bezahlung.',
+        en: 'Volunteer rescue service led by Tong, saving lives on the island every day — around the clock, unpaid.',
+        th: 'หน่วยกู้ภัยอาสาสมัครนำโดยต้อง ช่วยชีวิตผู้คนบนเกาะทุกวัน ตลอด 24 ชั่วโมง โดยไม่ได้รับค่าตอบแทน'
       },
-      website:       '',   /* optional: Link zur Organisation */
-      totalReceived: 0     /* wird automatisch aus donations berechnet */
+      website:       'https://www.facebook.com/TongRescuekohchang',
+      totalReceived: 0
     },
     {
-      id:    'animal-welfare',
+      id:    'animal-project',
       emoji: '🐾',
-      name:  { de: 'Tierwohl Koh Chang', en: 'Animal Welfare Koh Chang', th: 'สวัสดิภาพสัตว์เกาะช้าง' },
+      name:  { de: 'Koh Chang Animal Project', en: 'Koh Chang Animal Project', th: 'โครงการสัตว์เกาะช้าง' },
       desc:  {
-        de: 'Projekte für den Schutz, die Versorgung und Kastration von Straßentieren auf der Insel.',
-        en: 'Projects protecting, caring for and neutering street animals on the island.',
-        th: 'โครงการคุ้มครอง ดูแล และทำหมันสัตว์จรจัดบนเกาะ'
+        de: 'Schutz, Versorgung und Kastration von Straßentieren auf Koh Chang. Eine der wichtigsten Tierschutzorganisationen der Insel.',
+        en: 'Protecting, caring for and neutering street animals on Koh Chang. One of the island\'s most important animal welfare organisations.',
+        th: 'คุ้มครอง ดูแล และทำหมันสัตว์จรจัดบนเกาะช้าง หนึ่งในองค์กรสวัสดิภาพสัตว์ที่สำคัญที่สุดของเกาะ'
       },
-      website:       '',
+      website:       'http://www.kohchanganimalproject.org/',
       totalReceived: 0
     }
     /* ── Weitere Spendenziele hier einfügen: ──────────
