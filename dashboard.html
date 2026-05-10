@@ -1,0 +1,1236 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>KohChang · Dashboard</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Lora:ital,wght@0,400;0,600;1,400&family=Sarabun:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    /* ── Tropical Beach Palette (synced mit index.html) ── */
+    :root {
+      --bg:      #0C1C18;
+      --surf:    rgba(18,48,40,0.95);
+      --surf2:   rgba(28,65,54,0.90);
+      --a1:      #38C9C2;
+      --a2:      #D4A84B;
+      --text:    #FAF2DC;
+      --muted:   #A8C8BA;
+      --gold:    #D4961E;
+      --border:  rgba(56,201,194,0.18);
+      --r:       6px;
+      --ease:    cubic-bezier(0.25,0.46,0.45,0.94);
+      --touch:   44px;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { height: 100%; }
+
+    body {
+      min-height: 100vh; background: var(--bg); color: var(--text);
+      font-family: 'Lora', Georgia, serif; font-size: 0.9rem; line-height: 1.6;
+      background-image:
+        url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1920&q=70');
+      background-size: cover; background-attachment: fixed; background-position: center;
+    }
+    body::before {
+      content: ''; position: fixed; inset: 0; z-index: 0;
+      background: rgba(8,20,16,0.82); pointer-events: none;
+    }
+    * { position: relative; z-index: 1; }
+
+    a { color: var(--a1); text-decoration: none; }
+    button { cursor: pointer; border: none; background: none; font-family: inherit; color: inherit; }
+    input, textarea, select { font-family: inherit; }
+    h1,h2,h3 { font-family: 'Bebas Neue', sans-serif; font-weight: 400; letter-spacing: 0.04em; line-height: 1.1; }
+
+    /* ── SCREENS ──────────────────────────────────────── */
+    .screen { display: none; min-height: 100vh; }
+    .screen.active { display: flex; }
+
+    /* ── LOGIN / SETUP ───────────────────────────────── */
+    #s-login, #s-setup {
+      align-items: center; justify-content: center;
+      padding: 2rem;
+    }
+    .auth-card {
+      background: rgba(14,44,36,0.92); backdrop-filter: blur(14px);
+      border: 1px solid var(--border); border-radius: var(--r);
+      padding: 2.5rem; width: 100%; max-width: 420px;
+      display: flex; flex-direction: column; gap: 1.5rem;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+    }
+    .auth-logo { height: 70px; object-fit: contain;
+      mask-image: radial-gradient(ellipse 72% 78% at 50% 46%, black 52%, rgba(0,0,0,0.7) 65%, transparent 82%);
+      -webkit-mask-image: radial-gradient(ellipse 72% 78% at 50% 46%, black 52%, rgba(0,0,0,0.7) 65%, transparent 82%);
+      margin: 0 auto;
+    }
+    .auth-title { font-size: 1.8rem; text-align: center; color: var(--a1); }
+    .auth-sub   { font-size: 0.78rem; text-align: center; color: var(--muted); font-style: italic; }
+
+    .field { display: flex; flex-direction: column; gap: 0.4rem; }
+    .field label { font-size: 0.68rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); }
+    .field input, .field textarea, .field select {
+      background: rgba(255,255,255,0.06); border: 1px solid var(--border);
+      border-radius: var(--r); color: var(--text); padding: 0.7rem 0.9rem;
+      font-size: 0.88rem; outline: none; transition: border-color 0.2s;
+      width: 100%;
+    }
+    .field input:focus, .field textarea:focus, .field select:focus { border-color: var(--a1); background: rgba(56,201,194,0.05); }
+    .field input::placeholder, .field textarea::placeholder { color: var(--muted); opacity: 0.55; }
+    .field select option { background: #132A23; }
+
+    .btn {
+      min-height: var(--touch); padding: 0 1.5rem;
+      font-family: 'Bebas Neue', sans-serif; font-size: 1rem; letter-spacing: 0.12em;
+      border-radius: var(--r); transition: opacity 0.2s, transform 0.2s;
+      display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem;
+    }
+    .btn:hover { opacity: 0.88; transform: translateY(-1px); }
+    .btn:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
+    .btn-primary { background: var(--a1); color: var(--bg); width: 100%; }
+    .btn-secondary { background: transparent; border: 1px solid var(--a1); color: var(--a1); }
+    .btn-warn { background: transparent; border: 1px solid rgba(212,168,75,0.4); color: var(--a2); }
+    .btn-sm { min-height: 34px; padding: 0 0.85rem; font-size: 0.82rem; letter-spacing: 0.08em; }
+    .btn-icon { min-height: 36px; width: 36px; padding: 0; border-radius: 50%; font-size: 1.1rem; }
+
+    .auth-hint { font-size: 0.72rem; color: var(--muted); text-align: center; line-height: 1.5; }
+    .auth-hint code { background: rgba(56,201,194,0.1); padding: 0.1rem 0.4rem; border-radius: 3px; color: var(--a1); font-size: 0.85em; }
+    .error-msg { color: #E87070; font-size: 0.8rem; text-align: center; padding: 0.5rem; background: rgba(232,112,112,0.1); border-radius: var(--r); display: none; }
+    .error-msg.show { display: block; }
+
+    /* ── DASHBOARD LAYOUT ────────────────────────────── */
+    #s-dash {
+      flex-direction: column; min-height: 100vh;
+    }
+    .dash-header {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(8,20,16,0.94); backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+      padding: 0.75rem 1.5rem;
+      display: flex; align-items: center; gap: 1rem;
+    }
+    .dash-logo { height: 42px; object-fit: contain;
+      mask-image: radial-gradient(ellipse 70% 76% at 50% 46%, black 50%, rgba(0,0,0,0.7) 64%, transparent 82%);
+      -webkit-mask-image: radial-gradient(ellipse 70% 76% at 50% 46%, black 50%, rgba(0,0,0,0.7) 64%, transparent 82%);
+    }
+    .dash-title { font-family: 'Bebas Neue', sans-serif; font-size: 1.1rem; letter-spacing: 0.1em; color: var(--a1); }
+    .dash-header-right { margin-left: auto; display: flex; align-items: center; gap: 0.75rem; }
+    .dash-badge { font-size: 0.68rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); background: rgba(56,201,194,0.08); border: 1px solid var(--border); border-radius: 3px; padding: 0.2rem 0.55rem; }
+
+    .dash-body { display: flex; flex: 1; min-height: 0; height: calc(100vh - 65px); }
+
+    /* Sidebar */
+    .sidebar {
+      width: 340px; flex-shrink: 0;
+      background: rgba(10,30,24,0.85);
+      border-right: 1px solid var(--border);
+      display: flex; flex-direction: column;
+      overflow: hidden;
+    }
+    .sidebar-head {
+      padding: 1rem; border-bottom: 1px solid var(--border);
+      display: flex; flex-direction: column; gap: 0.75rem; flex-shrink: 0;
+    }
+    .sidebar-head h3 { font-size: 1.1rem; color: var(--text); }
+    .search-box {
+      display: flex; align-items: center; gap: 0.5rem;
+      background: rgba(255,255,255,0.05); border: 1px solid var(--border);
+      border-radius: var(--r); padding: 0.45rem 0.75rem;
+    }
+    .search-box input {
+      background: none; border: none; outline: none;
+      color: var(--text); font-size: 0.82rem; flex: 1; font-family: inherit;
+    }
+    .search-box input::placeholder { color: var(--muted); opacity: 0.6; }
+    .search-icon { color: var(--muted); font-size: 0.9rem; }
+
+    .inbox-list { overflow-y: auto; flex: 1; }
+    .inbox-item {
+      padding: 1rem; border-bottom: 1px solid var(--border);
+      cursor: pointer; transition: background 0.2s;
+      display: flex; flex-direction: column; gap: 0.3rem;
+    }
+    .inbox-item:hover { background: rgba(56,201,194,0.06); }
+    .inbox-item.active { background: rgba(56,201,194,0.12); border-left: 2px solid var(--a1); }
+    .inbox-item.unread .inbox-item-name::after { content: '●'; color: var(--a1); font-size: 0.5rem; margin-left: 0.4rem; vertical-align: middle; }
+    .inbox-item-name { font-family: 'Bebas Neue', sans-serif; font-size: 1rem; letter-spacing: 0.04em; }
+    .inbox-item-preview { font-size: 0.75rem; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .inbox-item-meta { display: flex; justify-content: space-between; align-items: center; }
+    .inbox-item-time { font-size: 0.68rem; color: var(--muted); opacity: 0.7; }
+    .inbox-item-lang { font-size: 0.65rem; letter-spacing: 0.1em; padding: 0.1rem 0.4rem; border-radius: 3px; background: rgba(56,201,194,0.1); color: var(--a1); }
+    .inbox-empty { padding: 2rem; text-align: center; color: var(--muted); font-size: 0.85rem; font-style: italic; }
+
+    /* Main panel */
+    .main-panel { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
+
+    /* Message detail */
+    .msg-detail {
+      flex: 1; overflow-y: auto; padding: 1.5rem;
+      display: none; flex-direction: column; gap: 1.25rem;
+    }
+    .msg-detail.show { display: flex; }
+    .msg-empty-state {
+      flex: 1; display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      color: var(--muted); gap: 1rem; text-align: center; padding: 2rem;
+    }
+    .msg-empty-state .empty-icon { font-size: 3rem; opacity: 0.4; }
+    .msg-empty-state p { font-size: 0.85rem; font-style: italic; }
+
+    .msg-header { display: flex; flex-direction: column; gap: 0.5rem; }
+    .msg-subject { font-family: 'Bebas Neue', sans-serif; font-size: 1.6rem; }
+    .msg-meta-row { display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; }
+    .msg-from { font-size: 0.82rem; color: var(--muted); }
+    .msg-time  { font-size: 0.75rem; color: var(--muted); opacity: 0.7; }
+    .lang-badge { font-size: 0.68rem; letter-spacing: 0.1em; padding: 0.2rem 0.55rem; border-radius: 3px; font-family: 'Bebas Neue', sans-serif; }
+    .lang-badge.de { background: rgba(221,0,0,0.15); color: #ff6b6b; }
+    .lang-badge.en { background: rgba(0,0,128,0.15); color: #7ba7e8; }
+    .lang-badge.th { background: rgba(212,168,75,0.15); color: var(--a2); }
+    .lang-badge.unknown { background: rgba(168,200,186,0.15); color: var(--muted); }
+
+    .msg-actions { display: flex; gap: 0.65rem; flex-wrap: wrap; }
+
+    .translate-bar {
+      background: rgba(18,48,40,0.7); border: 1px solid var(--border);
+      border-radius: var(--r); padding: 0.85rem 1rem;
+      display: flex; align-items: center; gap: 1rem; flex-wrap: wrap;
+    }
+    .translate-bar label { font-size: 0.7rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); }
+    .translate-bar .lang-btns { display: flex; gap: 0.4rem; }
+    .lang-toggle-btn {
+      min-height: 32px; padding: 0 0.7rem;
+      font-family: 'Bebas Neue', sans-serif; font-size: 0.8rem; letter-spacing: 0.1em;
+      border-radius: var(--r); color: var(--muted);
+      border: 1px solid var(--border); transition: all 0.2s;
+    }
+    .lang-toggle-btn.active { background: var(--a1); color: var(--bg); border-color: var(--a1); }
+    .translate-spinner { display: none; width: 16px; height: 16px; border: 2px solid rgba(56,201,194,0.2); border-top-color: var(--a1); border-radius: 50%; animation: spin 0.7s linear infinite; margin-left: auto; }
+    .translate-spinner.show { display: block; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .msg-body {
+      background: rgba(18,48,40,0.55); border: 1px solid var(--border);
+      border-radius: var(--r); padding: 1.25rem;
+    }
+    .msg-body-original { font-size: 0.88rem; line-height: 1.75; white-space: pre-wrap; }
+    .msg-body-translated {
+      font-size: 0.88rem; line-height: 1.75; white-space: pre-wrap;
+      border-top: 1px dashed var(--border); margin-top: 1rem; padding-top: 1rem;
+      color: var(--muted);
+    }
+    .msg-body-translated-label { font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--a1); margin-bottom: 0.5rem; }
+
+    .msg-fields { display: flex; flex-direction: column; gap: 0.65rem; }
+    .msg-field { display: flex; gap: 0.75rem; }
+    .msg-field-key { font-size: 0.68rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); min-width: 80px; padding-top: 0.15rem; flex-shrink: 0; }
+    .msg-field-val { font-size: 0.88rem; color: var(--text); word-break: break-word; }
+
+    /* Reply panel */
+    .reply-panel {
+      border-top: 1px solid var(--border);
+      background: rgba(10,30,24,0.85);
+      padding: 1rem 1.5rem; flex-shrink: 0;
+    }
+    .reply-head { display: flex; align-items: center; gap: 1rem; margin-bottom: 0.85rem; cursor: pointer; }
+    .reply-head h4 { font-family: 'Bebas Neue', sans-serif; font-size: 1rem; letter-spacing: 0.08em; color: var(--a2); }
+    .reply-head .toggle-icon { margin-left: auto; color: var(--muted); transition: transform 0.2s; }
+    .reply-head.open .toggle-icon { transform: rotate(180deg); }
+    .reply-body { display: none; flex-direction: column; gap: 0.85rem; }
+    .reply-body.open { display: flex; }
+
+    .reply-lang-row { display: flex; align-items: center; gap: 0.85rem; flex-wrap: wrap; }
+    .reply-lang-row label { font-size: 0.68rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); }
+    .reply-textarea {
+      background: rgba(255,255,255,0.05); border: 1px solid var(--border);
+      border-radius: var(--r); color: var(--text); padding: 0.85rem;
+      font-size: 0.88rem; line-height: 1.65; resize: vertical; min-height: 110px;
+      outline: none; transition: border-color 0.2s; width: 100%;
+      font-family: 'Lora', serif;
+    }
+    .reply-textarea:focus { border-color: var(--a1); background: rgba(56,201,194,0.04); }
+    .reply-preview {
+      background: rgba(56,201,194,0.05); border: 1px solid rgba(56,201,194,0.15);
+      border-radius: var(--r); padding: 0.85rem;
+      font-size: 0.85rem; color: var(--muted); line-height: 1.65;
+      min-height: 60px; white-space: pre-wrap;
+    }
+    .reply-preview-label { font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--a1); margin-bottom: 0.4rem; }
+    .reply-actions { display: flex; gap: 0.65rem; flex-wrap: wrap; justify-content: flex-end; }
+
+    /* ── MODALS ─────────────────────────────────────── */
+    .modal-overlay {
+      position: fixed; inset: 0; z-index: 2000;
+      background: rgba(8,20,16,0.88); backdrop-filter: blur(8px);
+      display: none; align-items: center; justify-content: center; padding: 1.5rem;
+    }
+    .modal-overlay.open { display: flex; }
+    .modal-box {
+      background: rgba(14,44,36,0.97); border: 1px solid var(--border);
+      border-radius: var(--r); padding: 2rem; width: 100%; max-width: 520px;
+      max-height: 85vh; overflow-y: auto; position: relative;
+    }
+    .modal-close { position: absolute; top: 0.85rem; right: 0.85rem; width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; color: var(--muted); font-size: 1.2rem; border-radius: 50%; transition: background 0.2s; }
+    .modal-close:hover { background: rgba(255,255,255,0.08); }
+    .modal-title { font-size: 1.5rem; margin-bottom: 1.5rem; }
+    .modal-section { margin-bottom: 1.5rem; padding-bottom: 1.5rem; border-bottom: 1px solid var(--border); }
+    .modal-section:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+    .modal-section h4 { font-family: 'Bebas Neue', sans-serif; font-size: 1rem; letter-spacing: 0.08em; color: var(--a2); margin-bottom: 0.85rem; }
+    .modal-hint { font-size: 0.75rem; color: var(--muted); line-height: 1.55; margin-top: 0.5rem; font-style: italic; }
+    .modal-hint a { color: var(--a1); }
+
+    /* ── ADD INQUIRY MODAL ───────────────────────────── */
+    .add-form { display: flex; flex-direction: column; gap: 1rem; }
+
+    /* ── TOAST ───────────────────────────────────────── */
+    #toast {
+      position: fixed; bottom: 2rem; left: 50%; transform: translateX(-50%);
+      background: rgba(56,201,194,0.9); color: #0C1C18;
+      font-family: 'Bebas Neue', sans-serif; font-size: 0.95rem; letter-spacing: 0.1em;
+      padding: 0.6rem 1.5rem; border-radius: var(--r);
+      opacity: 0; pointer-events: none; transition: opacity 0.3s; z-index: 3000;
+    }
+    #toast.show { opacity: 1; }
+
+    /* ── SCROLLBAR ───────────────────────────────────── */
+    ::-webkit-scrollbar { width: 5px; height: 5px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: rgba(56,201,194,0.3); border-radius: 3px; }
+
+    /* ── RESPONSIVE ─────────────────────────────────── */
+    @media (max-width: 720px) {
+      .sidebar { width: 100%; border-right: none; border-bottom: 1px solid var(--border); max-height: 50vh; }
+      .dash-body { flex-direction: column; height: auto; min-height: calc(100vh - 65px); }
+      .main-panel { min-height: 50vh; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ══ LOGIN ══════════════════════════════════════════ -->
+<div class="screen active" id="s-login">
+  <div class="auth-card">
+    <img src="Logo.png" alt="KohChang Domains" class="auth-logo">
+    <h2 class="auth-title">Dashboard</h2>
+    <p class="auth-sub">KohChang Business Domains · Privater Zugang</p>
+    <div class="field">
+      <label>Passwort</label>
+      <input type="password" id="login-pass" placeholder="Passwort eingeben" autocomplete="current-password">
+    </div>
+    <p class="error-msg" id="login-err">Falsches Passwort. Bitte erneut versuchen.</p>
+    <button class="btn btn-primary" onclick="doLogin()">EINLOGGEN</button>
+    <p class="auth-hint">Noch kein Passwort? <a href="#" onclick="showSetup()">Erstzugang einrichten →</a></p>
+  </div>
+</div>
+
+<!-- ══ FIRST SETUP ════════════════════════════════════ -->
+<div class="screen" id="s-setup">
+  <div class="auth-card">
+    <img src="Logo.png" alt="KohChang Domains" class="auth-logo">
+    <h2 class="auth-title">Erstzugang einrichten</h2>
+    <p class="auth-sub">Wähle ein sicheres Passwort. Es wird verschlüsselt gespeichert.</p>
+    <div class="field">
+      <label>Neues Passwort</label>
+      <input type="password" id="setup-pass1" placeholder="Mindestens 8 Zeichen">
+    </div>
+    <div class="field">
+      <label>Passwort wiederholen</label>
+      <input type="password" id="setup-pass2" placeholder="Passwort bestätigen">
+    </div>
+    <p class="error-msg" id="setup-err"></p>
+    <button class="btn btn-primary" onclick="doSetup()">PASSWORT SPEICHERN</button>
+    <button class="btn btn-secondary" onclick="showLogin()" style="margin-top:-0.5rem">← Zurück zum Login</button>
+    <p class="auth-hint">Das Passwort wird als <code>SHA-256</code>-Hash lokal gespeichert — nie im Klartext.</p>
+  </div>
+</div>
+
+<!-- ══ DASHBOARD ══════════════════════════════════════ -->
+<div class="screen" id="s-dash">
+
+  <!-- Header -->
+  <div class="dash-header">
+    <img src="Logo.png" alt="KohChang" class="dash-logo">
+    <span class="dash-title">Dashboard</span>
+    <span class="dash-badge" id="unread-badge">0 neu</span>
+    <span class="dash-badge" id="deepl-badge" style="color:var(--muted);display:none">🌐 DeepL aktiv</span>
+    <div class="dash-header-right">
+      <button class="btn btn-sm btn-secondary" onclick="openAddModal()">+ Anfrage</button>
+      <button class="btn btn-icon btn-secondary" onclick="openSettings()" title="Einstellungen">⚙</button>
+      <button class="btn btn-sm btn-warn" onclick="doLogout()">Logout</button>
+    </div>
+  </div>
+
+  <!-- Body -->
+  <div class="dash-body">
+
+    <!-- Sidebar: Inbox list -->
+    <aside class="sidebar">
+      <div class="sidebar-head">
+        <h3>Posteingang</h3>
+        <div class="search-box">
+          <span class="search-icon">🔍</span>
+          <input type="text" id="search-input" placeholder="Suchen…" oninput="filterInbox(this.value)">
+        </div>
+      </div>
+      <div class="inbox-list" id="inbox-list">
+        <div class="inbox-empty">Noch keine Anfragen.<br>Klicke auf „+ Anfrage" um zu beginnen.</div>
+      </div>
+    </aside>
+
+    <!-- Main panel -->
+    <div class="main-panel">
+
+      <!-- Empty state -->
+      <div class="msg-empty-state" id="msg-empty">
+        <span class="empty-icon">🌴</span>
+        <p>Wähle eine Anfrage aus dem Posteingang.</p>
+        <p style="font-size:0.75rem;opacity:0.6">Anfragen können manuell hinzugefügt oder automatisch via Formspree importiert werden.</p>
+      </div>
+
+      <!-- Message detail -->
+      <div class="msg-detail" id="msg-detail">
+
+        <div class="msg-header">
+          <div class="msg-subject" id="d-subject">—</div>
+          <div class="msg-meta-row">
+            <span class="msg-from" id="d-from">—</span>
+            <span class="lang-badge" id="d-lang-badge">—</span>
+            <span class="msg-time" id="d-time">—</span>
+          </div>
+        </div>
+
+        <div class="msg-actions">
+          <button class="btn btn-sm btn-secondary" onclick="markRead()" id="btn-mark-read">Als gelesen markieren</button>
+          <button class="btn btn-sm btn-warn" onclick="deleteMsg()">🗑 Löschen</button>
+        </div>
+
+        <!-- Translate bar -->
+        <div class="translate-bar">
+          <label>Anzeigen als:</label>
+          <div class="lang-btns">
+            <button class="lang-toggle-btn active" data-lang="original" onclick="setViewLang('original')">ORIGINAL</button>
+            <button class="lang-toggle-btn" data-lang="de" onclick="setViewLang('de')">🇩🇪 DE</button>
+            <button class="lang-toggle-btn" data-lang="en" onclick="setViewLang('en')">🇬🇧 EN</button>
+            <button class="lang-toggle-btn" data-lang="th" onclick="setViewLang('th')">🇹🇭 TH</button>
+          </div>
+          <div class="translate-spinner" id="translate-spinner"></div>
+        </div>
+
+        <!-- Message body -->
+        <div class="msg-body">
+          <div class="msg-body-original" id="d-body-orig"></div>
+          <div class="msg-body-translated" id="d-body-trans" style="display:none">
+            <div class="msg-body-translated-label" id="d-trans-label">Übersetzung</div>
+            <div id="d-trans-text"></div>
+          </div>
+        </div>
+
+        <!-- Other fields -->
+        <div class="msg-fields" id="d-fields"></div>
+
+      </div><!-- /msg-detail -->
+
+      <!-- Reply panel -->
+      <div class="reply-panel" id="reply-panel" style="display:none">
+        <div class="reply-head" id="reply-toggle" onclick="toggleReply()">
+          <h4>↩ Antworten</h4>
+          <span class="toggle-icon">▼</span>
+        </div>
+        <div class="reply-body" id="reply-body">
+          <div class="reply-lang-row">
+            <label>Schreiben auf:</label>
+            <div class="lang-btns">
+              <button class="lang-toggle-btn active" data-lang="de" onclick="setReplyLang('de')">🇩🇪 DE</button>
+              <button class="lang-toggle-btn" data-lang="en" onclick="setReplyLang('en')">🇬🇧 EN</button>
+            </div>
+            <label style="margin-left:1rem">Vorschau auf:</label>
+            <div class="lang-btns">
+              <button class="lang-toggle-btn" data-lang="none" onclick="setPreviewLang('none')">Keine</button>
+              <button class="lang-toggle-btn active" data-lang="en" onclick="setPreviewLang('en')">🇬🇧 EN</button>
+              <button class="lang-toggle-btn" data-lang="de" onclick="setPreviewLang('de')">🇩🇪 DE</button>
+              <button class="lang-toggle-btn" data-lang="th" onclick="setPreviewLang('th')">🇹🇭 TH</button>
+            </div>
+          </div>
+
+          <textarea class="reply-textarea" id="reply-text" placeholder="Antwort eingeben…" oninput="onReplyInput()"></textarea>
+
+          <div id="preview-wrap" style="display:none">
+            <div class="reply-preview-label" id="preview-label">Vorschau (EN)</div>
+            <div class="reply-preview" id="reply-preview">—</div>
+          </div>
+
+          <div class="reply-actions">
+            <button class="btn btn-sm btn-secondary" onclick="copyReply()">📋 Kopieren</button>
+            <button class="btn btn-sm btn-primary" onclick="sendReply()">📧 In E-Mail-Client öffnen</button>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /main-panel -->
+  </div><!-- /dash-body -->
+</div><!-- /s-dash -->
+
+<!-- ══ SETTINGS MODAL ════════════════════════════════ -->
+<div class="modal-overlay" id="m-settings">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeSettings()">✕</button>
+    <h2 class="modal-title">Einstellungen</h2>
+
+    <div class="modal-section">
+      <h4>🌐 Übersetzung via DeepL</h4>
+      <p class="modal-hint" style="margin-bottom:1rem;font-style:normal;color:var(--text)">
+        DeepL liefert professionelle Qualität für <strong style="color:var(--a1)">Deutsch, Englisch und Thai</strong>.
+        Kostenloser Key: <a href="https://www.deepl.com/de/pro#developer" target="_blank" style="color:var(--a2)">deepl.com/pro → Free API</a>
+        (500.000 Zeichen/Monat gratis, keine Kreditkarte nötig).
+      </p>
+      <div style="background:rgba(56,201,194,0.06);border:1px solid rgba(56,201,194,0.2);border-radius:var(--r);padding:0.85rem;margin-bottom:1rem;font-size:0.78rem;color:var(--muted);line-height:1.6">
+        <strong style="color:var(--a1)">Setup in 2 Minuten:</strong><br>
+        1. deepl.com/pro aufrufen → kostenlosen Account anlegen<br>
+        2. Unter "API" → API-Key kopieren<br>
+        3. Hier einfügen → Speichern → fertig ✓<br>
+        <em>Ohne Key: automatischer Fallback auf Google Translate</em>
+      </div>
+      <div class="field">
+        <label>DeepL API Key</label>
+        <input type="password" id="set-deepl" placeholder="xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx:fx">
+        <p class="modal-hint">Format: <code>xxxxxxxx-…:fx</code> (Free Tier) oder ohne <code>:fx</code> (Pro)</p>
+      </div>
+      <div class="field">
+        <label>Formspree API Key (optional — automatischer Import)</label>
+        <input type="password" id="set-formspree-key" placeholder="Bearer Token aus Formspree-Account">
+        <p class="modal-hint">Im Formspree-Account unter Settings → API Keys. Benötigt Gold-Plan.</p>
+      </div>
+      <div class="field">
+        <label>Formspree Form ID</label>
+        <input type="text" id="set-formspree-id" placeholder="z.B. abc123">
+      </div>
+    </div>
+
+    <div class="modal-section">
+      <h4>Kontakt-E-Mail</h4>
+      <div class="field">
+        <label>Eure E-Mail-Adresse (für Antworten)</label>
+        <input type="email" id="set-email" placeholder="info@kohchangbusiness.com">
+      </div>
+    </div>
+
+    <div class="modal-section">
+      <h4>Passwort ändern</h4>
+      <div class="field" style="margin-bottom:0.85rem">
+        <label>Neues Passwort</label>
+        <input type="password" id="set-pass1" placeholder="Mindestens 8 Zeichen">
+      </div>
+      <div class="field">
+        <label>Passwort bestätigen</label>
+        <input type="password" id="set-pass2" placeholder="Wiederholen">
+      </div>
+      <button class="btn btn-sm btn-warn" onclick="changePassword()" style="margin-top:0.5rem">Passwort aktualisieren</button>
+    </div>
+
+    <div class="modal-section">
+      <h4>Daten</h4>
+      <div style="display:flex;gap:0.65rem;flex-wrap:wrap">
+        <button class="btn btn-sm btn-secondary" onclick="exportData()">⬇ Export (JSON)</button>
+        <button class="btn btn-sm btn-secondary" onclick="importData()">⬆ Import (JSON)</button>
+        <button class="btn btn-sm btn-warn" onclick="clearData()">⚠ Alle Daten löschen</button>
+      </div>
+      <input type="file" id="import-file" accept=".json" style="display:none" onchange="doImport(this)">
+    </div>
+
+    <button class="btn btn-primary" onclick="saveSettings()">EINSTELLUNGEN SPEICHERN</button>
+  </div>
+</div>
+
+<!-- ══ ADD INQUIRY MODAL ══════════════════════════════ -->
+<div class="modal-overlay" id="m-add">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeAddModal()">✕</button>
+    <h2 class="modal-title">Anfrage hinzufügen</h2>
+    <div class="add-form">
+      <div class="field">
+        <label>Name / Absender *</label>
+        <input type="text" id="add-name" placeholder="Name oder E-Mail">
+      </div>
+      <div class="field">
+        <label>E-Mail-Adresse</label>
+        <input type="email" id="add-email" placeholder="absender@email.com">
+      </div>
+      <div class="field">
+        <label>Betreff</label>
+        <input type="text" id="add-subject" placeholder="z.B. Domain Anfrage: kohchang.spa">
+      </div>
+      <div class="field">
+        <label>Nachricht / Inhalt *</label>
+        <textarea id="add-body" rows="6" placeholder="Hier den E-Mail-Inhalt einfügen…"></textarea>
+      </div>
+      <div class="field">
+        <label>Sprache der Nachricht</label>
+        <select id="add-lang">
+          <option value="auto">Automatisch erkennen</option>
+          <option value="de">Deutsch</option>
+          <option value="en">Englisch</option>
+          <option value="th">Thai</option>
+        </select>
+      </div>
+      <button class="btn btn-primary" onclick="addInquiry()">ANFRAGE SPEICHERN</button>
+    </div>
+  </div>
+</div>
+
+<!-- Toast -->
+<div id="toast"></div>
+
+<script>
+/* ════════════════════════════════════════════════════
+   CRYPTO  (Web Crypto API — kein externes Paket)
+════════════════════════════════════════════════════ */
+const Crypto = {
+  /* SHA-256 hash eines Strings */
+  async hash(str) {
+    const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(str));
+    return [...new Uint8Array(buf)].map(b => b.toString(16).padStart(2,'0')).join('');
+  },
+
+  /* PBKDF2-Schlüssel aus Passwort ableiten */
+  async deriveKey(password, salt) {
+    const raw = await crypto.subtle.importKey('raw', new TextEncoder().encode(password), 'PBKDF2', false, ['deriveKey']);
+    return crypto.subtle.deriveKey(
+      { name: 'PBKDF2', salt: new TextEncoder().encode(salt), iterations: 100000, hash: 'SHA-256' },
+      raw, { name: 'AES-GCM', length: 256 }, false, ['encrypt', 'decrypt']
+    );
+  },
+
+  /* AES-GCM verschlüsseln */
+  async encrypt(data, key) {
+    const iv  = crypto.getRandomValues(new Uint8Array(12));
+    const enc = await crypto.subtle.encrypt({ name: 'AES-GCM', iv }, key, new TextEncoder().encode(JSON.stringify(data)));
+    return JSON.stringify({ iv: [...iv], d: [...new Uint8Array(enc)] });
+  },
+
+  /* AES-GCM entschlüsseln */
+  async decrypt(cipher, key) {
+    const { iv, d } = JSON.parse(cipher);
+    const dec = await crypto.subtle.decrypt({ name: 'AES-GCM', iv: new Uint8Array(iv) }, key, new Uint8Array(d));
+    return JSON.parse(new TextDecoder().decode(dec));
+  }
+};
+
+/* ════════════════════════════════════════════════════
+   STATE
+════════════════════════════════════════════════════ */
+let STATE = {
+  msgs:       [],       // alle Anfragen
+  current:    null,     // aktive Nachricht
+  replyLang:  'de',     // Sprache beim Schreiben
+  previewLang:'en',     // Vorschau-Zielsprache
+  viewLang:   'original',
+  encKey:     null,     // AES-GCM Key (nach Login)
+  settings:   { email: '', deeplKey: '', formspreeKey: '', formspreeId: '' },
+  replyTimer: null
+};
+
+/* ════════════════════════════════════════════════════
+   TRANSLATION
+   ─────────────────────────────────────────────────
+   PRIMÄR  → DeepL API (wenn Key in Einstellungen)
+              Unterstützt: DE, EN, TH und 30+ weitere
+              Kostenlos: 500.000 Zeichen/Monat
+              Key holen: deepl.com/pro → Free API
+
+   FALLBACK → Google Translate (kein Key nötig)
+              Greift automatisch, wenn kein DeepL-Key
+
+   SETUP   → Dashboard öffnen → ⚙ Einstellungen
+              → DeepL API Key eintragen → Speichern
+════════════════════════════════════════════════════ */
+
+/* DeepL Sprachcodes (DE, EN, TH alle unterstützt) */
+const DEEPL_CODES = { de: 'DE', en: 'EN-GB', th: 'TH' };
+/* Google Sprachcodes (Fallback) */
+const G_CODES = { de: 'de', en: 'en', th: 'th', auto: 'auto' };
+
+/**
+ * Haupt-Übersetzungsfunktion
+ * → Bevorzugt DeepL wenn API-Key gesetzt
+ * → Fällt automatisch auf Google zurück
+ */
+async function translate(text, toLang, fromLang = 'auto') {
+  if (!text || !text.trim()) return '';
+  const key = STATE.settings.deeplKey?.trim();
+  if (key) {
+    try {
+      return await translateDeepL(text, DEEPL_CODES[toLang] || toLang.toUpperCase(), fromLang, key);
+    } catch (e) {
+      console.warn('DeepL Fehler → weiche auf Google aus:', e.message);
+    }
+  }
+  /* Kein Key → Google Translate */
+  return translateGoogle(text, G_CODES[toLang] || toLang, G_CODES[fromLang] || 'auto');
+}
+
+/* ── DeepL API ────────────────────────────────────
+   Beste Qualität, kostenloser Key von deepl.com/pro
+   Unterstützt DE, EN, TH und 30+ Sprachen          */
+async function translateDeepL(text, targetLang, fromLang, apiKey) {
+  const body = new URLSearchParams({
+    text:        text,
+    target_lang: targetLang,
+  });
+  /* Quellsprache nur setzen wenn bekannt (nicht auto) */
+  if (fromLang && fromLang !== 'auto') {
+    body.append('source_lang', (DEEPL_CODES[fromLang] || fromLang).toUpperCase());
+  }
+  const res = await fetch('https://api-free.deepl.com/v2/translate', {
+    method:  'POST',
+    headers: {
+      'Authorization': `DeepL-Auth-Key ${apiKey}`,
+      'Content-Type':  'application/x-www-form-urlencoded'
+    },
+    body: body.toString()
+  });
+  if (!res.ok) {
+    const err = await res.text();
+    throw new Error(`DeepL ${res.status}: ${err}`);
+  }
+  const data = await res.json();
+  if (!data.translations?.[0]?.text) throw new Error('Leere DeepL-Antwort');
+  return data.translations[0].text;
+}
+
+/* ── Google Translate ─────────────────────────────
+   Kostenloser Fallback, kein Key erforderlich       */
+async function translateGoogle(text, toLang, fromLang = 'auto') {
+  const url =
+    `https://translate.googleapis.com/translate_a/single` +
+    `?client=gtx&sl=${fromLang}&tl=${toLang}&dt=t` +
+    `&q=${encodeURIComponent(text)}`;
+  const res = await fetch(url);
+  if (!res.ok) throw new Error(`Google Translate HTTP ${res.status}`);
+  const data = await res.json();
+  if (!Array.isArray(data?.[0])) throw new Error('Unerwartetes Google-Antwortformat');
+  return data[0].map(chunk => chunk?.[0] ?? '').join('');
+}
+
+/* ── Sprache erkennen ─────────────────────────── */
+function detectLang(text) {
+  if (!text) return 'unknown';
+  if (/[฀-๿]/.test(text)) return 'th';
+  if (/\b(und|der|die|das|ist|für|mit|ich|wir|auf|von|zu|ein|eine|nicht|aber|auch|haben|werden|können|möchte|bitte|danke)\b/i.test(text)) return 'de';
+  return 'en';
+}
+
+/* ════════════════════════════════════════════════════
+   DEFAULT SETTINGS
+   DeepL-Key wird beim ersten Login automatisch
+   verschlüsselt in localStorage gespeichert.
+   Danach kann der Klartext hier entfernt werden.
+════════════════════════════════════════════════════ */
+const DEFAULT_SETTINGS = {
+  email:        'info@kohchangbusiness.com',
+  deeplKey:     '',   /* DeepL-Key nach Login unter ⚙ Einstellungen eintragen */
+  formspreeKey: '',
+  formspreeId:  'YOUR_FORM_ID'
+};
+
+/* ════════════════════════════════════════════════════
+   STORAGE  (AES-GCM verschlüsselt in localStorage)
+════════════════════════════════════════════════════ */
+const STORE_KEY = 'kcd-inbox-v2';
+const SALT      = 'KohChangDomains_2025_Salt';
+
+async function saveMsgs() {
+  if (!STATE.encKey) return;
+  const enc = await Crypto.encrypt(STATE.msgs, STATE.encKey);
+  localStorage.setItem(STORE_KEY, enc);
+}
+
+async function loadMsgs() {
+  if (!STATE.encKey) return;
+  const raw = localStorage.getItem(STORE_KEY);
+  if (!raw) { STATE.msgs = []; return; }
+  try { STATE.msgs = await Crypto.decrypt(raw, STATE.encKey); }
+  catch { STATE.msgs = []; toast('⚠ Daten konnten nicht entschlüsselt werden.'); }
+}
+
+async function saveSettings() {
+  const s = STATE.settings;
+  s.email       = document.getElementById('set-email')?.value || s.email;
+  s.deeplKey    = document.getElementById('set-deepl')?.value || s.deeplKey;
+  s.formspreeKey= document.getElementById('set-formspree-key')?.value || s.formspreeKey;
+  s.formspreeId = document.getElementById('set-formspree-id')?.value || s.formspreeId;
+  if (!STATE.encKey) return;
+  const enc = await Crypto.encrypt(s, STATE.encKey);
+  localStorage.setItem('kcd-settings-v2', enc);
+  updateDeeplBadge();
+  closeSettings();
+  toast('✓ Einstellungen gespeichert');
+}
+
+async function loadSettings() {
+  if (!STATE.encKey) return;
+  const raw = localStorage.getItem('kcd-settings-v2');
+  if (!raw) {
+    /* Erstes Login: Defaults übernehmen und sofort verschlüsselt speichern */
+    STATE.settings = { ...DEFAULT_SETTINGS };
+    const enc = await Crypto.encrypt(STATE.settings, STATE.encKey);
+    localStorage.setItem('kcd-settings-v2', enc);
+    updateDeeplBadge();
+    return;
+  }
+  try {
+    STATE.settings = await Crypto.decrypt(raw, STATE.encKey);
+    /* DeepL-Key aus Defaults übernehmen falls noch nicht gesetzt */
+    if (!STATE.settings.deeplKey && DEFAULT_SETTINGS.deeplKey) {
+      STATE.settings.deeplKey = DEFAULT_SETTINGS.deeplKey;
+      const enc = await Crypto.encrypt(STATE.settings, STATE.encKey);
+      localStorage.setItem('kcd-settings-v2', enc);
+    }
+    updateDeeplBadge();
+  } catch { /* ignore */ }
+}
+
+function updateDeeplBadge() {
+  const badge = document.getElementById('deepl-badge');
+  if (!badge) return;
+  const hasKey = !!STATE.settings.deeplKey?.trim();
+  badge.style.display = hasKey ? 'inline' : 'none';
+  badge.style.color   = hasKey ? 'var(--a1)' : 'var(--muted)';
+  badge.textContent   = hasKey ? '🌐 DeepL aktiv' : '⚠ Kein DeepL-Key';
+}
+
+/* ════════════════════════════════════════════════════
+   AUTH
+════════════════════════════════════════════════════ */
+function showLogin() { switchScreen('s-login'); }
+function showSetup()  { switchScreen('s-setup'); }
+
+async function doLogin() {
+  const pass = document.getElementById('login-pass').value;
+  if (!pass) return;
+  const storedHash = localStorage.getItem('kcd-pass-hash');
+  if (!storedHash) { showSetup(); return; }
+  const hash = await Crypto.hash(pass);
+  if (hash !== storedHash) {
+    document.getElementById('login-err').classList.add('show');
+    return;
+  }
+  document.getElementById('login-err').classList.remove('show');
+  await initSession(pass);
+}
+
+async function doSetup() {
+  const p1 = document.getElementById('setup-pass1').value;
+  const p2 = document.getElementById('setup-pass2').value;
+  const err = document.getElementById('setup-err');
+  if (p1.length < 8) { err.textContent = 'Mindestens 8 Zeichen.'; err.classList.add('show'); return; }
+  if (p1 !== p2)     { err.textContent = 'Passwörter stimmen nicht überein.'; err.classList.add('show'); return; }
+  err.classList.remove('show');
+  localStorage.setItem('kcd-pass-hash', await Crypto.hash(p1));
+  await initSession(p1);
+  toast('✓ Passwort gesetzt. Willkommen!');
+}
+
+async function changePassword() {
+  const p1 = document.getElementById('set-pass1').value;
+  const p2 = document.getElementById('set-pass2').value;
+  if (p1.length < 8 || p1 !== p2) { toast('⚠ Passwörter stimmen nicht überein (min. 8 Zeichen).'); return; }
+  /* Re-encrypt all data with new key */
+  const newKey  = await Crypto.deriveKey(p1, SALT);
+  const newHash = await Crypto.hash(p1);
+  /* Save with new key */
+  const oldKey = STATE.encKey;
+  STATE.encKey = newKey;
+  await saveMsgs();
+  await saveSettings();
+  localStorage.setItem('kcd-pass-hash', newHash);
+  toast('✓ Passwort geändert');
+}
+
+async function initSession(password) {
+  STATE.encKey = await Crypto.deriveKey(password, SALT);
+  sessionStorage.setItem('kcd-session', await Crypto.hash(password + Date.now()));
+  await loadMsgs();
+  await loadSettings();
+  switchScreen('s-dash');
+  renderInbox();
+  updateUnreadBadge();
+  /* Settings-Felder vorausfüllen */
+  const s = STATE.settings;
+  document.getElementById('set-email').value          = s.email        || DEFAULT_SETTINGS.email        || '';
+  document.getElementById('set-deepl').value          = s.deeplKey     || DEFAULT_SETTINGS.deeplKey     || '';
+  document.getElementById('set-formspree-key').value  = s.formspreeKey || DEFAULT_SETTINGS.formspreeKey || '';
+  document.getElementById('set-formspree-id').value   = s.formspreeId  || DEFAULT_SETTINGS.formspreeId  || '';
+}
+
+async function doLogout() {
+  STATE.encKey = null; STATE.msgs = []; STATE.current = null;
+  sessionStorage.clear();
+  switchScreen('s-login');
+  document.getElementById('login-pass').value = '';
+}
+
+/* ════════════════════════════════════════════════════
+   INBOX RENDERING
+════════════════════════════════════════════════════ */
+let searchQuery = '';
+
+function renderInbox(query = '') {
+  const list = document.getElementById('inbox-list');
+  const msgs = STATE.msgs
+    .filter(m => !query || [m.name,m.email,m.subject,m.body].join(' ').toLowerCase().includes(query.toLowerCase()))
+    .sort((a,b) => new Date(b.createdAt) - new Date(a.createdAt));
+
+  if (!msgs.length) {
+    list.innerHTML = `<div class="inbox-empty">${query ? 'Keine Treffer.' : 'Noch keine Anfragen.'}</div>`;
+    return;
+  }
+  list.innerHTML = msgs.map(m => `
+    <div class="inbox-item${STATE.current?.id === m.id ? ' active':''} ${m.read ? '' : 'unread'}"
+         onclick="openMsg('${m.id}')">
+      <div class="inbox-item-name">${esc(m.name || m.email || '—')}</div>
+      <div class="inbox-item-preview">${esc((m.subject || m.body || '—').substring(0,60))}</div>
+      <div class="inbox-item-meta">
+        <span class="inbox-item-time">${fmtDate(m.createdAt)}</span>
+        <span class="inbox-item-lang">${m.detectedLang?.toUpperCase() || '?'}</span>
+      </div>
+    </div>`).join('');
+}
+
+function filterInbox(q) { searchQuery = q; renderInbox(q); }
+
+function updateUnreadBadge() {
+  const n = STATE.msgs.filter(m => !m.read).length;
+  const el = document.getElementById('unread-badge');
+  el.textContent = n > 0 ? `${n} neu` : 'Alle gelesen';
+  el.style.color = n > 0 ? 'var(--a1)' : 'var(--muted)';
+}
+
+/* ════════════════════════════════════════════════════
+   MESSAGE DETAIL
+════════════════════════════════════════════════════ */
+async function openMsg(id) {
+  const msg = STATE.msgs.find(m => m.id === id);
+  if (!msg) return;
+  STATE.current = msg;
+  STATE.viewLang = 'original';
+
+  /* Mark as read */
+  if (!msg.read) { msg.read = true; await saveMsgs(); updateUnreadBadge(); }
+
+  /* Update header */
+  document.getElementById('d-subject').textContent  = msg.subject || '(Kein Betreff)';
+  document.getElementById('d-from').textContent     = `${msg.name || ''} ${msg.email ? '<'+msg.email+'>' : ''}`.trim();
+  document.getElementById('d-time').textContent     = fmtDate(msg.createdAt);
+  const lb = document.getElementById('d-lang-badge');
+  lb.textContent  = msg.detectedLang?.toUpperCase() || '?';
+  lb.className    = `lang-badge ${msg.detectedLang || 'unknown'}`;
+
+  /* Body */
+  document.getElementById('d-body-orig').textContent = msg.body || '—';
+  document.getElementById('d-body-trans').style.display = 'none';
+
+  /* Extra fields */
+  const fieldsEl = document.getElementById('d-fields');
+  const extras = Object.entries(msg.fields || {});
+  fieldsEl.innerHTML = extras.map(([k,v]) => `
+    <div class="msg-field">
+      <span class="msg-field-key">${esc(k)}</span>
+      <span class="msg-field-val">${esc(String(v))}</span>
+    </div>`).join('');
+
+  /* Reset translate toggles */
+  document.querySelectorAll('.translate-bar .lang-toggle-btn').forEach(b => {
+    b.classList.toggle('active', b.dataset.lang === 'original');
+  });
+
+  /* Show panels */
+  document.getElementById('msg-empty').style.display = 'none';
+  document.getElementById('msg-detail').classList.add('show');
+  document.getElementById('reply-panel').style.display = 'block';
+  document.getElementById('btn-mark-read').style.display = msg.read ? 'none' : 'inline-flex';
+
+  /* Pre-set reply preview to detected lang opposite */
+  const pLang = msg.detectedLang === 'th' ? 'de' : msg.detectedLang === 'en' ? 'de' : 'en';
+  setPreviewLang(pLang);
+
+  renderInbox(searchQuery);
+}
+
+async function setViewLang(lang) {
+  STATE.viewLang = lang;
+  document.querySelectorAll('.translate-bar .lang-toggle-btn').forEach(b => {
+    b.classList.toggle('active', b.dataset.lang === lang);
+  });
+  const orig  = document.getElementById('d-body-orig');
+  const trans = document.getElementById('d-body-trans');
+  const spin  = document.getElementById('translate-spinner');
+
+  if (lang === 'original') {
+    orig.style.display = 'block';
+    trans.style.display = 'none';
+    return;
+  }
+  const msg = STATE.current;
+  if (!msg) return;
+  if (lang === msg.detectedLang) { /* already in target lang */
+    orig.style.display = 'block'; trans.style.display = 'none'; return;
+  }
+  spin.classList.add('show');
+  try {
+    /* Gecachte Übersetzung verwenden wenn vorhanden */
+    let translated = msg.translations?.[lang];
+    if (!translated) {
+      translated = await translateGoogle(msg.body, G_CODES[lang] || lang, msg.detectedLang || 'auto');
+      if (!msg.translations) msg.translations = {};
+      msg.translations[lang] = translated;
+      await saveMsgs();
+    }
+    const langLabels = { de: '🇩🇪 Deutsch', en: '🇬🇧 English', th: '🇹🇭 Thai' };
+    document.getElementById('d-trans-label').textContent = `Übersetzung → ${langLabels[lang] || lang.toUpperCase()}`;
+    document.getElementById('d-trans-text').textContent  = translated;
+    orig.style.display  = 'block';
+    trans.style.display = 'block';
+  } catch (e) {
+    console.error('Übersetzungsfehler:', e);
+    toast('⚠ Übersetzung fehlgeschlagen — bitte Internetverbindung prüfen.');
+  }
+  spin.classList.remove('show');
+}
+
+function markRead() {
+  if (!STATE.current) return;
+  STATE.current.read = true;
+  document.getElementById('btn-mark-read').style.display = 'none';
+  saveMsgs(); updateUnreadBadge(); renderInbox(searchQuery);
+  toast('✓ Als gelesen markiert');
+}
+
+async function deleteMsg() {
+  if (!STATE.current) return;
+  if (!confirm('Anfrage wirklich löschen?')) return;
+  STATE.msgs = STATE.msgs.filter(m => m.id !== STATE.current.id);
+  STATE.current = null;
+  document.getElementById('msg-detail').classList.remove('show');
+  document.getElementById('reply-panel').style.display = 'none';
+  document.getElementById('msg-empty').style.display   = 'flex';
+  await saveMsgs(); renderInbox(searchQuery); updateUnreadBadge();
+  toast('🗑 Anfrage gelöscht');
+}
+
+/* ════════════════════════════════════════════════════
+   REPLY COMPOSER
+════════════════════════════════════════════════════ */
+function toggleReply() {
+  const body = document.getElementById('reply-body');
+  const head = document.getElementById('reply-toggle');
+  const open = !body.classList.contains('open');
+  body.classList.toggle('open', open);
+  head.classList.toggle('open', open);
+}
+
+function setReplyLang(lang) {
+  STATE.replyLang = lang;
+  document.querySelectorAll('.reply-lang-row .lang-btns:first-of-type .lang-toggle-btn').forEach(b => {
+    b.classList.toggle('active', b.dataset.lang === lang);
+  });
+  onReplyInput();
+}
+
+function setPreviewLang(lang) {
+  STATE.previewLang = lang;
+  const btns = document.querySelectorAll('.reply-lang-row .lang-btns:last-of-type .lang-toggle-btn');
+  btns.forEach(b => b.classList.toggle('active', b.dataset.lang === lang));
+  const wrap = document.getElementById('preview-wrap');
+  if (lang === 'none') { wrap.style.display = 'none'; return; }
+  wrap.style.display = 'block';
+  document.getElementById('preview-label').textContent = `Vorschau → ${lang.toUpperCase()}`;
+  onReplyInput();
+}
+
+function onReplyInput() {
+  clearTimeout(STATE.replyTimer);
+  if (STATE.previewLang === 'none') return;
+  STATE.replyTimer = setTimeout(updateReplyPreview, 700);
+}
+
+async function updateReplyPreview() {
+  const text = document.getElementById('reply-text').value.trim();
+  const prev = document.getElementById('reply-preview');
+  if (!text) { prev.textContent = '—'; return; }
+  if (STATE.replyLang === STATE.previewLang) { prev.textContent = text; return; }
+  prev.textContent = '⏳ Übersetze…';
+  try {
+    const t = await translateGoogle(text, G_CODES[STATE.previewLang], G_CODES[STATE.replyLang]);
+    prev.textContent = t || '—';
+  } catch (e) {
+    console.error('Vorschau-Übersetzungsfehler:', e);
+    prev.textContent = '⚠ Übersetzung fehlgeschlagen — Internetverbindung prüfen.';
+  }
+}
+
+function copyReply() {
+  const text = document.getElementById('reply-text').value;
+  if (!text) return;
+  navigator.clipboard.writeText(text).then(() => toast('📋 Kopiert!'));
+}
+
+function sendReply() {
+  const text = document.getElementById('reply-text').value;
+  const msg  = STATE.current;
+  if (!msg?.email || !text) { toast('⚠ E-Mail-Adresse oder Text fehlt.'); return; }
+  const subject = encodeURIComponent(`Re: ${msg.subject || 'Anfrage KohChang Domains'}`);
+  const body    = encodeURIComponent(text);
+  window.location.href = `mailto:${msg.email}?subject=${subject}&body=${body}`;
+}
+
+/* ════════════════════════════════════════════════════
+   ADD INQUIRY
+════════════════════════════════════════════════════ */
+function openAddModal()  { document.getElementById('m-add').classList.add('open'); }
+function closeAddModal() { document.getElementById('m-add').classList.remove('open'); }
+
+async function addInquiry() {
+  const name    = document.getElementById('add-name').value.trim();
+  const email   = document.getElementById('add-email').value.trim();
+  const subject = document.getElementById('add-subject').value.trim();
+  const body    = document.getElementById('add-body').value.trim();
+  const langSel = document.getElementById('add-lang').value;
+  if (!name && !email) { toast('⚠ Name oder E-Mail erforderlich.'); return; }
+  if (!body)           { toast('⚠ Nachricht darf nicht leer sein.'); return; }
+
+  const detectedLang = langSel === 'auto' ? detectLang(body) : langSel;
+  const msg = {
+    id:          'msg_' + Date.now() + '_' + Math.random().toString(36).slice(2,7),
+    name, email, subject: subject || '(Kein Betreff)', body,
+    detectedLang, read: false, createdAt: new Date().toISOString(),
+    fields: {}, translations: {}
+  };
+  STATE.msgs.push(msg);
+  await saveMsgs();
+
+  /* Reset form */
+  ['add-name','add-email','add-subject','add-body'].forEach(id => document.getElementById(id).value = '');
+  document.getElementById('add-lang').value = 'auto';
+  closeAddModal();
+  renderInbox(searchQuery);
+  updateUnreadBadge();
+  openMsg(msg.id);
+  toast('✓ Anfrage gespeichert');
+}
+
+/* ════════════════════════════════════════════════════
+   SETTINGS
+════════════════════════════════════════════════════ */
+function openSettings() {
+  /* Felder befüllen */
+  document.getElementById('set-email').value         = STATE.settings.email || '';
+  document.getElementById('set-deepl').value         = STATE.settings.deeplKey || '';
+  document.getElementById('set-formspree-key').value = STATE.settings.formspreeKey || '';
+  document.getElementById('set-formspree-id').value  = STATE.settings.formspreeId || '';
+  document.getElementById('set-pass1').value = '';
+  document.getElementById('set-pass2').value = '';
+  document.getElementById('m-settings').classList.add('open');
+}
+function closeSettings() { document.getElementById('m-settings').classList.remove('open'); }
+
+/* ════════════════════════════════════════════════════
+   DATA EXPORT / IMPORT
+════════════════════════════════════════════════════ */
+function exportData() {
+  const blob = new Blob([JSON.stringify(STATE.msgs, null, 2)], { type: 'application/json' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = `kohchang-inbox-${new Date().toISOString().slice(0,10)}.json`;
+  a.click();
+}
+
+function importData() { document.getElementById('import-file').click(); }
+
+async function doImport(input) {
+  const file = input.files[0];
+  if (!file) return;
+  const text = await file.text();
+  try {
+    const imported = JSON.parse(text);
+    if (!Array.isArray(imported)) throw new Error();
+    const existing = new Set(STATE.msgs.map(m => m.id));
+    const newMsgs  = imported.filter(m => !existing.has(m.id));
+    STATE.msgs.push(...newMsgs);
+    await saveMsgs();
+    renderInbox(searchQuery);
+    updateUnreadBadge();
+    toast(`✓ ${newMsgs.length} neue Anfragen importiert`);
+  } catch { toast('⚠ Import fehlgeschlagen — ungültiges Format'); }
+  input.value = '';
+}
+
+async function clearData() {
+  if (!confirm('Wirklich ALLE Anfragen löschen? Diese Aktion kann nicht rückgängig gemacht werden.')) return;
+  STATE.msgs = []; STATE.current = null;
+  await saveMsgs();
+  document.getElementById('msg-detail').classList.remove('show');
+  document.getElementById('reply-panel').style.display = 'none';
+  document.getElementById('msg-empty').style.display   = 'flex';
+  renderInbox(); updateUnreadBadge();
+  toast('🗑 Alle Daten gelöscht');
+}
+
+/* ════════════════════════════════════════════════════
+   UTILS
+════════════════════════════════════════════════════ */
+function switchScreen(id) {
+  document.querySelectorAll('.screen').forEach(s => { s.classList.remove('active'); });
+  document.getElementById(id).classList.add('active');
+}
+
+function esc(str) {
+  return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+function fmtDate(iso) {
+  if (!iso) return '—';
+  const d = new Date(iso);
+  const now = new Date();
+  if (d.toDateString() === now.toDateString()) {
+    return d.toLocaleTimeString('de-DE', { hour: '2-digit', minute: '2-digit' });
+  }
+  return d.toLocaleDateString('de-DE', { day:'2-digit', month:'2-digit', year:'2-digit' });
+}
+
+let toastTimer;
+function toast(msg, duration = 2800) {
+  const el = document.getElementById('toast');
+  el.textContent = msg; el.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => el.classList.remove('show'), duration);
+}
+
+/* ════════════════════════════════════════════════════
+   KEYBOARD SHORTCUTS
+════════════════════════════════════════════════════ */
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') {
+    document.querySelectorAll('.modal-overlay.open').forEach(m => m.classList.remove('open'));
+  }
+  /* Enter im Login / Setup */
+  if (e.key === 'Enter') {
+    if (document.getElementById('s-login').classList.contains('active')) doLogin();
+    if (document.getElementById('s-setup').classList.contains('active')) doSetup();
+  }
+});
+
+/* ════════════════════════════════════════════════════
+   INIT
+════════════════════════════════════════════════════ */
+(function init() {
+  const hash = localStorage.getItem('kcd-pass-hash');
+  if (!hash) { showSetup(); return; }
+  /* Session noch aktiv? */
+  const sess = sessionStorage.getItem('kcd-session');
+  if (sess) {
+    /* Auto-relogin nicht möglich ohne Passwort — zeige Login */
+  }
+  showLogin();
+})();
+</script>
+</body>
+</html>

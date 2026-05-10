@@ -3,8 +3,8 @@
 .claude/
 skills-lock.json
 
-# Dashboard ist ein privates Tool mit API-Key — NICHT veröffentlichen
-dashboard.html
+# Dashboard wird mit veröffentlicht — ist passwortgeschützt
+# API-Keys werden verschlüsselt im Browser gespeichert, nicht im Code
 
 # System-Dateien
 .DS_Store
