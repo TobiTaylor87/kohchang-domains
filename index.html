@@ -1,0 +1,2126 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="KohChang Business Domains — Premium Domains kaufen oder mieten · ซื้อหรือเช่าโดเมนพรีเมียม">
+  <title>KohChang Business Domains</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Lora:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Sarabun:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <!-- Datendateien: nur diese bearbeiten, nie index.html für Inhalte -->
+  <script src="domains.js"></script>
+  <script src="transparency.js"></script>
+  <style>
+    :root {
+      /* ── Tropical Beach Palette ───────────────────────
+         Inspiriert von Sand, Türkismeer & Goldener Sonne
+         Sand dunkel  → Hintergrund / Oberflächen
+         Türkis       → Primär-Akzent (Meer)
+         Golden-Rot   → Sekundär-Akzent (Sonne)
+         Warmes Creme → Text
+      ─────────────────────────────────────────────────── */
+      --bg:        #0C1C18;                    /* Tropisches Tief-Grün           */
+      --surface:   rgba(18,48,40,0.88);        /* Tropisches Grün-Teal           */
+      --surface2:  rgba(28,65,54,0.85);        /* Helles Dschungelgrün           */
+      --accent1:   #38C9C2;                    /* Türkis-Meer                   */
+      --accent2:   #D4A84B;                    /* Warmes Sandgold (kein Orange) */
+      --text:      #FAF2DC;                    /* Warmes Creme / Sand            */
+      --muted:     #A8C8BA;                    /* Helles Meerschaum-Grün         */
+      --gold:      #D4961E;                    /* Goldene Sonne                 */
+      --border:    rgba(56,201,194,0.18);
+      --glow:      rgba(56,201,194,0.30);
+      --radius:    5px;
+      --ease:      cubic-bezier(0.25,0.46,0.45,0.94);
+      --touch:     44px;
+      --beach-bg:  url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1920&q=80');
+      /* Domain-Kachel-Hintergründe — tropisch, sonnig, freundlich */
+      --grad-biz:  linear-gradient(135deg,rgba(12,42,35,0.90),rgba(20,62,50,0.90));
+      --grad-plat: linear-gradient(135deg,rgba(10,32,52,0.90),rgba(14,48,72,0.90));
+      --grad-re:   linear-gradient(135deg,rgba(10,38,58,0.90),rgba(15,52,44,0.90));
+      --grad-well: linear-gradient(135deg,rgba(38,18,45,0.90),rgba(52,24,58,0.90));
+      --grad-mkt:  linear-gradient(135deg,rgba(50,38,10,0.90),rgba(68,52,14,0.90));
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: 'Lora', Georgia, serif; line-height: 1.7;
+      overflow-x: hidden;
+      cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20'%3E%3Ccircle cx='10' cy='10' r='4' fill='none' stroke='%2338C9C2' stroke-width='1.5'/%3E%3Ccircle cx='10' cy='10' r='1.5' fill='%2338C9C2'/%3E%3C/svg%3E") 10 10, auto;
+    }
+    body.lang-th { font-family: 'Sarabun', sans-serif; }
+
+    /* Strand-Hintergrundbild — fest hinter allem, leicht abgedunkelt */
+    body::before {
+      content: '';
+      position: fixed; inset: 0; z-index: -1;
+      background: var(--beach-bg) center / cover no-repeat;
+    }
+    /* Overlay — 65% → mehr Strand und Licht sichtbar */
+    body::after {
+      content: ''; position: fixed; inset: 0; z-index: -1;
+      background: rgba(8,20,16,0.65);
+      pointer-events: none;
+    }
+    /* Noise-Textur (über Inhalt, unter Intro) */
+    .noise-overlay {
+      position: fixed; inset: 0; z-index: 4998;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      opacity: 0.03; pointer-events: none;
+    }
+    a { color: inherit; text-decoration: none; }
+    button { cursor: pointer; border: none; background: none; font-family: inherit; -webkit-tap-highlight-color: transparent; }
+    h1,h2,h3 { font-family: 'Bebas Neue', Impact, sans-serif; font-weight: 400; letter-spacing: 0.03em; line-height: 1.1; }
+    body.lang-th h1, body.lang-th h2, body.lang-th h3 { font-family: 'Sarabun', sans-serif; font-weight: 700; letter-spacing: 0; }
+    img { display: block; max-width: 100%; }
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 2rem; }
+    .gradient-line { height: 1px; background: linear-gradient(90deg,transparent,rgba(78,205,196,0.3),transparent); }
+
+    /* ══ HEADER ══════════════════════════════════════════ */
+    header { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; padding: 1rem 0; transition: background 0.4s var(--ease), backdrop-filter 0.4s; }
+    header.scrolled { background: rgba(13,31,26,0.95); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); border-bottom: 1px solid var(--border); }
+    nav { display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+
+    .nav-logo { display: flex; align-items: center; flex-shrink: 0; }
+    .nav-logo-img {
+      height: 54px;
+      width: auto;
+      object-fit: contain;
+      display: block;
+      mask-image: radial-gradient(ellipse 70% 78% at 50% 46%,
+        black 50%, rgba(0,0,0,0.8) 62%, rgba(0,0,0,0.2) 74%, transparent 84%);
+      -webkit-mask-image: radial-gradient(ellipse 70% 78% at 50% 46%,
+        black 50%, rgba(0,0,0,0.8) 62%, rgba(0,0,0,0.2) 74%, transparent 84%);
+      filter: drop-shadow(0 2px 8px rgba(0,0,0,0.45));
+      transition: opacity 0.25s;
+    }
+    .nav-logo-img:hover { opacity: 0.85; }
+
+    .nav-right { display: flex; align-items: center; gap: 1.25rem; }
+    .lang-toggle { display: flex; align-items: center; gap: 0; }
+    .lang-btn { min-height: var(--touch); padding: 0 0.3rem; color: var(--muted); transition: color 0.25s, opacity 0.25s; display: flex; align-items: center; gap: 0.32rem; opacity: 0.55; }
+    .lang-btn.active { color: var(--accent1); opacity: 1; }
+    .lang-btn:hover:not(.active) { opacity: 0.85; }
+    .lang-code { font-family: 'Bebas Neue', sans-serif; font-size: 0.8rem; letter-spacing: 0.1em; }
+    .flag-img { width: 22px; height: 15px; border-radius: 2px; display: block; flex-shrink: 0; box-shadow: 0 1px 3px rgba(0,0,0,0.45); }
+    .mobile-lang-btn .flag-img { width: 26px; height: 18px; }
+    .lang-btn.active { color: var(--accent1); }
+    .lang-sep { color: var(--border); font-size: 0.85rem; }
+
+    .nav-links { display: flex; align-items: center; gap: 1.75rem; }
+    .nav-link { font-family: 'Lora', serif; font-size: 0.78rem; letter-spacing: 0.06em; color: var(--muted); transition: color 0.22s; white-space: nowrap; }
+    body.lang-th .nav-link { font-family: 'Sarabun', sans-serif; letter-spacing: 0; }
+    .nav-link:hover { color: var(--accent1); }
+
+    .nav-cta { min-height: var(--touch); padding: 0 1.25rem; display: flex; align-items: center; border: 1px solid var(--accent1); color: var(--accent1); font-family: 'Bebas Neue', sans-serif; font-size: 0.9rem; letter-spacing: 0.12em; border-radius: var(--radius); transition: background 0.25s, color 0.25s; white-space: nowrap; }
+    body.lang-th .nav-cta { font-family: 'Sarabun', sans-serif; letter-spacing: 0; font-weight: 600; font-size: 0.85rem; }
+    .nav-cta:hover { background: var(--accent1); color: var(--bg); }
+
+    /* ── Scroll-to-top ────────────────────────────────── */
+    #back-to-top {
+      position: fixed; bottom: 1.75rem; right: 1.75rem; z-index: 990;
+      width: 44px; height: 44px; border-radius: 50%;
+      background: var(--accent1); color: var(--bg);
+      font-size: 1.1rem; display: flex; align-items: center; justify-content: center;
+      opacity: 0; transform: translateY(12px); pointer-events: none;
+      transition: opacity 0.3s, transform 0.3s;
+      box-shadow: 0 4px 18px rgba(56,201,194,0.40); border: none; cursor: pointer;
+    }
+    #back-to-top.visible { opacity: 1; transform: translateY(0); pointer-events: all; }
+    #back-to-top:hover { background: var(--text); }
+
+    /* Hamburger */
+    .hamburger { display: none; flex-direction: column; justify-content: center; gap: 5px; width: var(--touch); height: var(--touch); align-items: center; }
+    .hamburger span { display: block; width: 22px; height: 2px; background: var(--text); border-radius: 2px; transition: transform 0.3s, opacity 0.3s; }
+    .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    .mobile-menu { display: none; position: fixed; inset: 0; top: 64px; z-index: 999; background: rgba(13,31,26,0.97); backdrop-filter: blur(16px); padding: 2rem; flex-direction: column; gap: 0.5rem; transform: translateY(-10px); opacity: 0; transition: transform 0.3s var(--ease), opacity 0.3s; }
+    .mobile-menu.open { transform: translateY(0); opacity: 1; }
+    .mobile-menu-link { display: flex; align-items: center; min-height: var(--touch); padding: 0 0.5rem; font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem; letter-spacing: 0.1em; color: var(--muted); border-bottom: 1px solid var(--border); transition: color 0.2s; }
+    body.lang-th .mobile-menu-link { font-family: 'Sarabun', sans-serif; font-size: 1.1rem; letter-spacing: 0; font-weight: 500; }
+    .mobile-menu-link:hover { color: var(--accent1); }
+    .mobile-menu-cta { margin-top: 1rem; display: flex; justify-content: center; align-items: center; min-height: var(--touch); padding: 0 2rem; background: var(--accent1); color: var(--bg); font-family: 'Bebas Neue', sans-serif; font-size: 1.1rem; letter-spacing: 0.15em; border-radius: var(--radius); }
+    body.lang-th .mobile-menu-cta { font-family: 'Sarabun', sans-serif; font-size: 1rem; letter-spacing: 0; font-weight: 600; }
+    .mobile-lang { display: flex; align-items: center; gap: 0; padding: 0.5rem 0; flex-wrap: wrap; }
+    .mobile-lang-btn { font-family: 'Bebas Neue', sans-serif; font-size: 0.95rem; letter-spacing: 0.1em; color: var(--muted); min-height: var(--touch); padding: 0 0.35rem; display: flex; align-items: center; gap: 0.3rem; }
+    .mobile-lang-btn .flag { font-size: 1.1rem; }
+    .mobile-lang-btn.active { color: var(--accent1); }
+
+    /* ══ HERO ════════════════════════════════════════════ */
+    .hero { min-height: 100svh; display: flex; align-items: center; position: relative; overflow: hidden; padding: 8rem 0 5rem; }
+    .hero::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse 75% 65% at 15% 25%, rgba(56,201,194,0.08) 0%, transparent 60%), radial-gradient(ellipse 55% 75% at 85% 75%, rgba(212,168,75,0.06) 0%, transparent 55%); }
+    .hero::after  { content: ''; position: absolute; inset: 0; background-image: linear-gradient(rgba(56,201,194,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(56,201,194,0.04) 1px, transparent 1px); background-size: 56px 56px; }
+    .hero-inner { position: relative; z-index: 1; max-width: 760px; }
+    .hero-logo-wrap {
+      margin-bottom: 1.5rem;
+      opacity: 0;
+      animation: fadeUp 0.9s var(--ease) 0s forwards;
+      display: block;        /* linksbündig — kein auto-Zentrierung */
+      margin-left: 0;        /* explizit links ausrichten */
+    }
+    .hero-logo-img {
+      height: clamp(130px, 16vw, 210px); /* proportional zum Titeltext */
+      width: auto;
+      display: block;
+      object-fit: contain;
+      /* Maske: blendet grauen Hintergrund aus, Kreislogo taucht aus dem Dunkel auf */
+      mask-image: radial-gradient(ellipse 72% 80% at 50% 46%,
+        black 48%,
+        rgba(0,0,0,0.85) 57%,
+        rgba(0,0,0,0.4)  68%,
+        transparent 80%);
+      -webkit-mask-image: radial-gradient(ellipse 72% 80% at 50% 46%,
+        black 48%,
+        rgba(0,0,0,0.85) 57%,
+        rgba(0,0,0,0.4)  68%,
+        transparent 80%);
+      filter: drop-shadow(0 6px 28px rgba(0,0,0,0.5));
+    }
+    /* Hero Quote */
+    .hero-quote-wrap { margin-top: 2.25rem; padding-top: 2rem; border-top: 1px solid var(--border); max-width: 640px; opacity: 0; animation: fadeUp 0.9s var(--ease) 1.1s forwards; }
+    .hero-quote-text { font-family: 'Lora', serif; font-style: italic; font-size: 0.92rem; color: var(--muted); line-height: 1.75; }
+    body.lang-th .hero-quote-text { font-family: 'Sarabun', sans-serif; font-style: normal; }
+
+    /* ══ THE IDEA SECTION ════════════════════════════════ */
+    .idea-section { padding: 6rem 0; }
+
+    .idea-statement {
+      max-width: 780px; margin: 0 auto 4rem;
+      text-align: center; padding: 2.25rem 2.5rem;
+      border: 1px solid var(--border); border-radius: var(--radius);
+      background: rgba(14,44,36,0.60); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+      position: relative;
+    }
+    .idea-statement::before {
+      content: '\201C';
+      position: absolute; top: -0.5rem; left: 1.5rem;
+      font-family: 'Lora', serif; font-size: 5rem; line-height: 1;
+      color: var(--accent1); opacity: 0.35; pointer-events: none;
+    }
+    .idea-statement-text { font-family: 'Lora', serif; font-style: italic; font-size: 1.05rem; color: var(--text); line-height: 1.8; }
+    body.lang-th .idea-statement-text { font-family: 'Sarabun', sans-serif; font-style: normal; font-size: 1rem; }
+
+    .idea-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; }
+    .idea-text p { color: var(--muted); font-size: 0.92rem; margin-bottom: 1rem; line-height: 1.75; }
+
+    .idea-badge {
+      display: flex; align-items: center; gap: 1.25rem;
+      margin-top: 2rem; padding: 1.25rem 1.5rem;
+      background: rgba(56,201,194,0.08); border: 1px solid rgba(56,201,194,0.22);
+      border-radius: var(--radius);
+    }
+    .idea-badge-num { font-family: 'Bebas Neue', sans-serif; font-size: 3.2rem; color: var(--accent1); line-height: 1; flex-shrink: 0; }
+    .idea-badge-text { font-size: 0.86rem; color: var(--muted); line-height: 1.55; }
+    body.lang-th .idea-badge-text { font-family: 'Sarabun', sans-serif; }
+
+    .idea-contact {
+      margin-top: 1.5rem; padding: 1.1rem 1.5rem;
+      background: rgba(212,168,75,0.08); border: 1px solid rgba(212,168,75,0.22);
+      border-radius: var(--radius); font-size: 0.86rem; color: var(--muted); line-height: 1.6;
+    }
+    .idea-contact strong { color: var(--accent2); font-weight: 600; }
+    body.lang-th .idea-contact { font-family: 'Sarabun', sans-serif; }
+
+    .hero-label { display: inline-block; font-family: 'Lora', serif; font-size: 0.7rem; letter-spacing: 0.28em; text-transform: uppercase; color: var(--accent1); margin-bottom: 1.25rem; opacity: 0; animation: fadeUp 0.8s var(--ease) 0.25s forwards; }
+    body.lang-th .hero-label { font-family: 'Sarabun', sans-serif; letter-spacing: 0.1em; }
+    .hero-title { font-size: clamp(2.8rem, 8vw, 7.5rem); margin-bottom: 1.25rem; opacity: 0; animation: fadeUp 0.9s var(--ease) 0.3s forwards; }
+    .hero-title .accent { color: var(--accent1); }
+    .hero-title .line2  { display: block; color: var(--muted); font-size: 0.68em; }
+    body.lang-th .hero-title { font-size: clamp(2.2rem, 6vw, 5rem); }
+    .hero-sub { font-size: clamp(0.9rem, 2.5vw, 1.05rem); color: var(--muted); max-width: 480px; font-style: italic; margin-bottom: 2.5rem; opacity: 0; animation: fadeUp 0.9s var(--ease) 0.5s forwards; }
+    body.lang-th .hero-sub { font-style: normal; }
+    .hero-btns { display: flex; gap: 0.85rem; flex-wrap: wrap; opacity: 0; animation: fadeUp 0.9s var(--ease) 0.65s forwards; }
+    .btn-primary { display: inline-flex; align-items: center; gap: 0.5rem; min-height: var(--touch); padding: 0 1.75rem; background: var(--accent1); color: var(--bg); font-family: 'Bebas Neue', sans-serif; font-size: 1rem; letter-spacing: 0.12em; border-radius: var(--radius); transition: transform 0.25s, box-shadow 0.25s; }
+    body.lang-th .btn-primary, body.lang-th .btn-ghost { font-family: 'Sarabun', sans-serif; font-size: 0.95rem; letter-spacing: 0; font-weight: 600; }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 28px var(--glow); }
+    .btn-ghost { display: inline-flex; align-items: center; min-height: var(--touch); padding: 0 1.75rem; border: 1px solid rgba(247,255,247,0.18); color: var(--text); font-family: 'Bebas Neue', sans-serif; font-size: 1rem; letter-spacing: 0.12em; border-radius: var(--radius); transition: border-color 0.25s, color 0.25s; }
+    .btn-ghost:hover { border-color: var(--accent2); color: var(--accent2); }
+    .hero-stats { display: flex; gap: 2.5rem; flex-wrap: wrap; margin-top: 4rem; padding-top: 2.25rem; border-top: 1px solid var(--border); opacity: 0; animation: fadeUp 0.9s var(--ease) 0.85s forwards; }
+    .stat-num { font-family: 'Bebas Neue', sans-serif; font-size: 2rem; color: var(--accent1); line-height: 1; }
+    .stat-lbl { font-size: 0.68rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); margin-top: 0.2rem; }
+    body.lang-th .stat-lbl { font-size: 0.75rem; letter-spacing: 0; text-transform: none; }
+
+    /* ══ SHARED SECTION ══════════════════════════════════ */
+    .section-eyebrow { font-family: 'Lora', serif; font-size: 0.68rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--accent2); margin-bottom: 0.6rem; }
+    body.lang-th .section-eyebrow { font-family: 'Sarabun', sans-serif; letter-spacing: 0.08em; text-transform: none; }
+    .section-title { font-size: clamp(1.9rem, 5vw, 3.2rem); margin-bottom: 0.8rem; }
+    body.lang-th .section-title { font-size: clamp(1.6rem, 4vw, 2.5rem); }
+    .section-desc { color: var(--muted); max-width: 560px; font-size: 0.92rem; }
+    .section-head { margin-bottom: 2.5rem; }
+
+    /* ══ RATE STRIP ══════════════════════════════════════ */
+    .rate-strip { display: none; align-items: center; gap: 0.75rem; padding: 0.55rem 1rem; margin-bottom: 1.25rem; background: rgba(201,168,76,0.08); border: 1px solid rgba(201,168,76,0.22); border-radius: var(--radius); font-family: 'Sarabun', sans-serif; font-size: 0.8rem; color: var(--muted); flex-wrap: wrap; }
+    .rate-strip.visible { display: flex; }
+    .rate-pill { font-weight: 600; color: var(--gold); }
+    .rate-source { font-size: 0.7rem; opacity: 0.7; margin-left: auto; }
+    .rate-spinner { display: inline-block; width: 12px; height: 12px; border: 2px solid rgba(201,168,76,0.3); border-top-color: var(--gold); border-radius: 50%; animation: spin 0.7s linear infinite; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* ══ FILTER CONTROLS ═════════════════════════════════ */
+    .filter-controls { display: flex; align-items: center; gap: 1rem; margin-bottom: 2rem; flex-wrap: wrap; }
+
+    .cat-select {
+      min-height: var(--touch); padding: 0 1rem;
+      background: var(--surface); border: 1px solid var(--border); color: var(--text);
+      font-family: 'Lora', serif; font-size: 0.88rem;
+      border-radius: var(--radius); outline: none; cursor: pointer;
+      transition: border-color 0.25s; -webkit-appearance: none; appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%238BA89E' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat; background-position: right 0.85rem center;
+      padding-right: 2.5rem; min-width: 200px;
+    }
+    body.lang-th .cat-select { font-family: 'Sarabun', sans-serif; }
+    .cat-select:focus { border-color: var(--accent1); }
+    .cat-select option { background: #132A23; }
+
+    .view-bar { display: flex; border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; flex-shrink: 0; }
+    .view-btn { padding: 0 1.2rem; min-height: var(--touch); white-space: nowrap; font-family: 'Bebas Neue', sans-serif; font-size: 0.9rem; letter-spacing: 0.1em; color: var(--muted); transition: background 0.2s, color 0.2s; }
+    body.lang-th .view-btn { font-family: 'Sarabun', sans-serif; font-size: 0.85rem; letter-spacing: 0; font-weight: 500; }
+    .view-btn.active { background: var(--accent1); color: var(--bg); }
+    .view-btn:hover:not(.active) { color: var(--text); }
+
+    .results-count { font-family: 'Lora', serif; font-size: 0.78rem; color: var(--muted); font-style: italic; margin-left: auto; }
+    body.lang-th .results-count { font-family: 'Sarabun', sans-serif; font-style: normal; }
+
+    /* ══ DOMAIN GRID ═════════════════════════════════════ */
+    .domain-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.25rem; }
+
+    .domain-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); display: flex; flex-direction: column; overflow: hidden; transition: transform 0.3s var(--ease), border-color 0.3s, box-shadow 0.3s; opacity: 0; animation: fadeUp 0.55s var(--ease) forwards; }
+    .domain-card:hover { transform: translateY(-4px); border-color: rgba(78,205,196,0.32); box-shadow: 0 14px 42px rgba(56,201,194,0.10); }
+
+    /* Card image — einheitlich tropisch, hell, sonnig */
+    .card-image {
+      position: relative; height: 100px; display: flex; align-items: center; justify-content: center;
+      font-size: 2.6rem; cursor: pointer; overflow: hidden; flex-shrink: 0;
+      /* Strand-Bild + leichter türkis-warmer Overlay */
+      background:
+        linear-gradient(160deg, rgba(5,75,70,0.38) 0%, rgba(10,95,88,0.48) 100%),
+        url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=75')
+        center / cover no-repeat;
+      transition: filter 0.25s;
+    }
+    .card-image:hover { filter: brightness(1.1); }
+    .card-img-emoji {
+      position: relative; z-index: 1;
+      filter: drop-shadow(0 2px 10px rgba(0,0,0,0.35));
+      transition: transform 0.22s;
+    }
+    .card-image:hover .card-img-emoji { transform: scale(1.12); }
+
+    /* Use-case overlay */
+    .usecase-overlay {
+      position: absolute; inset: 0; z-index: 2;
+      background: rgba(13,31,26,0.92); backdrop-filter: blur(4px);
+      display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 0.35rem;
+      padding: 0.75rem; opacity: 0; pointer-events: none;
+      transition: opacity 0.25s var(--ease);
+    }
+    .card-image.active .usecase-overlay { opacity: 1; pointer-events: all; }
+    .usecase-line { font-family: 'Lora', serif; font-size: 0.72rem; color: var(--text); text-align: center; line-height: 1.4; }
+    body.lang-th .usecase-line { font-family: 'Sarabun', sans-serif; font-size: 0.75rem; }
+    .usecase-dot { color: var(--accent1); margin-right: 0.2rem; }
+
+    /* Card content */
+    .card-body { padding: 1.1rem 1.1rem 0; display: flex; flex-direction: column; gap: 0.6rem; }
+
+    .card-mode-toggle { display: flex; border: 1px solid var(--border); border-radius: 4px; overflow: hidden; }
+    .card-mode-btn { flex: 1; min-height: 34px; display: flex; align-items: center; justify-content: center; font-family: 'Bebas Neue', sans-serif; font-size: 0.75rem; letter-spacing: 0.1em; color: var(--muted); transition: background 0.2s, color 0.2s; }
+    body.lang-th .card-mode-btn { font-family: 'Sarabun', sans-serif; font-size: 0.72rem; letter-spacing: 0; font-weight: 500; }
+    .card-mode-btn.sale-btn.active { background: var(--accent2); color: var(--bg); }
+    .card-mode-btn.rent-btn.active { background: var(--accent1); color: var(--bg); }
+
+    .domain-card[data-mode="sale"] .panel-rent,
+    .domain-card[data-mode="sale"] .btn-rent { display: none; }
+    .domain-card[data-mode="rent"] .panel-sale,
+    .domain-card[data-mode="rent"] .btn-sale  { display: none; }
+
+    .card-badges { display: flex; gap: 0.4rem; }
+    .badge { display: inline-flex; align-items: center; padding: 0.15rem 0.5rem; border-radius: 3px; font-family: 'Bebas Neue', sans-serif; font-size: 0.65rem; letter-spacing: 0.12em; }
+    body.lang-th .badge { font-family: 'Sarabun', sans-serif; letter-spacing: 0; font-size: 0.7rem; font-weight: 600; }
+    .badge-premium { background: rgba(201,168,76,0.12); color: var(--gold); border: 1px solid rgba(201,168,76,0.28); }
+
+    .card-name { font-family: 'Bebas Neue', sans-serif; font-size: 1.1rem; letter-spacing: 0.04em; word-break: break-all; line-height: 1.2; }
+    .card-cat  { font-size: 0.65rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); font-family: 'Lora', serif; }
+    body.lang-th .card-cat { font-family: 'Sarabun', sans-serif; letter-spacing: 0; text-transform: none; font-size: 0.72rem; }
+
+    .card-price-num { font-family: 'Bebas Neue', sans-serif; font-size: 1.5rem; line-height: 1; }
+    body.lang-th .card-price-num { font-family: 'Sarabun', sans-serif; font-weight: 700; }
+    .panel-sale .card-price-num { color: var(--accent2); }
+    .panel-rent .card-price-num { color: var(--accent1); }
+    .card-price-lbl { font-size: 0.6rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); margin-top: 0.1rem; font-family: 'Lora', serif; }
+    body.lang-th .card-price-lbl { font-family: 'Sarabun', sans-serif; letter-spacing: 0; text-transform: none; font-size: 0.65rem; }
+
+    .price-loading { display: inline-block; width: 70px; height: 1.4rem; background: linear-gradient(90deg, var(--surface2) 25%, rgba(78,205,196,0.08) 50%, var(--surface2) 75%); background-size: 200% 100%; animation: shimmer 1.2s infinite; border-radius: 3px; vertical-align: middle; }
+    @keyframes shimmer { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
+
+    .rent-note { font-family: 'Lora', serif; font-size: 0.62rem; color: var(--muted); font-style: italic; padding-top: 0.3rem; border-top: 1px dashed rgba(78,205,196,0.15); line-height: 1.4; }
+    body.lang-th .rent-note { font-family: 'Sarabun', sans-serif; font-style: normal; }
+
+    .card-footer { display: flex; gap: 0.5rem; padding: 0.85rem 1.1rem 1.1rem; margin-top: auto; }
+    .btn-offer   { flex: 1; min-height: 38px; display: flex; align-items: center; justify-content: center; background: rgba(212,168,75,0.12); border: 1px solid var(--accent2); color: var(--accent2); font-family: 'Bebas Neue', sans-serif; font-size: 0.78rem; letter-spacing: 0.08em; border-radius: var(--radius); transition: background 0.25s, color 0.25s; text-align: center; padding: 0 0.4rem; }
+    body.lang-th .btn-offer, body.lang-th .btn-inquiry { font-family: 'Sarabun', sans-serif; font-size: 0.75rem; letter-spacing: 0; font-weight: 600; }
+    .btn-offer:hover { background: var(--accent2); color: var(--bg); }
+    .btn-inquiry { flex: 1; min-height: 38px; display: flex; align-items: center; justify-content: center; border: 1px solid var(--accent1); color: var(--accent1); font-family: 'Bebas Neue', sans-serif; font-size: 0.78rem; letter-spacing: 0.08em; border-radius: var(--radius); transition: background 0.25s, color 0.25s; text-align: center; padding: 0 0.4rem; }
+    .btn-inquiry:hover { background: var(--accent1); color: var(--bg); }
+
+    /* ══ PORTALS ══════════════════════════════════════════ */
+    .portals-section { padding: 5rem 0; background: rgba(10,32,26,0.80); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); }
+    .portal-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+    .portal-card { background: var(--bg); border: 1px solid var(--border); border-radius: var(--radius); padding: 2rem; display: flex; flex-direction: column; align-items: center; gap: 1rem; text-align: center; transition: border-color 0.3s, box-shadow 0.3s; }
+    .portal-card:hover { border-color: rgba(56,201,194,0.35); box-shadow: 0 8px 30px rgba(56,201,194,0.1); }
+    .portal-logo-wrap { width: 72px; height: 72px; border-radius: 12px; background: var(--surface2); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; font-size: 1.8rem; }
+    .portal-name { font-family: 'Bebas Neue', sans-serif; font-size: 1.25rem; letter-spacing: 0.06em; color: var(--accent1); }
+    .portal-sub  { font-size: 0.8rem; color: var(--muted); font-style: italic; line-height: 1.5; }
+    body.lang-th .portal-sub { font-style: normal; }
+    .portal-link { display: inline-flex; align-items: center; min-height: 38px; padding: 0 1.1rem; border: 1px solid var(--border); color: var(--muted); font-family: 'Bebas Neue', sans-serif; font-size: 0.82rem; letter-spacing: 0.1em; border-radius: var(--radius); transition: border-color 0.25s, color 0.25s; }
+    body.lang-th .portal-link { font-family: 'Sarabun', sans-serif; font-size: 0.85rem; letter-spacing: 0; }
+    .portal-link:hover { border-color: var(--accent1); color: var(--accent1); }
+    .portal-placeholder-badge { font-family: 'Lora', serif; font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); background: rgba(255,255,255,0.04); border: 1px dashed rgba(255,255,255,0.1); border-radius: 3px; padding: 0.2rem 0.55rem; }
+
+    /* ══ ABOUT ════════════════════════════════════════════ */
+    .about-section { padding: 6rem 0; background: rgba(10,32,26,0.80); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); }
+    .about-grid    { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
+    .about-text h2 { font-size: clamp(1.8rem, 4vw, 3rem); margin-bottom: 1.1rem; }
+    .about-text p  { color: var(--muted); font-size: 0.92rem; margin-bottom: 0.85rem; }
+    .trust-list    { display: flex; flex-direction: column; gap: 1.15rem; }
+    .trust-item    { display: flex; gap: 1rem; align-items: flex-start; }
+    .trust-icon    { width: 42px; height: 42px; flex-shrink: 0; border-radius: var(--radius); background: rgba(56,201,194,0.10); border: 1px solid rgba(56,201,194,0.20); display: flex; align-items: center; justify-content: center; font-size: 1.05rem; }
+    .trust-item h4 { font-family: 'Bebas Neue', sans-serif; font-size: 1.05rem; letter-spacing: 0.06em; margin-bottom: 0.2rem; }
+    body.lang-th .trust-item h4 { font-family: 'Sarabun', sans-serif; letter-spacing: 0; font-weight: 600; }
+    .trust-item p  { font-size: 0.78rem; color: var(--muted); margin: 0; }
+
+    /* ══ CONTACT ══════════════════════════════════════════ */
+    .contact-section { padding: 6rem 0; }
+    .contact-grid    { display: grid; grid-template-columns: 1fr 1.5fr; gap: 4rem; align-items: start; }
+    .contact-info h2 { font-size: clamp(1.8rem, 4vw, 3rem); margin-bottom: 1rem; }
+    .contact-info > p { color: var(--muted); font-size: 0.92rem; margin-bottom: 1.75rem; }
+    .contact-detail  { display: flex; align-items: center; gap: 0.8rem; color: var(--muted); font-size: 0.88rem; margin-bottom: 0.8rem; }
+    .contact-detail-icon { color: var(--accent1); }
+    .contact-form-wrap { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 2.25rem; }
+
+    /* ══ FORMS ════════════════════════════════════════════ */
+    .form-group  { margin-bottom: 1.1rem; }
+    .form-row    { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .form-label  { display: block; font-family: 'Lora', serif; font-size: 0.68rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.4rem; }
+    body.lang-th .form-label { font-family: 'Sarabun', sans-serif; font-size: 0.75rem; letter-spacing: 0; text-transform: none; font-weight: 500; }
+    .form-input, .form-textarea { width: 100%; background: rgba(255,255,255,0.04); border: 1px solid var(--border); border-radius: var(--radius); color: var(--text); font-family: 'Lora', serif; font-size: 0.88rem; padding: 0.7rem 0.9rem; outline: none; transition: border-color 0.25s, background 0.25s; -webkit-appearance: none; appearance: none; }
+    body.lang-th .form-input, body.lang-th .form-textarea { font-family: 'Sarabun', sans-serif; }
+    .form-input:focus, .form-textarea:focus { border-color: var(--accent1); background: rgba(78,205,196,0.04); }
+    .form-input::placeholder, .form-textarea::placeholder { color: var(--muted); opacity: 0.55; }
+    .form-textarea { resize: vertical; min-height: 88px; }
+    .btn-submit { width: 100%; min-height: var(--touch); font-family: 'Bebas Neue', sans-serif; font-size: 1.05rem; letter-spacing: 0.15em; border-radius: var(--radius); transition: opacity 0.25s, transform 0.25s; margin-top: 0.2rem; }
+    body.lang-th .btn-submit { font-family: 'Sarabun', sans-serif; font-size: 1rem; letter-spacing: 0; font-weight: 600; }
+    .btn-submit.sale-submit    { background: var(--accent2); color: var(--bg); }
+    .btn-submit.rent-submit    { background: var(--accent1); color: var(--bg); }
+    .btn-submit.contact-submit { background: var(--accent1); color: var(--bg); }
+    .btn-submit:hover   { opacity: 0.88; transform: translateY(-1px); }
+    .btn-submit:disabled { opacity: 0.45; cursor: not-allowed; transform: none; }
+    .form-msg-error   { margin-top: 0.7rem; padding: 0.65rem 0.9rem; background: rgba(212,168,75,0.08); border: 1px solid rgba(212,168,75,0.28); border-radius: var(--radius); color: var(--accent2); font-size: 0.82rem; }
+    .form-msg-success { text-align: center; padding: 1.75rem 0; }
+    .success-icon  { font-size: 2.2rem; margin-bottom: 0.7rem; }
+    .success-title { font-family: 'Bebas Neue', sans-serif; font-size: 1.7rem; color: var(--accent1); margin-bottom: 0.4rem; }
+    body.lang-th .success-title { font-family: 'Sarabun', sans-serif; font-weight: 700; }
+    .success-text  { color: var(--muted); font-size: 0.88rem; }
+    .offer-input-wrap { position: relative; }
+    .offer-symbol { position: absolute; right: 0.9rem; top: 50%; transform: translateY(-50%); color: var(--muted); font-family: 'Bebas Neue', sans-serif; font-size: 1rem; pointer-events: none; }
+    body.lang-th .offer-symbol { font-family: 'Sarabun', sans-serif; }
+    .offer-input-wrap .form-input { padding-right: 2.5rem; }
+    .offer-thb-hint { font-family: 'Sarabun', sans-serif; font-size: 0.75rem; color: var(--accent1); margin-top: 0.3rem; height: 1rem; }
+
+    /* ══ MODAL ════════════════════════════════════════════ */
+    .modal-overlay { position: fixed; inset: 0; background: rgba(10,25,20,0.92); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); z-index: 2000; display: flex; align-items: center; justify-content: center; padding: 1rem; opacity: 0; pointer-events: none; transition: opacity 0.3s var(--ease); }
+    .modal-overlay.open { opacity: 1; pointer-events: all; }
+    .modal-box { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 2rem; width: 100%; max-width: 500px; position: relative; transform: translateY(18px); transition: transform 0.35s var(--ease); max-height: 92svh; overflow-y: auto; -webkit-overflow-scrolling: touch; }
+    .modal-overlay.open .modal-box { transform: translateY(0); }
+    .modal-close { position: absolute; top: 0.85rem; right: 0.85rem; width: var(--touch); height: var(--touch); display: flex; align-items: center; justify-content: center; color: var(--muted); font-size: 1.2rem; border-radius: 50%; transition: color 0.2s, background 0.2s; }
+    .modal-close:hover { color: var(--text); background: rgba(255,255,255,0.07); }
+    .modal-eyebrow { font-family: 'Lora', serif; font-size: 0.65rem; letter-spacing: 0.28em; text-transform: uppercase; margin-bottom: 0.35rem; }
+    body.lang-th .modal-eyebrow { font-family: 'Sarabun', sans-serif; letter-spacing: 0.08em; text-transform: none; font-size: 0.78rem; }
+    .modal-eyebrow.sale-mode { color: var(--accent2); }
+    .modal-eyebrow.rent-mode { color: var(--accent1); }
+    .modal-title { font-family: 'Bebas Neue', sans-serif; font-size: 1.8rem; margin-bottom: 0.55rem; }
+    body.lang-th .modal-title { font-family: 'Sarabun', sans-serif; font-weight: 700; font-size: 1.4rem; }
+    .modal-domain-display { display: inline-block; font-size: 0.85rem; font-family: 'Lora', serif; margin-bottom: 1.25rem; padding: 0.35rem 0.75rem; border-radius: var(--radius); word-break: break-all; }
+    .modal-domain-display.sale-mode { color: var(--accent2); background: rgba(212,168,75,0.10); border: 1px solid rgba(212,168,75,0.28); }
+    .modal-domain-display.rent-mode { color: var(--accent1); background: rgba(56,201,194,0.08); border: 1px solid rgba(56,201,194,0.22); }
+    .rent-disclaimer { font-family: 'Lora', serif; font-size: 0.73rem; color: var(--muted); font-style: italic; padding: 0.6rem 0.8rem; margin-bottom: 1.1rem; background: rgba(78,205,196,0.05); border-left: 2px solid rgba(78,205,196,0.3); border-radius: 0 var(--radius) var(--radius) 0; line-height: 1.55; }
+    body.lang-th .rent-disclaimer { font-family: 'Sarabun', sans-serif; font-style: normal; }
+
+    /* ══ FOOTER ══════════════════════════════════════════ */
+    footer { padding: 3rem 0 2rem; border-top: 1px solid var(--border); }
+    .footer-top { display: flex; align-items: center; justify-content: space-between; gap: 2rem; flex-wrap: wrap; margin-bottom: 1.75rem; padding-bottom: 1.75rem; border-bottom: 1px solid var(--border); }
+    .footer-logo-wrap { display: flex; align-items: center; gap: 1rem; }
+    .footer-logo { height: 44px; width: auto;
+      mask-image: radial-gradient(ellipse 70% 78% at 50% 46%, black 50%, rgba(0,0,0,0.7) 65%, transparent 82%);
+      -webkit-mask-image: radial-gradient(ellipse 70% 78% at 50% 46%, black 50%, rgba(0,0,0,0.7) 65%, transparent 82%);
+    }
+    .footer-tagline { font-family: 'Lora', serif; font-size: 0.78rem; font-style: italic; color: var(--muted); max-width: 320px; line-height: 1.5; }
+    body.lang-th .footer-tagline { font-family: 'Sarabun', sans-serif; font-style: normal; }
+    .footer-donate-badge { display: flex; align-items: center; gap: 0.75rem; padding: 0.6rem 1rem; background: rgba(56,201,194,0.08); border: 1px solid rgba(56,201,194,0.2); border-radius: var(--radius); flex-shrink: 0; }
+    .footer-donate-num  { font-family: 'Bebas Neue', sans-serif; font-size: 1.6rem; color: var(--accent1); line-height: 1; }
+    .footer-donate-text { font-size: 0.72rem; color: var(--muted); line-height: 1.4; max-width: 140px; }
+    body.lang-th .footer-donate-text { font-family: 'Sarabun', sans-serif; }
+    .footer-inner { display: flex; align-items: center; justify-content: space-between; gap: 1.5rem; flex-wrap: wrap; }
+    .footer-copy  { font-size: 0.74rem; color: var(--muted); opacity: 0.7; }
+    .footer-links { display: flex; gap: 1.5rem; flex-wrap: wrap; }
+    .footer-link  { font-size: 0.74rem; color: var(--muted); letter-spacing: 0.06em; transition: color 0.22s; min-height: var(--touch); display: flex; align-items: center; opacity: 0.7; }
+    .footer-link:hover { color: var(--accent1); opacity: 1; }
+
+    /* ══ ANIMATIONS ══════════════════════════════════════ */
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(22px); } to { opacity: 1; transform: translateY(0); } }
+    .reveal { opacity: 0; }
+    .reveal.visible { animation: fadeUp 0.7s var(--ease) forwards; }
+
+    /* ══ RESPONSIVE ══════════════════════════════════════ */
+    @media (max-width: 1100px) { .domain-grid { grid-template-columns: repeat(3, 1fr); } }
+    @media (max-width: 960px) {
+      .domain-grid { grid-template-columns: 1fr 1fr; }
+      .idea-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+      .about-grid, .contact-grid { grid-template-columns: 1fr; gap: 3rem; }
+      .portal-grid { grid-template-columns: 1fr 1fr; }
+      .nav-links { display: none; }
+      .nav-cta { display: none; }
+      .hamburger { display: flex; }
+      .mobile-menu { display: flex; }
+      .filter-controls { gap: 0.75rem; }
+    }
+    @media (max-width: 580px) {
+      .nav-logo-img { height: 42px; }
+      .container { padding: 0 1rem; }
+      .domain-grid { grid-template-columns: 1fr; }
+      .portal-grid { grid-template-columns: 1fr; }
+      .hero-stats { gap: 1.5rem; }
+      .form-row { grid-template-columns: 1fr; }
+      .footer-inner { flex-direction: column; align-items: flex-start; }
+      .modal-box, .contact-form-wrap { padding: 1.5rem 1.25rem; }
+      .hero { padding: 7rem 0 4rem; }
+      .domains-section, .about-section, .contact-section, .portals-section, .idea-section { padding: 4rem 0; }
+      .idea-statement { padding: 1.5rem; }
+      .idea-statement::before { font-size: 3.5rem; }
+      .filter-controls { flex-direction: column; align-items: stretch; }
+      .cat-select { min-width: unset; width: 100%; }
+      .results-count { margin-left: 0; }
+    }
+    @media (max-width: 380px) {
+      .card-name { font-size: 1rem; }
+      .hero-title { font-size: 2.4rem; }
+    }
+
+    /* ══ PRICE ON REQUEST ════════════════════════════ */
+    .card-price-onrequest { font-family: 'Bebas Neue', sans-serif; font-size: 1.5rem; color: var(--a1); line-height: 1; }
+    .panel-sale .card-price-onrequest { color: var(--a2); }
+    .card-price-range { font-size: 0.65rem; color: var(--muted); margin-top: 0.2rem; font-family: 'Lora', serif; font-style: italic; }
+    body.lang-th .card-price-range { font-family: 'Sarabun', sans-serif; font-style: normal; }
+
+    /* ══ SPENDEN SECTION ═════════════════════════════ */
+    .spenden-section { padding: 5rem 0; }
+    .spenden-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1.5rem; margin-bottom: 3rem; }
+    .spenden-card {
+      background: rgba(14,44,36,0.70); backdrop-filter: blur(8px);
+      border: 1px solid var(--border); border-radius: var(--radius);
+      padding: 1.75rem; text-align: center;
+    }
+    .spenden-card.highlight { border-color: rgba(56,201,194,0.35); }
+    .spenden-big-num { font-family: 'Bebas Neue', sans-serif; font-size: 3rem; color: var(--a1); line-height: 1; }
+    .spenden-big-num.gold { color: var(--gold); }
+    .spenden-big-label { font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); margin-top: 0.35rem; }
+    body.lang-th .spenden-big-label { font-family: 'Sarabun', sans-serif; letter-spacing: 0; text-transform: none; }
+
+    /* Progress ring */
+    .ring-wrap { display: flex; flex-direction: column; align-items: center; gap: 0.75rem; }
+    .ring-svg { width: 110px; height: 110px; transform: rotate(-90deg); }
+    .ring-bg   { fill: none; stroke: rgba(56,201,194,0.15); stroke-width: 8; }
+    .ring-fill { fill: none; stroke: var(--a1); stroke-width: 8; stroke-linecap: round; transition: stroke-dashoffset 1s var(--ease); }
+    .ring-text { fill: var(--text); font-family: 'Bebas Neue', sans-serif; }
+    .ring-sub  { fill: var(--muted); font-size: 0.7em; }
+
+    .spenden-nonprofit-note {
+      background: rgba(212,168,75,0.08); border: 1px solid rgba(212,168,75,0.2);
+      border-radius: var(--radius); padding: 1rem 1.25rem;
+      font-size: 0.82rem; color: var(--muted); line-height: 1.65;
+      margin-bottom: 2.5rem;
+    }
+    .spenden-nonprofit-note strong { color: var(--a2); }
+
+    /* Transactions table */
+    .trans-table { width: 100%; border-collapse: collapse; font-size: 0.82rem; }
+    .trans-table th { font-family: 'Bebas Neue', sans-serif; font-size: 0.8rem; letter-spacing: 0.1em; color: var(--muted); text-align: left; padding: 0.5rem 0.75rem; border-bottom: 1px solid var(--border); }
+    .trans-table td { padding: 0.6rem 0.75rem; border-bottom: 1px solid rgba(56,201,194,0.06); color: var(--text); vertical-align: middle; }
+    .trans-table tr:last-child td { border-bottom: none; }
+    .trans-badge { display: inline-flex; align-items: center; padding: 0.15rem 0.5rem; border-radius: 3px; font-family: 'Bebas Neue', sans-serif; font-size: 0.68rem; letter-spacing: 0.1em; }
+    .trans-badge.sale { background: rgba(212,168,75,0.12); color: var(--a2); }
+    .trans-badge.rent { background: rgba(56,201,194,0.1);  color: var(--a1); }
+    .trans-empty { text-align: center; padding: 2rem; color: var(--muted); font-style: italic; font-size: 0.85rem; }
+
+    /* Donation targets */
+    .targets-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.25rem; margin-top: 1.25rem; }
+    .target-card { background: rgba(14,44,36,0.70); backdrop-filter: blur(8px); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.4rem; display: flex; flex-direction: column; gap: 0.65rem; transition: border-color 0.25s; }
+    .target-card:hover { border-color: rgba(56,201,194,0.3); }
+    .target-head { display: flex; align-items: center; gap: 0.85rem; }
+    .target-emoji { font-size: 1.75rem; }
+    .target-name { font-family: 'Bebas Neue', sans-serif; font-size: 1.1rem; letter-spacing: 0.06em; color: var(--text); }
+    .target-desc { font-size: 0.8rem; color: var(--muted); line-height: 1.6; }
+    .target-received { display: flex; align-items: center; justify-content: space-between; margin-top: 0.25rem; padding-top: 0.65rem; border-top: 1px solid var(--border); }
+    .target-received-num { font-family: 'Bebas Neue', sans-serif; font-size: 1.3rem; color: var(--gold); }
+    .target-received-lbl { font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
+    .target-link { font-size: 0.72rem; color: var(--a1); }
+
+    /* Donation history */
+    .donation-list { display: flex; flex-direction: column; gap: 0.85rem; margin-top: 1.5rem; }
+    .donation-item { display: flex; align-items: flex-start; gap: 1rem; padding: 1rem 1.25rem; background: rgba(56,201,194,0.06); border: 1px solid rgba(56,201,194,0.15); border-radius: var(--radius); }
+    .donation-icon { font-size: 1.5rem; flex-shrink: 0; }
+    .donation-amount { font-family: 'Bebas Neue', sans-serif; font-size: 1.3rem; color: var(--gold); }
+    .donation-org { font-size: 0.85rem; color: var(--text); }
+    .donation-meta { font-size: 0.72rem; color: var(--muted); margin-top: 0.2rem; }
+
+    /* ══ GDPR COOKIE BANNER ══════════════════════════ */
+    #cookie-banner {
+      position: fixed; bottom: 0; left: 0; right: 0; z-index: 4500;
+      background: rgba(10,30,24,0.97); backdrop-filter: blur(12px);
+      border-top: 1px solid var(--border); padding: 1.25rem 2rem;
+      display: flex; align-items: center; gap: 1.5rem; flex-wrap: wrap;
+      transform: translateY(100%); transition: transform 0.4s var(--ease);
+    }
+    #cookie-banner.show { transform: translateY(0); }
+    #cookie-banner p { font-size: 0.8rem; color: var(--muted); flex: 1; min-width: 200px; line-height: 1.55; }
+    #cookie-banner a { color: var(--a1); }
+    .cookie-btn { min-height: 38px; padding: 0 1.25rem; font-family: 'Bebas Neue', sans-serif; font-size: 0.88rem; letter-spacing: 0.1em; border-radius: var(--radius); white-space: nowrap; }
+    .cookie-accept { background: var(--a1); color: var(--bg); }
+    .cookie-info   { background: transparent; border: 1px solid var(--border); color: var(--muted); }
+
+    /* ══ GDPR FORM CONSENT ═══════════════════════════ */
+    .consent-row { display: flex; align-items: flex-start; gap: 0.65rem; margin-top: 0.5rem; }
+    .consent-row input[type="checkbox"] { margin-top: 0.2rem; accent-color: var(--a1); width: 16px; height: 16px; flex-shrink: 0; cursor: pointer; }
+    .consent-label { font-size: 0.75rem; color: var(--muted); line-height: 1.5; cursor: pointer; }
+    .consent-label a { color: var(--a1); }
+
+    /* ══ LEGAL MODALS ════════════════════════════════ */
+    .legal-modal-overlay { position: fixed; inset: 0; z-index: 3000; background: rgba(8,20,16,0.95); backdrop-filter: blur(10px); display: none; align-items: flex-start; justify-content: center; padding: 2rem 1rem; overflow-y: auto; }
+    .legal-modal-overlay.open { display: flex; }
+    .legal-modal-box { background: rgba(14,44,36,0.98); border: 1px solid var(--border); border-radius: var(--radius); padding: 2.5rem; width: 100%; max-width: 720px; position: relative; margin: auto; }
+    .legal-modal-close { position: absolute; top: 1rem; right: 1rem; width: var(--touch); height: var(--touch); display: flex; align-items: center; justify-content: center; color: var(--muted); font-size: 1.3rem; border-radius: 50%; transition: background 0.2s; }
+    .legal-modal-close:hover { background: rgba(255,255,255,0.08); }
+    .legal-content h1 { font-size: 2rem; margin-bottom: 0.5rem; color: var(--a1); }
+    .legal-content h2 { font-family: 'Bebas Neue', sans-serif; font-size: 1.2rem; letter-spacing: 0.06em; color: var(--a2); margin: 1.75rem 0 0.6rem; }
+    .legal-content p, .legal-content li { font-size: 0.88rem; color: var(--muted); line-height: 1.75; margin-bottom: 0.65rem; }
+    .legal-content ul { padding-left: 1.25rem; }
+    .legal-content a { color: var(--a1); }
+    .legal-warning { background: rgba(212,168,75,0.1); border: 1px solid rgba(212,168,75,0.3); border-radius: var(--radius); padding: 0.85rem 1rem; font-size: 0.8rem; color: var(--a2); margin-bottom: 1.5rem; }
+
+    @media (max-width: 960px) {
+      .spenden-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 580px) {
+      .spenden-grid { grid-template-columns: 1fr; }
+      #cookie-banner { padding: 1rem; }
+    }
+
+    /* ══ SCROLL EXPANSION INTRO ══════════════════════════ */
+    #scroll-intro {
+      position: fixed; inset: 0; z-index: 5000;
+      display: flex; align-items: center; justify-content: center;
+      overflow: hidden;
+      /* Strand-BG auch im Intro (seamless transition) */
+      background: var(--beach-bg) center / cover no-repeat;
+      transition: opacity 0.9s var(--ease);
+    }
+    /* Dark overlay im Intro */
+    #scroll-intro::before {
+      content: ''; position: absolute; inset: 0;
+      background: rgba(12,10,5,0.55); pointer-events: none; z-index: 0;
+    }
+    #scroll-intro.fading { opacity: 0; pointer-events: none; }
+
+    #si-bg {
+      position: absolute; inset: 0; z-index: 0;
+      transition: opacity 0.06s linear;
+    }
+    #si-bg img { width: 100%; height: 100%; object-fit: cover; object-position: center; }
+    #si-bg-dim { position: absolute; inset: 0; background: rgba(28,41,16,0.42); }
+
+    #si-media {
+      position: absolute; z-index: 2;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      border-radius: 18px; overflow: hidden;
+      box-shadow: 0 0 80px rgba(0,0,0,0.55);
+    }
+    #si-media img {
+      width: 100%; height: 100%; object-fit: contain; display: block;
+      mask-image: radial-gradient(ellipse 74% 80% at 50% 46%,
+        black 50%, rgba(0,0,0,0.82) 61%, rgba(0,0,0,0.3) 73%, transparent 84%);
+      -webkit-mask-image: radial-gradient(ellipse 74% 80% at 50% 46%,
+        black 50%, rgba(0,0,0,0.82) 61%, rgba(0,0,0,0.3) 73%, transparent 84%);
+    }
+    #si-vignette {
+      position: absolute; inset: 0; border-radius: 18px;
+      background: rgba(0,0,0,0.18);
+    }
+
+    .si-titles {
+      position: absolute; inset: 0; z-index: 3;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      gap: 0.4rem; pointer-events: none;
+    }
+    .si-titles span {
+      font-family: 'Bebas Neue', Impact, sans-serif;
+      font-size: clamp(2.4rem, 6vw, 5.5rem);
+      color: var(--text); letter-spacing: 0.1em;
+      text-shadow: 0 3px 24px rgba(0,0,0,0.65);
+      line-height: 1; display: block;
+    }
+    body.lang-th .si-titles span {
+      font-family: 'Sarabun', sans-serif; font-weight: 700;
+      font-size: clamp(2rem, 5vw, 4rem); letter-spacing: 0;
+    }
+
+    #si-hint {
+      position: absolute; bottom: 2.25rem; left: 50%;
+      transform: translateX(-50%); z-index: 4;
+      display: flex; flex-direction: column; align-items: center; gap: 0.55rem;
+      transition: opacity 0.15s;
+    }
+    .si-hint-txt {
+      font-family: 'Lora', serif; font-size: 0.72rem;
+      letter-spacing: 0.22em; text-transform: uppercase; color: var(--muted);
+    }
+    body.lang-th .si-hint-txt { font-family: 'Sarabun', sans-serif; letter-spacing: 0.08em; text-transform: none; }
+    .si-hint-arrow {
+      width: 18px; height: 18px;
+      border-right: 2px solid var(--accent1); border-bottom: 2px solid var(--accent1);
+      transform: rotate(45deg); margin: 0 auto;
+      animation: siArrow 1.6s ease infinite;
+    }
+    @keyframes siArrow {
+      0%,100% { transform: rotate(45deg) translateY(0);   opacity: 0.5; }
+      50%      { transform: rotate(45deg) translateY(6px); opacity: 1;   }
+    }
+  </style>
+</head>
+<body>
+
+<div class="noise-overlay" aria-hidden="true"></div>
+
+<!-- ══ SCROLL EXPANSION INTRO ════════════════════════════
+     Zeigt sich beim ersten Seitenaufruf. Scrollen expandiert
+     das Logo bis es den Viewport füllt → Intro verschwindet.
+═════════════════════════════════════════════════════════ -->
+<div id="scroll-intro">
+
+  <!-- Hintergrundbild (blendet aus beim Scrollen) -->
+  <div id="si-bg">
+    <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1920&q=80"
+         alt="Koh Chang Beach">
+    <div id="si-bg-dim"></div>
+  </div>
+
+  <!-- Expandierendes Logo (zentriert, kein Text) -->
+  <div id="si-media">
+    <img src="Logo.png" alt="Koh Chang Domains">
+    <div id="si-vignette"></div>
+  </div>
+
+  <!-- Scroll-Hinweis -->
+  <div id="si-hint">
+    <span class="si-hint-txt" id="si-hint-txt">Scroll to Explore</span>
+    <div class="si-hint-arrow"></div>
+  </div>
+</div>
+
+<!-- ══ HEADER ═══════════════════════════════════════════ -->
+<header id="site-header">
+  <div class="container">
+    <nav>
+      <a href="#" class="nav-logo">
+        <img src="Logo.png" alt="Koh Chang Domains" class="nav-logo-img">
+      </a>
+      <nav class="nav-links" id="nav-links">
+        <a href="#domains"  class="nav-link" data-i18n="navDomains">Domains</a>
+        <a href="#spenden"  class="nav-link" data-i18n="navSpenden" style="color:var(--gold)">Spenden</a>
+        <a href="#idea"     class="nav-link" data-i18n="navIdea">Die Idee</a>
+        <a href="#about"    class="nav-link" data-i18n="navAbout">Über mich</a>
+        <a href="#contact"  class="nav-link" data-i18n="navContact">Kontakt</a>
+      </nav>
+      <div class="nav-right">
+        <div class="lang-toggle">
+          <button class="lang-btn active" id="btn-de" onclick="setLang('de')">
+            <svg class="flag-img" viewBox="0 0 22 15" xmlns="http://www.w3.org/2000/svg"><rect width="22" height="5" y="0" fill="#000"/><rect width="22" height="5" y="5" fill="#DD0000"/><rect width="22" height="5" y="10" fill="#FFCE00"/></svg>
+            <span class="lang-code">DE</span>
+          </button>
+          <span class="lang-sep"> | </span>
+          <button class="lang-btn" id="btn-en" onclick="setLang('en')">
+            <svg class="flag-img" viewBox="0 0 60 40" xmlns="http://www.w3.org/2000/svg"><rect width="60" height="40" fill="#012169"/><path d="M0,0 L60,40 M60,0 L0,40" stroke="#fff" stroke-width="8"/><path d="M0,0 L60,40 M60,0 L0,40" stroke="#C8102E" stroke-width="4.5"/><rect x="25" y="0" width="10" height="40" fill="#fff"/><rect x="0" y="15" width="60" height="10" fill="#fff"/><rect x="27" y="0" width="6" height="40" fill="#C8102E"/><rect x="0" y="17" width="60" height="6" fill="#C8102E"/></svg>
+            <span class="lang-code">EN</span>
+          </button>
+          <span class="lang-sep"> | </span>
+          <button class="lang-btn" id="btn-th" onclick="setLang('th')">
+            <svg class="flag-img" viewBox="0 0 22 15" xmlns="http://www.w3.org/2000/svg"><rect width="22" height="3" y="0" fill="#A51931"/><rect width="22" height="3" y="3" fill="#F5F5F5"/><rect width="22" height="3" y="6" fill="#2D2A4A"/><rect width="22" height="3" y="9" fill="#F5F5F5"/><rect width="22" height="3" y="12" fill="#A51931"/></svg>
+            <span class="lang-code">TH</span>
+          </button>
+        </div>
+        <a href="#domains" class="nav-cta" data-i18n="navCta">Anfrage senden</a>
+        <button class="hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<!-- Mobile drawer -->
+<div class="mobile-menu" id="mobile-menu">
+  <a href="#domains"  class="mobile-menu-link" onclick="closeMenu()" data-i18n="navDomains">Domains</a>
+  <a href="#spenden"  class="mobile-menu-link" onclick="closeMenu()" data-i18n="navSpenden">Spenden</a>
+  <a href="#portals"  class="mobile-menu-link" onclick="closeMenu()" data-i18n="navPortals">Marktplätze</a>
+  <a href="#idea"     class="mobile-menu-link" onclick="closeMenu()" data-i18n="navIdea">Die Idee</a>
+  <a href="#about"    class="mobile-menu-link" onclick="closeMenu()" data-i18n="navAbout">Über mich</a>
+  <a href="#contact"  class="mobile-menu-link" onclick="closeMenu()" data-i18n="navContact">Kontakt</a>
+  <div class="mobile-lang">
+    <button class="mobile-lang-btn active" id="m-btn-de" onclick="setLang('de');closeMenu()">
+      <svg class="flag-img" viewBox="0 0 22 15" xmlns="http://www.w3.org/2000/svg"><rect width="22" height="5" y="0" fill="#000"/><rect width="22" height="5" y="5" fill="#DD0000"/><rect width="22" height="5" y="10" fill="#FFCE00"/></svg>
+      DE
+    </button>
+    <span class="lang-sep"> | </span>
+    <button class="mobile-lang-btn" id="m-btn-en" onclick="setLang('en');closeMenu()">
+      <svg class="flag-img" viewBox="0 0 60 40" xmlns="http://www.w3.org/2000/svg"><rect width="60" height="40" fill="#012169"/><path d="M0,0 L60,40 M60,0 L0,40" stroke="#fff" stroke-width="8"/><path d="M0,0 L60,40 M60,0 L0,40" stroke="#C8102E" stroke-width="4.5"/><rect x="25" y="0" width="10" height="40" fill="#fff"/><rect x="0" y="15" width="60" height="10" fill="#fff"/><rect x="27" y="0" width="6" height="40" fill="#C8102E"/><rect x="0" y="17" width="60" height="6" fill="#C8102E"/></svg>
+      EN
+    </button>
+    <span class="lang-sep"> | </span>
+    <button class="mobile-lang-btn" id="m-btn-th" onclick="setLang('th');closeMenu()">
+      <svg class="flag-img" viewBox="0 0 22 15" xmlns="http://www.w3.org/2000/svg"><rect width="22" height="3" y="0" fill="#A51931"/><rect width="22" height="3" y="3" fill="#F5F5F5"/><rect width="22" height="3" y="6" fill="#2D2A4A"/><rect width="22" height="3" y="9" fill="#F5F5F5"/><rect width="22" height="3" y="12" fill="#A51931"/></svg>
+      TH
+    </button>
+  </div>
+  <a href="#domains" class="mobile-menu-cta" onclick="closeMenu()" data-i18n="navCta">Anfrage senden</a>
+</div>
+
+<!-- ══ HERO ══════════════════════════════════════════════ -->
+<section class="hero" id="hero">
+  <div class="container">
+    <div class="hero-inner">
+      <div class="hero-logo-wrap">
+        <img src="Logo.png" alt="Koh Chang Domains" class="hero-logo-img">
+      </div>
+      <span class="hero-label" data-i18n="heroLabel">Domains für Koh Chang · Lokal. Digital. Sichtbar.</span>
+      <h1 class="hero-title">
+        <span class="accent" data-i18n="heroLine1">Eure Domain.</span>
+        <span class="line2"  data-i18n="heroLine2">Eure Idee.</span>
+      </h1>
+      <p class="hero-sub" data-i18n="heroSub">Sichert euch die passende Domain für eure Idee — für ein besseres, digitaleres & sichtbareres Koh Chang.</p>
+      <div class="hero-btns">
+        <a href="#domains" class="btn-primary" data-i18n="heroCta1">Domains entdecken</a>
+        <a href="#contact" class="btn-ghost"   data-i18n="heroCta2">Kontakt aufnehmen</a>
+      </div>
+      <div class="hero-stats">
+        <div><div class="stat-num" id="stat-count">55</div><div class="stat-lbl" data-i18n="stat1">Verfügbare Domains</div></div>
+        <div><div class="stat-num">5</div><div class="stat-lbl" data-i18n="stat2">Kategorien</div></div>
+        <div><div class="stat-num">48h</div><div class="stat-lbl" data-i18n="stat3">Transferzeit</div></div>
+      </div>
+
+      <div class="hero-quote-wrap">
+        <p class="hero-quote-text" data-i18n="heroQuote">Sichert euch die passende Domain für eure Idee — für ein besseres, digitaleres & sichtbareres Koh Chang.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="gradient-line"></div>
+
+<!-- ══ SPENDEN & TRANSPARENZ ══════════════════════════════ -->
+<section class="spenden-section" id="spenden">
+  <div class="container">
+    <div class="section-head reveal">
+      <p class="section-eyebrow" data-i18n="spenEyebrow">Transparenz & Spenden</p>
+      <h2 class="section-title" data-i18n="spenTitle">Was mit den Erlösen passiert</h2>
+      <p class="section-desc" data-i18n="spenDesc">Dieses Projekt ist kein gewinnorientiertes Unternehmen. Mindestens 25% der Erlöse fließen direkt an gemeinnützige Organisationen auf Koh Chang. Die verbleibenden Mittel decken ausschließlich Betriebskosten.</p>
+    </div>
+
+    <!-- Statistik-Kacheln -->
+    <div class="spenden-grid reveal">
+      <!-- Fortschrittsring: aktuelle Runde -->
+      <div class="spenden-card highlight">
+        <div class="ring-wrap">
+          <svg class="ring-svg" viewBox="0 0 110 110">
+            <circle class="ring-bg" cx="55" cy="55" r="45"/>
+            <circle class="ring-fill" id="ring-fill" cx="55" cy="55" r="45" stroke-dasharray="282.7" stroke-dashoffset="282.7"/>
+            <text class="ring-text" x="55" y="50" text-anchor="middle" font-size="22" transform="rotate(90,55,55)" id="ring-count">0</text>
+            <text class="ring-sub ring-text" x="55" y="67" text-anchor="middle" transform="rotate(90,55,55)" id="ring-of">von 5</text>
+          </svg>
+          <div class="spenden-big-label" data-i18n="spenRoundLabel">Domains bis zur nächsten Spende</div>
+        </div>
+      </div>
+      <!-- Gesamtspenden -->
+      <div class="spenden-card">
+        <div class="spenden-big-num gold" id="stat-donated">0 €</div>
+        <div class="spenden-big-label" data-i18n="spenTotalDonated">Gesamt gespendet</div>
+      </div>
+      <!-- Transaktionen -->
+      <div class="spenden-card">
+        <div class="spenden-big-num" id="stat-transactions">0</div>
+        <div class="spenden-big-label" data-i18n="spenTotalTrans">Domains verkauft / vermietet</div>
+      </div>
+    </div>
+
+    <!-- Spendenziele -->
+    <div class="reveal" style="margin-bottom:3rem">
+      <h3 style="font-size:1.4rem;margin-bottom:0.5rem" data-i18n="spenTargetsTitle">Meine Spendenziele</h3>
+      <p style="font-size:0.82rem;color:var(--muted);margin-bottom:0" data-i18n="spenTargetsDesc">Diese Organisationen unterstütze ich mit den Erlösen aus dem Domainverkauf.</p>
+      <div class="targets-grid" id="targets-grid"></div>
+    </div>
+
+    <!-- Letzte Transaktionen -->
+    <div class="reveal">
+      <h3 style="font-size:1.4rem;margin-bottom:1rem" data-i18n="spenTransTitle">Aktuelle Transaktionen</h3>
+      <div id="trans-table-wrap">
+        <table class="trans-table" id="trans-table" style="display:none">
+          <thead>
+            <tr>
+              <th data-i18n="spenColDate">Datum</th>
+              <th data-i18n="spenColDomain">Domain</th>
+              <th data-i18n="spenColType">Art</th>
+              <th data-i18n="spenColAmount">Erlös</th>
+              <th data-i18n="spenColDonation">Spende (25%+)</th>
+            </tr>
+          </thead>
+          <tbody id="trans-tbody"></tbody>
+        </table>
+        <div class="trans-empty" id="trans-empty" data-i18n="spenTransEmpty">Noch keine abgeschlossenen Transaktionen — aktuell sind alle Domains verfügbar.</div>
+      </div>
+    </div>
+
+    <!-- Spendenhistorie -->
+    <div class="reveal" style="margin-top:3rem" id="donation-history-wrap" style="display:none">
+      <h3 style="font-size:1.4rem;margin-bottom:0.5rem" data-i18n="spenHistTitle">Gespendete Beträge</h3>
+      <p style="font-size:0.82rem;color:var(--muted);margin-bottom:1.25rem" data-i18n="spenHistDesc">Nach je 5 Transaktionen werden die Spendengelder direkt an lokale Organisationen übergeben.</p>
+      <div class="donation-list" id="donation-list"></div>
+    </div>
+  </div>
+</section>
+
+<div class="gradient-line"></div>
+
+<!-- ══ DOMAINS ═══════════════════════════════════════════ -->
+<section class="domains-section" id="domains" style="padding:6rem 0">
+  <div class="container">
+    <div class="section-head reveal">
+      <p class="section-eyebrow" data-i18n="domEyebrow">Marketplace</p>
+      <h2 class="section-title" data-i18n="domTitle">Verfügbare Domains</h2>
+      <p class="section-desc" data-i18n="domDesc">Jede Domain ist zum Kauf oder zur jährlichen Miete verfügbar. Auf das Bild klicken für Einsatzbeispiele.</p>
+    </div>
+
+    <div class="rate-strip" id="rate-strip">
+      <span id="rate-strip-content"><span class="rate-spinner"></span></span>
+      <span class="rate-source" data-i18n="rateSource">Quelle: frankfurter.app</span>
+    </div>
+
+    <div class="filter-controls">
+      <select class="cat-select" id="cat-select" onchange="setCatFilter(this.value)">
+        <option value="all" data-i18n-opt="fAll">Alle Kategorien</option>
+        <option value="biz" data-i18n-opt="fBiz">Business</option>
+        <option value="platform" data-i18n-opt="fPlat">Plattform / Community</option>
+        <option value="realestate" data-i18n-opt="fRe">Immobilien / Hotel / Resorts</option>
+        <option value="wellness" data-i18n-opt="fWell">Wellness / Beauty / Health</option>
+        <option value="marketing" data-i18n-opt="fMkt">Marketing</option>
+      </select>
+
+      <div class="view-bar" id="view-bar">
+        <button class="view-btn active" data-view="sale" data-i18n="vSale">Kauf</button>
+        <button class="view-btn"        data-view="rent" data-i18n="vRent">Miete</button>
+      </div>
+
+      <span class="results-count" id="results-count"></span>
+    </div>
+
+    <div class="domain-grid" id="domain-grid"></div>
+  </div>
+</section>
+
+<div class="gradient-line"></div>
+
+<!-- ══ PORTALS ════════════════════════════════════════════
+     Portalnamen eintragen: PORTAL_1_NAME / PORTAL_2_NAME
+═════════════════════════════════════════════════════════ -->
+<section class="portals-section" id="portals">
+  <div class="container">
+    <div class="section-head reveal">
+      <p class="section-eyebrow" data-i18n="porEyebrow">Auch verfügbar auf</p>
+      <h2 class="section-title" data-i18n="porTitle">Gelistet auf führenden Marktplätzen</h2>
+      <p class="section-desc" data-i18n="porDesc">Unsere Domains sind zusätzlich auf folgenden Plattformen gelistet.</p>
+    </div>
+    <div class="portal-grid reveal" style="animation-delay:0.1s">
+      <div class="portal-card">
+        <div class="portal-logo-wrap">🌐</div>
+        <div><div class="portal-name">PORTAL_1_NAME</div><span class="portal-placeholder-badge" data-i18n="porPlaceholder">Name folgt</span></div>
+        <p class="portal-sub" data-i18n="porSub1">Internationaler Domain-Marktplatz mit globaler Reichweite.</p>
+        <a href="#contact" class="portal-link" data-i18n="porCta">Zum Portal</a>
+      </div>
+      <div class="portal-card">
+        <div class="portal-logo-wrap">🏷️</div>
+        <div><div class="portal-name">PORTAL_2_NAME</div><span class="portal-placeholder-badge" data-i18n="porPlaceholder">Name folgt</span></div>
+        <p class="portal-sub" data-i18n="porSub2">Spezialisierter Marktplatz für Premium-Domains in Asien.</p>
+        <a href="#contact" class="portal-link" data-i18n="porCta">Zum Portal</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="gradient-line"></div>
+
+<!-- ══ THE IDEA ══════════════════════════════════════════════ -->
+<section class="idea-section" id="idea">
+  <div class="container">
+
+    <!-- Zitat / Statement -->
+    <div class="idea-statement reveal">
+      <p class="idea-statement-text" data-i18n="ideaStatement">Domains für euch — für alle, die auf Koh Chang etwas aufbauen wollen oder es werden wollen. Unser Ziel: digitale Sichtbarkeit fördern, lokales Business stärken und mit dem Erlös dort Gutes tun, wo es wirklich ankommt. Sichert euch die passende Domain für eure Idee — für ein besseres, digitaleres & sichtbareres Koh Chang.</p>
+    </div>
+
+    <div class="idea-grid">
+      <!-- Links: Text -->
+      <div class="reveal">
+        <p class="section-eyebrow" data-i18n="ideaEyebrow">The Idea</p>
+        <h2 class="section-title" data-i18n="ideaTitle">Wie alles begann</h2>
+        <div class="idea-text">
+          <p data-i18n="ideaP1">Ich besuche Koh Chang seit 2013 – damals mit Rucksack und wenig Plan, heute um abzuschalten und dem Alltag zu entkommen. Was sich verändert hat: die Art zu reisen. Was gleich geblieben ist: das Reiseziel und die Zuneigung zu dieser Insel.</p>
+          <p data-i18n="ideaP2">Die Domains auf dieser Plattform wurden bewusst gesichert – nicht primär um sie zu verkaufen, sondern um sie vor großen, rein kommerziell orientierten Unternehmen zu schützen. Koh Chang verdient eine digitale Identität, die zur Insel passt.</p>
+          <p data-i18n="ideaP3">KohChang Domains ist ein Hobby-Projekt. Mein Ziel: lokale Unternehmen mit den richtigen Web-Adressen ausstatten – damit sie online sichtbar werden und Kunden besser erreichen können. Der Erlös steht nicht im Vordergrund.</p>
+        </div>
+      </div>
+
+      <!-- Rechts: Badges -->
+      <div class="reveal" style="animation-delay:0.12s">
+        <!-- 25% Spenden-Badge -->
+        <div class="idea-badge">
+          <span class="idea-badge-num">25%</span>
+          <span class="idea-badge-text" data-i18n="ideaBadgeText">der Erlöse fließen direkt in Non-Profits auf Koh Chang zurück — darunter der ehrenamtliche Rescue-Dienst und Projekte für das Tierwohl auf der Insel.</span>
+        </div>
+
+        <!-- Kontakt-Badge -->
+        <div class="idea-contact">
+          <strong data-i18n="ideaContactTitle">Du willst mitmachen?</strong>
+          <br><span data-i18n="ideaContactText">Media-Agenturen, Business Owner, lokale Profis oder einfach Fans der Insel — meldet euch. Gemeinsam können wir Koh Chang sichtbarer machen.</span>
+          <br><br>
+          <a href="#contact" style="color:var(--accent1);font-family:'Bebas Neue',sans-serif;letter-spacing:0.1em;font-size:0.88rem" data-i18n="ideaContactCta">KONTAKT AUFNEHMEN →</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<div class="gradient-line"></div>
+
+<!-- ══ ABOUT ══════════════════════════════════════════════ -->
+<section class="about-section" id="about">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-text reveal">
+        <p class="section-eyebrow" data-i18n="aboutEyebrow">Über mich</p>
+        <h2 data-i18n="aboutTitle">Über mich</h2>
+        <p data-i18n="aboutP1">Hallo Zusammen, mein Name ist Tobi, ich besuche Koh Chang seit 2013 — anfangs als Backpacker mit Rucksack und ohne großen Plan, heute um abzuschalten und dem Alltag zu entkommen. Die Art zu reisen hat sich verändert. Die Liebe zur Insel nicht.</p>
+        <p data-i18n="aboutP2">KohChang Domains ist meine Idee. Ich stehe alleine dahinter. Mein Ansinnen war es, eine Plattform zu schaffen, auf der lokale Unternehmen und alle, die auf Koh Chang etwas aufbauen wollen, die richtigen digitalen Adressen finden — bevor es große, rein kommerziell orientierte Unternehmen tun.</p>
+        <p data-i18n="aboutP3">Mir ist dabei eins wichtig: Dieses Projekt ist kein Gewerbe. Ich agiere bewusst nicht gewinnorientiert. Mindestens 25% jedes Erlöses spende ich direkt zurück an die Insel — an den lokalen Rescue-Dienst und an Tierwohl-Projekte auf Koh Chang. Nicht weil ich muss, sondern weil mir die Insel etwas bedeutet.</p>
+      </div>
+      <div class="trust-list reveal" style="animation-delay:0.12s">
+        <div class="trust-item"><div class="trust-icon">👤</div><div><h4 data-i18n="t1h">Direkter Kontakt zu mir</h4><p data-i18n="t1p">Ihr erreicht mich persönlich — keine Agentur, kein Callcenter. Ich antworte selbst.</p></div></div>
+        <div class="trust-item"><div class="trust-icon">⚡</div><div><h4 data-i18n="t2h">Schnelle Abwicklung</h4><p data-i18n="t2p">Von der ersten Nachricht bis zur Domain-Übergabe — ich halte die Wege kurz.</p></div></div>
+        <div class="trust-item"><div class="trust-icon">🌐</div><div><h4 data-i18n="t3h">Mehrsprachig</h4><p data-i18n="t3p">Ich antworte auf Deutsch, Englisch und — mit etwas Geduld — auch auf Thai.</p></div></div>
+        <div class="trust-item"><div class="trust-icon">🌿</div><div><h4 data-i18n="t4h">25% für Koh Chang</h4><p data-i18n="t4p">Mindestens 25% jedes Erlöses spende ich direkt an lokale Non-Profits auf der Insel.</p></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="gradient-line"></div>
+
+<!-- ══ CONTACT ════════════════════════════════════════════ -->
+<section class="contact-section" id="contact">
+  <div class="container">
+    <div class="contact-grid">
+      <div class="contact-info reveal">
+        <p class="section-eyebrow" data-i18n="ctEyebrow">Kontakt</p>
+        <h2 data-i18n="ctTitle">Redet mit uns — über eure Domain, euer Business, eure Idee.</h2>
+        <p data-i18n="ctDesc">Ob ihr eine Domain sucht, euer Business auf Koh Chang digital aufstellen wollt oder gerade erst plant — schreibt uns. Lokale Business Owner, Webdesigner, Kreative & Entrepreneure auf der Insel: wir freuen uns auf den Austausch.</p>
+        <div class="contact-detail"><span class="contact-detail-icon">✉</span><span>info@kohchangbusiness.com</span></div>
+        <div class="contact-detail"><span class="contact-detail-icon">📍</span><span data-i18n="ctLocation">Koh Chang, Trat, Thailand</span></div>
+      </div>
+      <div class="contact-form-wrap reveal" style="animation-delay:0.12s">
+        <form id="contact-form" onsubmit="submitContactForm(event)">
+          <div class="form-row">
+            <div class="form-group"><label class="form-label" data-i18n="fName">Name *</label><input class="form-input" type="text" name="name" required data-i18n-ph="phName" placeholder="Ihr Name"></div>
+            <div class="form-group"><label class="form-label" data-i18n="fEmail">E-Mail *</label><input class="form-input" type="email" name="email" required data-i18n-ph="phEmail" placeholder="ihre@email.de"></div>
+          </div>
+          <div class="form-group"><label class="form-label" data-i18n="fMsg">Nachricht *</label><textarea class="form-textarea" name="message" required data-i18n-ph="phMsg" placeholder="Ihre Nachricht..." rows="5"></textarea></div>
+          <div class="consent-row">
+            <input type="checkbox" id="contact-consent" required>
+            <label for="contact-consent" class="consent-label" data-i18n="consentLabel">Ich habe die <a href="#" onclick="openLegal('datenschutz');return false">Datenschutzerklärung</a> gelesen und stimme der Verarbeitung meiner Daten zu. *</label>
+          </div>
+          <button type="submit" class="btn-submit contact-submit" data-i18n="fSend">Nachricht senden</button>
+          <div id="contact-err" class="form-msg-error" style="display:none"></div>
+        </form>
+        <div id="contact-ok" class="form-msg-success" style="display:none">
+          <div class="success-icon">✓</div>
+          <div class="success-title" data-i18n="okTitle">Gesendet!</div>
+          <p class="success-text" data-i18n="okText">Wir melden uns so bald wie möglich bei Ihnen.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ FOOTER ═════════════════════════════════════════════ -->
+<footer>
+  <div class="container">
+    <!-- Footer Top: Logo + Tagline + Donation Badge -->
+    <div class="footer-top">
+      <div class="footer-logo-wrap">
+        <img src="Logo.png" alt="Koh Chang Domains" class="footer-logo">
+        <p class="footer-tagline" data-i18n="footTagline">Lokales Business fördern. Non-Profits stärken. Koh Chang sichtbar machen.</p>
+      </div>
+      <div class="footer-donate-badge">
+        <span class="footer-donate-num">25%</span>
+        <span class="footer-donate-text" data-i18n="footDonate">der Erlöse für Non-Profits auf Koh Chang</span>
+      </div>
+    </div>
+    <!-- Footer Bottom: Copyright + Links -->
+    <div class="footer-inner">
+      <span class="footer-copy" data-i18n="footCopy">© 2025 KohChang Business Domains. Alle Rechte vorbehalten.</span>
+      <div class="footer-links">
+        <a href="#" class="footer-link" data-i18n="footImprint" onclick="openLegal('impressum');return false">Impressum</a>
+        <a href="#" class="footer-link" data-i18n="footPrivacy" onclick="openLegal('datenschutz');return false">Datenschutz</a>
+        <a href="#contact" class="footer-link" data-i18n="footContact">Kontakt</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- ══ SCROLL TO TOP ══════════════════════════════════════ -->
+<button id="back-to-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Nach oben">↑</button>
+
+<!-- ══ COOKIE BANNER (DSGVO) ══════════════════════════════ -->
+<div id="cookie-banner" role="dialog" aria-label="Cookie-Hinweis">
+  <p data-i18n="cookieText">Diese Website verwendet keine Tracking-Cookies. Kontaktformulare werden über Formspree (USA, DSGVO-konform) verarbeitet. Mit der Nutzung stimmt ihr der <a href="#" onclick="openLegal('datenschutz')">Datenschutzerklärung</a> zu.</p>
+  <button class="cookie-btn cookie-info" onclick="openLegal('datenschutz')" data-i18n="cookieInfo">Mehr erfahren</button>
+  <button class="cookie-btn cookie-accept" onclick="acceptCookies()" data-i18n="cookieAccept">Verstanden</button>
+</div>
+
+<!-- ══ IMPRESSUM MODAL ════════════════════════════════════ -->
+<div class="legal-modal-overlay" id="modal-impressum" onclick="closeLegalIfOverlay(event,'impressum')">
+  <div class="legal-modal-box">
+    <button class="legal-modal-close" onclick="closeLegal('impressum')">✕</button>
+    <div class="legal-content">
+      <div class="legal-warning" data-i18n="impressumWarning">⚠ Pflichtangaben gemäß § 5 TMG — bitte vollständig ausfüllen bevor die Website live geht.</div>
+      <h1 data-i18n="impressumTitle">Impressum</h1>
+      <p style="font-size:0.78rem;color:var(--muted);margin-bottom:1.5rem" data-i18n="impressumSub">Angaben gemäß § 5 TMG / § 55 Abs. 2 RStV</p>
+
+      <h2 data-i18n="impressumOperator">Betreiber</h2>
+      <p>[VORNAME NACHNAME]<br>
+         [STRASSE HAUSNUMMER]<br>
+         [PLZ ORT]<br>
+         [LAND]</p>
+
+      <h2 data-i18n="impressumContact">Kontakt</h2>
+      <p>E-Mail: info@kohchangbusiness.com</p>
+
+      <h2 data-i18n="impressumHint">Hinweis</h2>
+      <p data-i18n="impressumHintText">Diese Website wird von einer Privatperson als nicht-gewerbliches Hobby-Projekt betrieben. Es handelt sich weder um ein Gewerbe noch um einen eingetragenen Verein oder eine gemeinnützige Organisation im Sinne des deutschen Steuerrechts. Mindestens 25% der erzielten Erlöse werden freiwillig an gemeinnützige Organisationen auf Koh Chang, Thailand, gespendet.</p>
+
+      <h2 data-i18n="impressumDisclaimerTitle">Haftungsausschluss</h2>
+      <p data-i18n="impressumDisclaimerText">Trotz sorgfältiger inhaltlicher Kontrolle übernehmen wir keine Haftung für die Inhalte externer Links. Für den Inhalt der verlinkten Seiten sind ausschließlich deren Betreiber verantwortlich. Preise für Domains werden individuell auf Anfrage vereinbart. Typische Marktpreise liegen zwischen 250 und 5.000 €.</p>
+
+      <button class="btn btn-secondary btn-sm" onclick="closeLegal('impressum')" style="margin-top:1.5rem" data-i18n="legalClose">Schließen</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══ DATENSCHUTZ MODAL ══════════════════════════════════ -->
+<div class="legal-modal-overlay" id="modal-datenschutz" onclick="closeLegalIfOverlay(event,'datenschutz')">
+  <div class="legal-modal-box">
+    <button class="legal-modal-close" onclick="closeLegal('datenschutz')">✕</button>
+    <div class="legal-content">
+      <h1 data-i18n="dseTitle">Datenschutzerklärung</h1>
+      <p style="font-size:0.78rem;color:var(--muted);margin-bottom:1.5rem" data-i18n="dseSub">Gemäß DSGVO (EU) 2016/679</p>
+
+      <h2>1. Verantwortliche Person</h2>
+      <p data-i18n="dse1">[VORNAME NACHNAME], [ADRESSE] — Kontakt: info@kohchangbusiness.com</p>
+
+      <h2>2. Welche Daten wir erheben</h2>
+      <p data-i18n="dse2">Wenn ihr das Kontaktformular nutzt, werden folgende Daten erhoben: Name, E-Mail-Adresse, Telefonnummer (optional), Nachricht. Diese Daten werden ausschließlich zur Bearbeitung eurer Anfrage verwendet.</p>
+
+      <h2>3. Verarbeitung durch Formspree</h2>
+      <p data-i18n="dse3">Formulardaten werden über Formspree, Inc. (USA) verarbeitet. Formspree ist EU-US Data Privacy Framework zertifiziert und DSGVO-konform. Weitere Informationen: <a href="https://formspree.io/legal/privacy-policy" target="_blank">formspree.io/legal/privacy-policy</a>.</p>
+
+      <h2>4. Cookies & Tracking</h2>
+      <p data-i18n="dse4">Diese Website verwendet keine Tracking-Cookies, keine Analytics und kein Remarketing. Es werden keine persönlichen Daten für Werbezwecke verarbeitet. Wechselkursdaten werden anonym über die öffentliche API von frankfurter.app abgerufen.</p>
+
+      <h2>5. Hosting & Externe Dienste</h2>
+      <p data-i18n="dse5">Hintergrundbilder werden von Unsplash (USA) geladen. Schriftarten werden von Google Fonts (USA) geladen. Dabei werden eure IP-Adressen an diese Dienste übertragen. Wechselkurse: frankfurter.app (Deutschland).</p>
+
+      <h2>6. Speicherdauer</h2>
+      <p data-i18n="dse6">Formulardaten werden bei Formspree gespeichert und nach 30 Tagen automatisch gelöscht. Auf Anfrage können Daten jederzeit früher gelöscht werden.</p>
+
+      <h2>7. Eure Rechte (DSGVO Art. 15–22)</h2>
+      <ul>
+        <li data-i18n="dseR1">Recht auf Auskunft über gespeicherte Daten</li>
+        <li data-i18n="dseR2">Recht auf Berichtigung unrichtiger Daten</li>
+        <li data-i18n="dseR3">Recht auf Löschung ("Recht auf Vergessenwerden")</li>
+        <li data-i18n="dseR4">Recht auf Einschränkung der Verarbeitung</li>
+        <li data-i18n="dseR5">Recht auf Datenübertragbarkeit</li>
+        <li data-i18n="dseR6">Widerspruchsrecht gegen die Verarbeitung</li>
+      </ul>
+      <p style="margin-top:0.85rem" data-i18n="dseRights">Zur Ausübung eurer Rechte: info@kohchangbusiness.com — Beschwerden können bei der zuständigen Datenschutzbehörde eingereicht werden.</p>
+
+      <h2>8. Zweck & Non-Profit-Charakter</h2>
+      <p data-i18n="dse8">Daten werden ausschließlich zur Bearbeitung von Domain-Anfragen und zur Kommunikation mit Interessenten verwendet. Es findet keine Weitergabe an Dritte zu kommerziellen Zwecken statt. Dieses Projekt ist nicht gewerblich und nicht auf Gewinnerzielung ausgerichtet.</p>
+
+      <button class="btn btn-secondary btn-sm" onclick="closeLegal('datenschutz')" style="margin-top:1.5rem" data-i18n="legalClose">Schließen</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══ MODAL ══════════════════════════════════════════════ -->
+<div class="modal-overlay" id="modal" onclick="onOverlayClick(event)">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <div id="modal-content">
+      <p class="modal-eyebrow" id="m-eyebrow"></p>
+      <h3 class="modal-title" id="m-title"></h3>
+      <span class="modal-domain-display" id="m-domain"></span>
+      <div id="m-rent-disclaimer" class="rent-disclaimer" style="display:none"><span data-i18n="rentDisclaimer">* Nur Domain-Rechte. Kein Webspace enthalten.</span></div>
+      <form id="modal-form" onsubmit="submitModalForm(event)">
+        <input type="hidden" name="domain"         id="f-domain">
+        <input type="hidden" name="type"           id="f-type">
+        <input type="hidden" name="offer_currency" id="f-currency">
+        <input type="hidden" name="_subject"       id="f-subject">
+        <div class="form-row">
+          <div class="form-group"><label class="form-label" data-i18n="fName">Name *</label><input class="form-input" type="text" name="name" required data-i18n-ph="phName" placeholder="Ihr Name"></div>
+          <div class="form-group"><label class="form-label" data-i18n="fEmail">E-Mail *</label><input class="form-input" type="email" name="email" required data-i18n-ph="phEmail" placeholder="ihre@email.de"></div>
+        </div>
+        <div class="form-group"><label class="form-label" data-i18n="fPhone">Telefon</label><input class="form-input" type="tel" name="phone" data-i18n-ph="phPhone" placeholder="+49 ..."></div>
+        <div class="form-group" id="offer-field" style="display:none">
+          <label class="form-label" id="offer-label">Ihr Kaufangebot *</label>
+          <div class="offer-input-wrap">
+            <input class="form-input" type="number" name="offer" id="offer-input" min="1" step="1" placeholder="0" oninput="updateThbHint()">
+            <span class="offer-symbol" id="offer-symbol">€</span>
+          </div>
+          <div class="offer-thb-hint" id="offer-thb-hint"></div>
+        </div>
+        <div class="form-group"><label class="form-label" data-i18n="fMsg">Nachricht</label><textarea class="form-textarea" name="message" data-i18n-ph="phMsg" placeholder="Ihre Nachricht..." rows="3"></textarea></div>
+        <div class="consent-row" id="modal-consent-row">
+          <input type="checkbox" id="modal-consent" required>
+          <label for="modal-consent" class="consent-label" data-i18n="consentLabel">Ich habe die <a href="#" onclick="openLegal('datenschutz');return false">Datenschutzerklärung</a> gelesen und stimme der Verarbeitung meiner Daten zu. *</label>
+        </div>
+        <button type="submit" class="btn-submit" id="modal-submit"></button>
+        <div id="modal-err" class="form-msg-error" style="display:none"></div>
+      </form>
+    </div>
+    <div id="modal-ok" class="form-msg-success" style="display:none">
+      <div class="success-icon">✓</div>
+      <div class="success-title" data-i18n="okTitle">Gesendet!</div>
+      <p class="success-text" data-i18n="okText">Wir melden uns so bald wie möglich bei Ihnen.</p>
+      <br><button class="btn-ghost" onclick="closeModal()" style="border-color:var(--accent1);color:var(--accent1);min-height:var(--touch);padding:0 1.4rem;margin-top:0.75rem" data-i18n="mClose">Schließen</button>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ════════════════════════════════════════════════════════
+   I18N  (domains data kommt aus domains.js)
+════════════════════════════════════════════════════════ */
+const tr = {
+  de: {
+    navTagline:"Business Domains", navCta:"Domain sichern",
+    navDomains:"Domains", navPortals:"Marktplätze", navIdea:"Die Idee", navAbout:"Über uns", navContact:"Kontakt",
+    heroLabel:"Domains für Koh Chang · Lokal. Digital. Sichtbar.",
+    heroLine1:"Eure Domain.", heroLine2:"Eure Idee.",
+    heroSub:"Sichert euch die passende Domain für eure Idee — für ein besseres, digitaleres & sichtbareres Koh Chang.",
+    heroCta1:"Domains entdecken", heroCta2:"Kontakt aufnehmen",
+    stat1:"Verfügbare Domains", stat2:"Kategorien", stat3:"Transferzeit",
+    domEyebrow:"Marketplace", domTitle:"Verfügbare Domains",
+    domDesc:"Jede Domain ist zum Kauf oder zur jährlichen Miete verfügbar. Wählt euer bevorzugtes Modell direkt auf der Karte — klickt auf das Bild für Einsatzbeispiele.",
+    vSale:"Kauf", vRent:"Miete",
+    fAll:"Alle Kategorien", fBiz:"Business", fPlat:"Plattform / Community",
+    fRe:"Immobilien / Hotel / Resorts", fWell:"Wellness / Beauty / Health", fMkt:"Marketing",
+    resultsOf:"von", resultsDomains:"Domains",
+    bPremium:"PREMIUM",
+    cardBtnSale:"Angebot machen", cardBtnRent:"Miete anfragen",
+    cardLblSale:"Einmaliger Kaufpreis", cardLblRent:"Jahresmiete *",
+    cardToggleSale:"KAUF", cardToggleRent:"MIETE",
+    rentNote:"* Nur Domain-Rechte — kein Webspace oder E-Mail enthalten.",
+    rentDisclaimer:"* Die Miete umfasst ausschließlich die Nutzungsrechte an der Domain. Kein Webspace, keine E-Mail-Konten oder sonstige Hosting-Dienste sind enthalten.",
+    rateSource:"Quelle: frankfurter.app",
+    porEyebrow:"Auch verfügbar auf", porTitle:"Gelistet auf führenden Marktplätzen",
+    porDesc:"Unsere Domains sind zusätzlich auf folgenden Plattformen gelistet.",
+    porPlaceholder:"Name folgt", porSub1:"Internationaler Domain-Marktplatz mit globaler Reichweite.",
+    porSub2:"Spezialisierter Marktplatz für Premium-Domains in Asien.", porCta:"Zum Portal",
+    aboutEyebrow:"Über uns", aboutTitle:"Euer Partner für digitale Präsenz auf Koh Chang",
+    aboutP1:"KohChang Business Domains ist euer Anlaufpunkt für hochwertige Domain-Namen mit direktem Bezug zu Koh Chang und der Region Trat in Thailand.",
+    aboutP2:"Ob Kauf oder Miete — wir bieten flexible Lösungen für alle, die auf Koh Chang eine authentische digitale Identität aufbauen wollen.",
+    t1h:"Sichere Übertragung",    t1p:"Alle Domain-Transfers werden über akkreditierte Registrare abgewickelt.",
+    t2h:"Schnelle Abwicklung",    t2p:"Von der Anfrage bis zur Übergabe — in der Regel innerhalb von 48 Stunden.",
+    t3h:"Mehrsprachig",           t3p:"Ich antworte auf Deutsch, Englisch und — mit etwas Geduld — auch auf Thai.",
+    t4h:"25% für Koh Chang",      t4p:"Mindestens 25% jedes Erlöses spende ich direkt an lokale Non-Profits auf der Insel.",
+    ctEyebrow:"Kontakt", ctTitle:"Schreibt mir — über eure Domain, euer Business, eure Idee.",
+    ctDesc:"Ob ihr eine Domain sucht, euer Business auf Koh Chang digital aufstellen wollt oder gerade erst plant — schreibt mir. Lokale Business Owner, Webdesigner, Kreative & Entrepreneure auf der Insel: ich freue mich auf den Austausch. Wie stärken wir gemeinsam Koh Chang lokal — digital & sichtbar?",
+    ctLocation:"Koh Chang, Trat, Thailand",
+    fName:"Name *", fEmail:"E-Mail *", fPhone:"Telefon", fMsg:"Nachricht",
+    fOffer:"Euer Kaufangebot *", phName:"Euer Name", phEmail:"eure@email.de",
+    phPhone:"+49 ...", phMsg:"Eure Nachricht, Idee oder einfach Hallo…", phOffer:"Betrag in €",
+    fSend:"Nachricht senden", okTitle:"Gesendet!", okText:"Ich melde mich so bald wie möglich.",
+    errText:"Fehler beim Senden. Bitte erneut versuchen.",
+    mEyebrowSale:"Kaufangebot", mEyebrowRent:"Mietanfrage",
+    mTitleSale:"Angebot unterbreiten", mTitleRent:"Miete anfragen",
+    mSubmitSale:"Angebot absenden", mSubmitRent:"Anfrage absenden", mClose:"Schließen",
+    footTagline:"Domains für euch. Lokales Business fördern. Non-Profits stärken.",
+    footDonate:"der Erlöse für Non-Profits auf Koh Chang",
+    footCopy:"© 2025 KohChang Business Domains. Alle Rechte vorbehalten.",
+    footImprint:"Impressum", footPrivacy:"Datenschutz", footContact:"Kontakt",
+    priceLoading:"Kurs wird geladen…",
+    /* Preise */
+    cardPriceOnRequest:"Auf Anfrage", cardPriceRange:"Typisch: 250 – 5.000 €",
+    cardLblSale:"Kaufpreis auf Anfrage", cardLblRent:"Jahresmiete auf Anfrage",
+    cardBtnSale:"Angebot unterbreiten", cardBtnRent:"Miete anfragen",
+    rentNote:"* Nur Domain-Rechte — kein Webspace oder E-Mail enthalten.",
+    /* Über mich */
+    navAbout:"Über mich", aboutTitle:"Über mich",
+    aboutEyebrow:"Über mich",
+    aboutP1:"Hallo Zusammen, mein Name ist Tobi, ich besuche Koh Chang seit 2013 — anfangs als Backpacker mit Rucksack und ohne großen Plan, heute um abzuschalten und dem Alltag zu entkommen. Die Art zu reisen hat sich verändert. Die Liebe zur Insel nicht.",
+    aboutP2:"KohChang Domains ist meine Idee. Ich stehe alleine dahinter. Mein Ansinnen war es, eine Plattform zu schaffen, auf der lokale Unternehmen und alle, die auf Koh Chang etwas aufbauen wollen, die richtigen digitalen Adressen finden — bevor es große, rein kommerziell orientierte Unternehmen tun.",
+    aboutP3:"Mir ist dabei eins wichtig: Dieses Projekt ist kein Gewerbe. Ich agiere bewusst nicht gewinnorientiert. Mindestens 25% jedes Erlöses gehen direkt zurück an die Insel — an den lokalen Rescue-Dienst, der ehrenamtlich täglich Leben rettet, und an Projekte für das Tierwohl auf Koh Chang. Nicht weil ich muss, sondern weil mir Koh Chang etwas bedeutet.",
+    t1h:"Direkter Kontakt zu mir", t1p:"Ihr erreicht mich persönlich — keine Agentur, kein Callcenter. Ich antworte selbst.",
+    t2h:"Schnelle Abwicklung",    t2p:"Von der ersten Nachricht bis zur Domain-Übergabe — ich halte die Wege kurz.",
+    t3h:"Mehrsprachig",           t3p:"Ich antworte auf Deutsch, Englisch und — mit etwas Geduld — auch auf Thai.",
+    t4h:"Mindestens 25% für Koh Chang", t4p:"Ein fester Anteil jedes Erlöses geht direkt an lokale Non-Profits auf der Insel.",
+    /* Spenden */
+    navSpenden:"Spenden",
+    spenEyebrow:"Transparenz & Spenden", spenTitle:"Was mit den Erlösen passiert",
+    spenDesc:"Ich agiere bewusst nicht gewinnorientiert. Mindestens 25% jedes Erlöses gehen direkt an lokale Non-Profit-Organisationen auf Koh Chang. Die verbleibenden Mittel decken nachgewiesene Betriebskosten — Domain-Registrierungen, Hosting und Website.",
+    spenNoteTitle:"⚠ Rechtlicher Hinweis:",
+    spenNoteText:" Ich betreibe diese Website als Privatperson und Hobby-Projekt — kein Gewerbe, kein eingetragener gemeinnütziger Verein. Domainpreise werden individuell vereinbart (typisch: 250 – 5.000 €). Mindestens 25% jeder Transaktion spende ich an lokale Organisationen auf Koh Chang.",
+    spenRoundLabel:"Domains bis zur nächsten Spende",
+    spenTotalDonated:"Gesamt gespendet",
+    spenTotalTrans:"Domains verkauft / vermietet",
+    spenTransTitle:"Aktuelle Transaktionen",
+    spenColDate:"Datum", spenColDomain:"Domain", spenColType:"Art",
+    spenColAmount:"Erlös", spenColDonation:"Spende (25%+)",
+    spenTransEmpty:"Noch keine Transaktionen — alle Domains sind verfügbar.",
+    spenHistTitle:"Gespendete Beträge",
+    spenHistDesc:"Nach je 5 Transaktionen werden Spendengelder an lokale Organisationen übergeben.",
+    spenTypeSale:"Verkauf", spenTypeRent:"Miete",
+    spenTargetsTitle:"Meine Spendenziele",
+    spenTargetsDesc:"Diese Organisationen unterstütze ich mit den Erlösen aus dem Domainverkauf.",
+    spenTargetsReceived:"Gesamt erhalten",
+    spenTargetsNoLink:"Kein Weblink hinterlegt",
+    /* GDPR */
+    cookieText:"Diese Website verwendet keine Tracking-Cookies. Kontaktformulare werden über Formspree (DSGVO-konform) verarbeitet.",
+    cookieInfo:"Mehr erfahren", cookieAccept:"Verstanden",
+    consentLabel:"Ich habe die Datenschutzerklärung gelesen und stimme der Verarbeitung meiner Daten zur Bearbeitung meiner Anfrage zu. *",
+    /* Legal */
+    impressumWarning:"⚠ Pflichtangaben gemäß § 5 TMG — bitte vollständig ausfüllen bevor die Website live geht.",
+    impressumTitle:"Impressum", impressumSub:"Angaben gemäß § 5 TMG / § 55 Abs. 2 RStV",
+    impressumOperator:"Betreiber", impressumContact:"Kontakt",
+    impressumHint:"Hinweis zum Projektcharakter",
+    impressumHintText:"Diese Website wird von einer Privatperson als nicht-gewerbliches Hobby-Projekt betrieben. Kein Gewerbe, kein eingetragener Verein. Mindestens 25% der Erlöse werden freiwillig an gemeinnützige Organisationen auf Koh Chang gespendet.",
+    impressumDisclaimerTitle:"Haftungsausschluss",
+    impressumDisclaimerText:"Preise für Domains werden individuell auf Anfrage vereinbart. Typische Marktpreise liegen zwischen 250 und 5.000 €. Keine Haftung für externe Links.",
+    dseTitle:"Datenschutzerklärung", dseSub:"Gemäß DSGVO (EU) 2016/679",
+    dse1:"[VORNAME NACHNAME], [ADRESSE] — Kontakt: info@kohchangbusiness.com",
+    dse2:"Kontaktformulare erheben Name, E-Mail, Telefon (optional) und Nachricht — ausschließlich zur Bearbeitung eurer Anfrage.",
+    dse3:"Formulardaten werden über Formspree, Inc. (USA) verarbeitet. Formspree ist EU-US Data Privacy Framework zertifiziert.",
+    dse4:"Keine Tracking-Cookies, keine Analytics. Wechselkurse werden anonym via frankfurter.app abgerufen.",
+    dse5:"Hintergrundbilder: Unsplash (USA). Schriften: Google Fonts (USA). Dabei werden IP-Adressen übertragen.",
+    dse6:"Formulardaten werden bei Formspree max. 30 Tage gespeichert und auf Anfrage sofort gelöscht.",
+    dse8:"Daten werden ausschließlich für Domain-Anfragen verwendet. Keine Weitergabe zu kommerziellen Zwecken.",
+    dseR1:"Recht auf Auskunft", dseR2:"Recht auf Berichtigung",
+    dseR3:"Recht auf Löschung", dseR4:"Recht auf Einschränkung",
+    dseR5:"Recht auf Datenübertragbarkeit", dseR6:"Widerspruchsrecht",
+    dseRights:"Anfragen: info@kohchangbusiness.com",
+    legalClose:"Schließen",
+    heroQuote:"Sichert euch die passende Domain für eure Idee — für ein besseres, digitaleres & sichtbareres Koh Chang.",
+    ideaEyebrow:"Die Idee", ideaTitle:"Wie alles begann",
+    ideaStatement:"Domains für euch — für alle, die auf Koh Chang etwas aufbauen wollen. Mein Ziel: digitale Sichtbarkeit fördern, lokales Business stärken und mit dem Erlös dort Gutes tun, wo es wirklich ankommt. Mindestens 25% jeder Transaktion spende ich direkt zurück an die Insel. Gleichgesinnte sind herzlich willkommen.",
+    ideaP1:"Ich besuche Koh Chang seit 2013 — anfangs als Backpacker, heute um abzuschalten. Was sich verändert hat: die Art zu reisen. Was geblieben ist: die Leidenschaft für diese Insel und ihre Menschen.",
+    ideaP2:"Ich habe die Domains auf dieser Plattform bewusst gesichert — nicht primär um sie zu verkaufen, sondern um sie vor großen, rein kommerziell orientierten Unternehmen zu schützen. Koh Chang verdient eine digitale Identität, die zur Insel passt.",
+    ideaP3:"KohChang Domains ist mein Hobby-Projekt — ich, Tobi, stehe alleine dahinter. Mein Ziel: lokale Unternehmen mit den richtigen Web-Adressen ausstatten, damit ihr online sichtbar werdet. Und mindestens 25% jedes Erlöses gehen zurück an die Insel — weil mir Koh Chang am Herzen liegt.",
+    ideaBadgeText:"der Erlöse fließen direkt in Non-Profits auf Koh Chang zurück — darunter der ehrenamtliche Rescue-Dienst und Projekte für das Tierwohl auf der Insel.",
+    ideaContactTitle:"Mitmachen?",
+    ideaContactText:"Media-Agenturen, Business Owner, lokale Profis oder einfach Fans der Insel — ich freue mich über jede Nachricht. Lasst uns gemeinsam etwas für Koh Chang tun.",
+    ideaContactCta:"KONTAKT AUFNEHMEN →"
+  },
+  en: {
+    navTagline:"Business Domains", navCta:"Send Inquiry",
+    navDomains:"Domains", navPortals:"Marketplaces", navIdea:"The Idea", navAbout:"About", navContact:"Contact",
+    heroLabel:"Exclusive Domain Listings · Koh Chang, Thailand",
+    heroLine1:"Premium Domains.", heroLine2:"Available Now.",
+    heroSub:"Secure your digital identity on Koh Chang — for tourism, real estate, gastronomy and more.",
+    heroCta1:"Explore Domains", heroCta2:"Get in Touch",
+    stat1:"Available Domains", stat2:"Categories", stat3:"Transfer Time",
+    domEyebrow:"Marketplace", domTitle:"Available Domains",
+    domDesc:"Every domain is available for purchase or annual rental. Click the image for use case examples.",
+    vSale:"Buy", vRent:"Rent",
+    fAll:"All Categories", fBiz:"Business", fPlat:"Platform / Community",
+    fRe:"Real Estate / Hotel / Resorts", fWell:"Wellness / Beauty / Health", fMkt:"Marketing",
+    resultsOf:"of", resultsDomains:"Domains",
+    bPremium:"PREMIUM",
+    cardBtnSale:"Make an Offer", cardBtnRent:"Enquire Rental",
+    cardLblSale:"One-time purchase price", cardLblRent:"Annual rental fee *",
+    cardToggleSale:"BUY", cardToggleRent:"RENT",
+    rentNote:"* Domain rights only — no webspace or email included.",
+    rentDisclaimer:"* The rental covers domain usage rights only. No webspace, email accounts or hosting services are included.",
+    rateSource:"Source: frankfurter.app",
+    porEyebrow:"Also available on", porTitle:"Listed on Leading Marketplaces",
+    porDesc:"Our domains are additionally listed on the following platforms.",
+    porPlaceholder:"Name pending", porSub1:"International domain marketplace with global reach.",
+    porSub2:"Specialised marketplace for premium domains in Asia.", porCta:"Visit Portal",
+    aboutEyebrow:"About Us", aboutTitle:"Your Partner for Digital Presence on Koh Chang",
+    aboutP1:"KohChang Business Domains is your specialised provider of premium domain names for Koh Chang island and the Trat region of Thailand.",
+    aboutP2:"KohChang Domains is my idea — I'm the only person behind it. My goal was to build a platform where local businesses and those who want to become one can find the right digital addresses before large, purely commercial companies do.",
+    t1h:"Direct contact with me",  t1p:"You reach me personally — no agency, no call centre. I reply myself.",
+    t2h:"Fast processing",         t2p:"From your first message to domain handover — I keep things simple and quick.",
+    t3h:"Multilingual",            t3p:"I reply in German, English and — with a little patience — Thai.",
+    t4h:"25% back to Koh Chang",   t4p:"At least 25% of every transaction goes directly to local non-profits on the island.",
+    ctEyebrow:"Contact", ctTitle:"Write to me — about your domain, your business, your idea.",
+    ctDesc:"Looking for a domain, want to build your digital presence on Koh Chang, or just starting to plan? Write to me. Local business owners, web designers, creatives and entrepreneurs on the island — I look forward to hearing from you. How do we strengthen Koh Chang together — locally, digitally, visibly?",
+    ctLocation:"Koh Chang, Trat, Thailand",
+    fName:"Name *", fEmail:"Email *", fPhone:"Phone", fMsg:"Message",
+    fOffer:"Your Offer *", phName:"Your name", phEmail:"your@email.com",
+    phPhone:"+1 ...", phMsg:"Your message...", phOffer:"Amount in €",
+    fSend:"Send Message", okTitle:"Sent!", okText:"I'll get back to you as soon as possible.",
+    errText:"Failed to send. Please try again.",
+    mEyebrowSale:"Purchase Offer", mEyebrowRent:"Rental Inquiry",
+    mTitleSale:"Make an Offer", mTitleRent:"Enquire about Rental",
+    mSubmitSale:"Submit Offer", mSubmitRent:"Send Inquiry", mClose:"Close",
+    footTagline:"Supporting local business. Empowering non-profits. Putting Koh Chang on the map.",
+    footDonate:"of proceeds go to non-profits on Koh Chang",
+    footCopy:"© 2025 KohChang Business Domains. All rights reserved.",
+    footImprint:"Legal Notice", footPrivacy:"Privacy Policy", footContact:"Contact",
+    priceLoading:"Loading rate…",
+    cardPriceOnRequest:"On Request", cardPriceRange:"Typical: €250 – €5,000",
+    cardLblSale:"Purchase price on request", cardLblRent:"Annual rental on request",
+    cardBtnSale:"Make an Offer", cardBtnRent:"Enquire Rental",
+    rentNote:"* Domain rights only — no webspace or email included.",
+    navAbout:"About Me", aboutTitle:"About Me", aboutEyebrow:"About Me",
+    aboutP1:"Hi everyone, my name is Tobi, I've been coming to Koh Chang since 2013 — first as a backpacker with no real plan, these days to slow down and recharge. The way I travel has changed. The love for the island hasn't.",
+    aboutP2:"KohChang Domains is my idea. I'm the only person behind it. My goal was to build a platform where local businesses — and those who want to become one — can find the right digital addresses before large, purely commercial companies do.",
+    aboutP3:"Something that matters deeply to me: this project is not a business. I operate deliberately without a profit motive. At least 25% of every transaction I donate directly back to the island — to the local Rescue Service that saves lives every day on a voluntary basis, and to projects supporting animal welfare on Koh Chang. Not because I have to. Because Koh Chang means something to me.",
+    t1h:"Direct contact with me",  t1p:"You reach me personally — no agency, no call centre. I reply myself.",
+    t2h:"Fast processing",         t2p:"From your first message to domain handover — I keep things simple and quick.",
+    t3h:"Multilingual",            t3p:"I reply in German, English and — with a little patience — Thai.",
+    t4h:"25% back to Koh Chang",   t4p:"At least 25% of every transaction goes directly to local non-profits on the island.",
+    navSpenden:"Donate",
+    spenEyebrow:"Transparency & Donations", spenTitle:"Where the proceeds go",
+    spenDesc:"I operate without a profit motive. At least 25% of every transaction I donate directly to non-profit organisations on Koh Chang. The rest covers documented operating costs — domain registrations, hosting and website.",
+    spenNoteTitle:"⚠ Legal notice:",
+    spenNoteText:" I run this website as a private individual and hobby project — not a registered business or charity. Domain prices are agreed individually on request (typical: €250 – €5,000). I donate at least 25% of each transaction to local organisations on Koh Chang.",
+    spenRoundLabel:"Domains until next donation",
+    spenTotalDonated:"Total donated",
+    spenTotalTrans:"Domains sold / rented",
+    spenTransTitle:"Recent Transactions",
+    spenColDate:"Date", spenColDomain:"Domain", spenColType:"Type",
+    spenColAmount:"Amount", spenColDonation:"Donation (25%+)",
+    spenTransEmpty:"No transactions yet — all domains are available.",
+    spenHistTitle:"Donation History",
+    spenHistDesc:"After every 5 transactions, donations are passed on to local organisations.",
+    spenTypeSale:"Sale", spenTypeRent:"Rental",
+    spenTargetsTitle:"My Donation Goals",
+    spenTargetsDesc:"These are the organisations I support with proceeds from domain sales.",
+    spenTargetsReceived:"Total received",
+    spenTargetsNoLink:"No website listed",
+    cookieText:"This website uses no tracking cookies. Contact forms are processed via Formspree (GDPR-compliant).",
+    cookieInfo:"Learn more", cookieAccept:"Got it",
+    consentLabel:"I have read the Privacy Policy and agree to the processing of my data to handle my enquiry. *",
+    impressumWarning:"⚠ Required by §5 TMG — fill in real data before going live.",
+    impressumTitle:"Legal Notice", impressumSub:"According to § 5 TMG / § 55 RStV",
+    impressumOperator:"Operator", impressumContact:"Contact",
+    impressumHint:"Project nature",
+    impressumHintText:"This website is operated by a private individual as a non-commercial hobby project. Not a registered business or non-profit. At least 25% of proceeds are voluntarily donated to non-profit organisations on Koh Chang.",
+    impressumDisclaimerTitle:"Disclaimer",
+    impressumDisclaimerText:"Domain prices are agreed individually on request. Typical market prices range from €250 to €5,000. No liability for external links.",
+    dseTitle:"Privacy Policy", dseSub:"According to GDPR (EU) 2016/679",
+    dse1:"[FIRST LAST NAME], [ADDRESS] — Contact: info@kohchangbusiness.com",
+    dse2:"Contact forms collect name, email, phone (optional) and message — solely to handle your enquiry.",
+    dse3:"Form data is processed via Formspree, Inc. (USA). Formspree is EU-US Data Privacy Framework certified.",
+    dse4:"No tracking cookies, no analytics. Exchange rates are fetched anonymously via frankfurter.app.",
+    dse5:"Background images: Unsplash (USA). Fonts: Google Fonts (USA). Your IP address is transmitted to these services.",
+    dse6:"Form data is stored at Formspree for max. 30 days and deleted on request.",
+    dse8:"Data is used solely for domain enquiries. No sharing for commercial purposes.",
+    dseR1:"Right of access", dseR2:"Right to rectification",
+    dseR3:"Right to erasure", dseR4:"Right to restriction",
+    dseR5:"Right to data portability", dseR6:"Right to object",
+    dseRights:"Contact: info@kohchangbusiness.com",
+    legalClose:"Close",
+    heroQuote:"The right domains for Koh Chang's local businesses — and those who want to become one.",
+    ideaEyebrow:"The Idea", ideaTitle:"How It All Started",
+    ideaStatement:"Domains for you — for everyone who wants to build something on Koh Chang. My goal: build digital visibility, support local business and do something good with the proceeds — where it counts. At least 25% of every transaction I donate directly back to the island. Like-minded people are very welcome.",
+    ideaP1:"I've been coming to Koh Chang since 2013 — first as a backpacker, these days to slow down. What's changed: the way I travel. What hasn't: the passion for this island and its people.",
+    ideaP2:"I secured the domains on this platform deliberately — not primarily to sell them, but to protect them from large, purely commercial companies. Koh Chang deserves a digital identity that reflects the island.",
+    ideaP3:"KohChang Domains is my hobby project — I'm Tobi, and I'm the only person behind it. My goal: give local businesses the right web addresses so you can be found online. And at least 25% of every transaction goes back to the island — because Koh Chang matters to me.",
+    ideaBadgeText:"of all proceeds go directly back to non-profits on Koh Chang — including the volunteer Rescue Service and projects supporting animal welfare on the island.",
+    ideaContactTitle:"Want to get involved?",
+    ideaContactText:"Media agencies, business owners, local professionals or simply fans of the island — get in touch. Together we can put Koh Chang on the digital map.",
+    ideaContactCta:"GET IN TOUCH →"
+  },
+  th: {
+    navTagline:"โดเมนธุรกิจ", navCta:"ส่งคำขอ",
+    navDomains:"โดเมน", navPortals:"ตลาด", navIdea:"แนวคิด", navAbout:"เกี่ยวกับเรา", navContact:"ติดต่อ",
+    heroLabel:"โดเมนพรีเมียมสุดพิเศษ · เกาะช้าง, ประเทศไทย",
+    heroLine1:"โดเมนพรีเมียม", heroLine2:"พร้อมให้บริการแล้ว",
+    heroSub:"รักษาอัตลักษณ์ดิจิทัลของคุณบนเกาะช้าง — สำหรับการท่องเที่ยว อสังหาริมทรัพย์ ร้านอาหาร และอื่นๆ",
+    heroCta1:"สำรวจโดเมน", heroCta2:"ติดต่อเรา",
+    stat1:"โดเมนที่มีอยู่", stat2:"หมวดหมู่", stat3:"เวลาโอน",
+    domEyebrow:"ตลาดซื้อขาย", domTitle:"โดเมนที่มีจำหน่าย",
+    domDesc:"ทุกโดเมนพร้อมให้ซื้อหรือเช่ารายปี คลิกที่รูปภาพเพื่อดูตัวอย่างการใช้งาน",
+    vSale:"ซื้อ", vRent:"เช่า",
+    fAll:"ทุกหมวดหมู่", fBiz:"ธุรกิจ", fPlat:"แพลตฟอร์ม / ชุมชน",
+    fRe:"อสังหาริมทรัพย์ / โรงแรม", fWell:"สุขภาพ / ความงาม", fMkt:"การตลาด",
+    resultsOf:"จาก", resultsDomains:"โดเมน",
+    bPremium:"พรีเมียม",
+    cardBtnSale:"ยื่นข้อเสนอ", cardBtnRent:"สอบถามการเช่า",
+    cardLblSale:"ราคาซื้อขาด", cardLblRent:"ค่าเช่ารายปี *",
+    cardToggleSale:"ซื้อ", cardToggleRent:"เช่า",
+    rentNote:"* สิทธิ์โดเมนเท่านั้น — ไม่รวมพื้นที่เว็บหรืออีเมล",
+    rentDisclaimer:"* การเช่าครอบคลุมเฉพาะสิทธิ์การใช้งานโดเมนเท่านั้น ไม่รวมพื้นที่เว็บหรือบริการโฮสติ้ง",
+    rateSource:"ที่มา: frankfurter.app",
+    porEyebrow:"ยังพร้อมบน", porTitle:"ลงทะเบียนบนตลาดชั้นนำ",
+    porDesc:"โดเมนของเราลงทะเบียนเพิ่มเติมบนแพลตฟอร์มต่อไปนี้",
+    porPlaceholder:"ชื่อเร็วๆ นี้", porSub1:"ตลาดโดเมนนานาชาติที่มีการเข้าถึงทั่วโลก",
+    porSub2:"ตลาดเฉพาะทางสำหรับโดเมนพรีเมียมในเอเชีย", porCta:"ไปยังพอร์ทัล",
+    aboutEyebrow:"เกี่ยวกับเรา", aboutTitle:"พาร์ทเนอร์ของคุณสำหรับการมีตัวตนดิจิทัลบนเกาะช้าง",
+    aboutP1:"KohChang Business Domains คือผู้ให้บริการโดเมนเนมคุณภาพสูงที่เชี่ยวชาญด้านเกาะช้างและจังหวัดตราด",
+    aboutP2:"ไม่ว่าจะซื้อหรือเช่า — เราเสนอโซลูชันที่ยืดหยุ่นสำหรับผู้ประกอบการและนักลงทุน",
+    t1h:"การโอนที่ปลอดภัย",    t1p:"การโอนโดเมนทั้งหมดดำเนินการผ่านผู้รับจดทะเบียนที่ได้รับการรับรอง",
+    t2h:"การดำเนินการรวดเร็ว", t2p:"จากการสอบถามจนถึงการส่งมอบ — โดยทั่วไปภายใน 48 ชั่วโมง",
+    t3h:"การสนับสนุนหลายภาษา",t3p:"เราให้บริการคุณเป็นภาษาเยอรมัน อังกฤษ และไทย",
+    t4h:"เงื่อนไขยืดหยุ่น",     t4p:"ซื้อหรือเช่า — รูปแบบสัญญาเฉพาะบุคคลพร้อมตามคำขอ",
+    ctEyebrow:"ติดต่อ", ctTitle:"มาคุยกัน — เรื่องโดเมน ธุรกิจ หรือไอเดียของคุณ",
+    ctDesc:"ไม่ว่าจะหาโดเมน อยากสร้างตัวตนออนไลน์บนเกาะช้าง หรือยังอยู่ในขั้นวางแผน — ติดต่อมาได้เลย ยินดีต้อนรับเจ้าของธุรกิจท้องถิ่นทั้งปัจจุบันและอนาคต นักออกแบบเว็บ นักสร้างสรรค์ และผู้ประกอบการที่ทำงานบนเกาะ เราจะทำให้เกาะช้างเข้มแข็งร่วมกันได้อย่างไร — ในแบบท้องถิ่น ดิจิทัล และมองเห็นได้?",
+    ctLocation:"เกาะช้าง, ตราด, ประเทศไทย",
+    fName:"ชื่อ *", fEmail:"อีเมล *", fPhone:"โทรศัพท์", fMsg:"ข้อความ",
+    fOffer:"ข้อเสนอซื้อของคุณ *", phName:"ชื่อของคุณ", phEmail:"email@example.com",
+    phPhone:"+66 ...", phMsg:"ข้อความของคุณ...", phOffer:"จำนวนเงิน",
+    fSend:"ส่งข้อความ", okTitle:"ส่งแล้ว!", okText:"เราจะติดต่อกลับโดยเร็วที่สุด",
+    errText:"การส่งล้มเหลว โปรดลองอีกครั้ง",
+    mEyebrowSale:"ข้อเสนอซื้อ", mEyebrowRent:"สอบถามการเช่า",
+    mTitleSale:"ยื่นข้อเสนอ", mTitleRent:"สอบถามการเช่า",
+    mSubmitSale:"ส่งข้อเสนอ", mSubmitRent:"ส่งคำขอ", mClose:"ปิด",
+    footTagline:"ส่งเสริมธุรกิจท้องถิ่น สนับสนุนองค์กรไม่แสวงกำไร ทำให้เกาะช้างมองเห็นได้",
+    footDonate:"ของรายได้สำหรับองค์กรไม่แสวงกำไรบนเกาะช้าง",
+    footCopy:"© 2025 KohChang Business Domains. สงวนลิขสิทธิ์ทั้งหมด",
+    footImprint:"ข้อมูลทางกฎหมาย", footPrivacy:"นโยบายความเป็นส่วนตัว", footContact:"ติดต่อ",
+    priceLoading:"กำลังโหลดอัตรา…",
+    cardPriceOnRequest:"สอบถามราคา", cardPriceRange:"ทั่วไป: 250 – 5,000 €",
+    cardLblSale:"ราคาซื้อตามข้อตกลง", cardLblRent:"ค่าเช่าตามข้อตกลง",
+    cardBtnSale:"ยื่นข้อเสนอ", cardBtnRent:"สอบถามการเช่า",
+    rentNote:"* สิทธิ์โดเมนเท่านั้น ไม่รวมพื้นที่เว็บหรืออีเมล",
+    navAbout:"เกี่ยวกับฉัน", aboutTitle:"เกี่ยวกับฉัน", aboutEyebrow:"เกี่ยวกับฉัน",
+    aboutP1:"สวัสดีทุกคน ผมชื่อโทบี้ ผมมาเยือนเกาะช้างตั้งแต่ปี 2013 — แรกเริ่มมาพร้อมเป้สะพายหลัง วันนี้มาเพื่อพักผ่อนและชาร์จพลัง วิธีการเดินทางเปลี่ยนไป แต่ความรักต่อเกาะแห่งนี้ไม่เคยเปลี่ยน",
+    aboutP2:"KohChang Domains คือไอเดียของฉัน ฉันเป็นคนเดียวที่อยู่เบื้องหลัง เป้าหมายของฉันคือสร้างแพลตฟอร์มที่ธุรกิจท้องถิ่นและผู้ที่อยากเริ่มธุรกิจบนเกาะช้างสามารถหาที่อยู่เว็บที่เหมาะสมได้",
+    aboutP3:"สิ่งสำคัญสำหรับฉัน: โปรเจกต์นี้ไม่ใช่ธุรกิจ ฉันดำเนินการโดยไม่มุ่งหากำไร อย่างน้อย 25% ของทุกธุรกรรมฉันบริจาคตรงกลับสู่เกาะ ให้หน่วยกู้ภัยอาสาสมัครและโครงการสวัสดิภาพสัตว์ ไม่ใช่เพราะต้องทำ แต่เพราะเกาะช้างมีความหมายสำหรับฉัน",
+    t1h:"ติดต่อฉันโดยตรง",    t1p:"คุณติดต่อฉันได้โดยตรง ไม่ผ่านเอเจนซี่ ฉันตอบเอง",
+    t2h:"ดำเนินการรวดเร็ว",   t2p:"จากข้อความแรกถึงการโอนโดเมน — ฉันทำให้กระบวนการง่ายและรวดเร็ว",
+    t3h:"หลายภาษา",           t3p:"ฉันตอบเป็นภาษาเยอรมัน อังกฤษ และไทย",
+    t4h:"25% คืนสู่เกาะช้าง", t4p:"อย่างน้อย 25% ของทุกธุรกรรมไปสู่องค์กรไม่แสวงกำไรท้องถิ่นบนเกาะโดยตรง",
+    navSpenden:"บริจาค",
+    spenEyebrow:"ความโปร่งใส & การบริจาค", spenTitle:"รายได้ไปไหน",
+    spenDesc:"โปรเจกต์นี้ไม่ได้มุ่งหากำไร อย่างน้อย 25% ของรายได้ทั้งหมดส่งตรงไปยังองค์กรไม่แสวงกำไรบนเกาะช้าง ส่วนที่เหลือครอบคลุมค่าใช้จ่ายในการดำเนินงานเท่านั้น",
+    spenNoteTitle:"⚠ หมายเหตุสำคัญ:",
+    spenNoteText:" เว็บไซต์นี้ดำเนินการโดยบุคคลธรรมดาในฐานะงานอดิเรก ไม่ใช่ธุรกิจหรือองค์กรไม่แสวงกำไรที่จดทะเบียน ราคาโดเมนตกลงกันเป็นรายกรณี ราคาตลาดทั่วไปอยู่ระหว่าง 250 ถึง 5,000 ยูโร",
+    spenRoundLabel:"โดเมนจนถึงการบริจาคครั้งถัดไป",
+    spenTotalDonated:"บริจาครวมทั้งหมด",
+    spenTotalTrans:"โดเมนที่ขาย / เช่า",
+    spenTransTitle:"ธุรกรรมล่าสุด",
+    spenColDate:"วันที่", spenColDomain:"โดเมน", spenColType:"ประเภท",
+    spenColAmount:"รายได้", spenColDonation:"บริจาค (25%+)",
+    spenTransEmpty:"ยังไม่มีธุรกรรม — โดเมนทั้งหมดยังพร้อมให้บริการ",
+    spenHistTitle:"ประวัติการบริจาค",
+    spenHistDesc:"หลังจากทุก 5 ธุรกรรม เงินบริจาคจะถูกส่งให้องค์กรท้องถิ่น",
+    spenTypeSale:"ขาย", spenTypeRent:"เช่า",
+    spenTargetsTitle:"เป้าหมายการบริจาคของฉัน",
+    spenTargetsDesc:"นี่คือองค์กรที่ฉันสนับสนุนด้วยรายได้จากการขายโดเมน",
+    spenTargetsReceived:"ได้รับรวมทั้งหมด",
+    spenTargetsNoLink:"ไม่มีเว็บไซต์",
+    cookieText:"เว็บไซต์นี้ไม่ใช้คุกกี้ติดตาม แบบฟอร์มติดต่อดำเนินการผ่าน Formspree (สอดคล้อง GDPR)",
+    cookieInfo:"เรียนรู้เพิ่มเติม", cookieAccept:"เข้าใจแล้ว",
+    consentLabel:"ฉันได้อ่านนโยบายความเป็นส่วนตัวและยินยอมให้ประมวลผลข้อมูลเพื่อจัดการคำถามของฉัน *",
+    impressumWarning:"⚠ ข้อมูลที่จำเป็น — กรอกข้อมูลจริงก่อนเผยแพร่",
+    impressumTitle:"ข้อมูลทางกฎหมาย", impressumSub:"ตาม § 5 TMG",
+    impressumOperator:"ผู้ดำเนินการ", impressumContact:"ติดต่อ",
+    impressumHint:"ลักษณะของโปรเจกต์",
+    impressumHintText:"เว็บไซต์นี้ดำเนินการโดยบุคคลธรรมดาเป็นงานอดิเรก ไม่ใช่ธุรกิจหรือองค์กรไม่แสวงกำไร อย่างน้อย 25% ของรายได้บริจาคให้องค์กรบนเกาะช้าง",
+    impressumDisclaimerTitle:"ข้อจำกัดความรับผิดชอบ",
+    impressumDisclaimerText:"ราคาโดเมนตกลงกันเป็นรายกรณีตามคำขอ ราคาตลาดทั่วไป 250 – 5,000 ยูโร",
+    dseTitle:"นโยบายความเป็นส่วนตัว", dseSub:"ตาม GDPR (EU) 2016/679",
+    dse1:"[ชื่อ-นามสกุล], [ที่อยู่] — ติดต่อ: info@kohchangbusiness.com",
+    dse2:"แบบฟอร์มติดต่อเก็บชื่อ อีเมล โทรศัพท์ (ไม่บังคับ) และข้อความ เพื่อจัดการคำถามของคุณเท่านั้น",
+    dse3:"ข้อมูลแบบฟอร์มประมวลผลผ่าน Formspree, Inc. (สหรัฐ) ที่สอดคล้อง GDPR",
+    dse4:"ไม่มีคุกกี้ติดตาม ไม่มี Analytics อัตราแลกเปลี่ยนดึงแบบไม่ระบุตัวตนผ่าน frankfurter.app",
+    dse5:"ภาพพื้นหลัง: Unsplash (สหรัฐ) แบบอักษร: Google Fonts (สหรัฐ) IP ของคุณจะถูกส่งไปยังบริการเหล่านี้",
+    dse6:"ข้อมูลแบบฟอร์มเก็บที่ Formspree สูงสุด 30 วัน และลบได้ตามคำขอ",
+    dse8:"ข้อมูลใช้สำหรับคำถามเกี่ยวกับโดเมนเท่านั้น ไม่แบ่งปันเพื่อวัตถุประสงค์เชิงพาณิชย์",
+    dseR1:"สิทธิ์เข้าถึง", dseR2:"สิทธิ์แก้ไข",
+    dseR3:"สิทธิ์ลบ", dseR4:"สิทธิ์จำกัดการประมวลผล",
+    dseR5:"สิทธิ์พกพาข้อมูล", dseR6:"สิทธิ์คัดค้าน",
+    dseRights:"ติดต่อ: info@kohchangbusiness.com",
+    legalClose:"ปิด",
+    heroQuote:"โดเมนที่ใช่สำหรับธุรกิจท้องถิ่นของเกาะช้าง — และผู้ที่อยากเป็น",
+    ideaEyebrow:"แนวคิด", ideaTitle:"จุดเริ่มต้น",
+    ideaStatement:"โดเมนที่ใช่สำหรับธุรกิจท้องถิ่นของเกาะช้าง และผู้ที่อยากเป็น ในฐานะแฟนตัวยงของเกาะมากกว่า 10 ปี โปรเจกต์นี้คือการส่งเสริมการมองเห็นทางดิจิทัล สนับสนุนธุรกิจท้องถิ่น และใช้รายได้ทำสิ่งดีๆ ในที่ที่มันส่งผลจริง ยินดีต้อนรับผู้ที่มีแนวคิดเดียวกัน",
+    ideaP1:"ฉันมาเยือนเกาะช้างตั้งแต่ปี 2013 สมัยก่อนมาพร้อมเป้สะพายหลัง ทุกวันนี้มาเพื่อชาร์จพลังและหนีจากความวุ่นวาย สิ่งที่เปลี่ยนไปคือวิธีการเดินทาง สิ่งที่ไม่เปลี่ยนคือจุดหมายและความรักที่มีต่อเกาะแห่งนี้",
+    ideaP2:"โดเมนบนแพลตฟอร์มนี้ถูกจดทะเบียนไว้อย่างมีจุดประสงค์ ไม่ใช่เพื่อขายเป็นหลัก แต่เพื่อปกป้องจากบริษัทขนาดใหญ่ที่มองหาแต่ผลกำไร เกาะช้างสมควรมีอัตลักษณ์ดิจิทัลที่สะท้อนตัวตนของเกาะ",
+    ideaP3:"KohChang Domains คือโปรเจกต์อดิเรก เป้าหมายคือให้ธุรกิจท้องถิ่นมีที่อยู่เว็บที่เหมาะสม เพื่อให้มองเห็นได้ออนไลน์และเข้าถึงลูกค้าได้ง่ายขึ้น รายได้ไม่ใช่สิ่งสำคัญที่สุด",
+    ideaBadgeText:"ของรายได้ทั้งหมดส่งตรงกลับไปให้องค์กรไม่แสวงกำไรบนเกาะช้าง รวมถึงหน่วยกู้ภัยอาสาสมัครและโครงการสวัสดิภาพสัตว์",
+    ideaContactTitle:"อยากมีส่วนร่วม?",
+    ideaContactText:"เอเจนซี่ เจ้าของธุรกิจ ผู้เชี่ยวชาญท้องถิ่น หรือแฟนเกาะช้าง — ติดต่อมาได้เลย มาช่วยกันทำให้เกาะช้างมองเห็นได้มากขึ้น",
+    ideaContactCta:"ติดต่อเรา →"
+  }
+};
+
+/* ════════════════════════════════════════════════════════
+   CATEGORY GRADIENT MAP
+════════════════════════════════════════════════════════ */
+const catGradients = {
+  biz:        'linear-gradient(135deg,#1a2f26,#2d5040)',
+  platform:   'linear-gradient(135deg,#0f2535,#1a4055)',
+  realestate: 'linear-gradient(135deg,#152040,#253565)',
+  wellness:   'linear-gradient(135deg,#2a1535,#4a2260)',
+  marketing:  'linear-gradient(135deg,#3a1c10,#5a3025)'
+};
+
+/* ════════════════════════════════════════════════════════
+   STATE
+════════════════════════════════════════════════════════ */
+let lang       = localStorage.getItem('kcbd-lang') || 'de';
+let globalView = 'sale';
+let catFilter  = 'all';
+
+const FORMSPREE_ID = 'YOUR_FORM_ID';
+
+/* ════════════════════════════════════════════════════════
+   CURRENCY  (frankfurter.app — kostenlos, kein API-Key)
+════════════════════════════════════════════════════════ */
+let thbRate = null, thbRateDate = null, rateFetched = false, ratePending = null;
+
+async function fetchThbRate() {
+  if (rateFetched) return;
+  if (ratePending)  return ratePending;
+  ratePending = fetch('https://api.frankfurter.app/latest?from=EUR&to=THB')
+    .then(r => r.json())
+    .then(d => { thbRate = d.rates.THB; thbRateDate = d.date; rateFetched = true; updateRateStrip(); if (lang==='th') renderDomains(); })
+    .catch(()  => { thbRate = 38.5; rateFetched = true; updateRateStrip(); if (lang==='th') renderDomains(); });
+  return ratePending;
+}
+
+function fmtPrice(eur) {
+  if (lang === 'th') {
+    if (!thbRate) return '<span class="price-loading"></span>';
+    return '฿ ' + Math.round(eur * thbRate).toLocaleString('th-TH');
+  }
+  return eur.toLocaleString('de-DE') + ' €';
+}
+
+function updateRateStrip() {
+  const strip = document.getElementById('rate-strip');
+  const content = document.getElementById('rate-strip-content');
+  if (lang !== 'th') { strip.classList.remove('visible'); return; }
+  strip.classList.add('visible');
+  if (!thbRate) { content.innerHTML = `<span class="rate-spinner"></span> ${tr.th.priceLoading}`; return; }
+  const dateStr = thbRateDate ? new Date(thbRateDate).toLocaleDateString('th-TH',{day:'numeric',month:'long',year:'numeric'}) : '';
+  content.innerHTML = `1 EUR = <span class="rate-pill">฿${thbRate.toFixed(2)}</span>${dateStr ? ` <span style="font-size:.7rem">(${dateStr})</span>` : ''}`;
+}
+
+/* ════════════════════════════════════════════════════════
+   MOBILE MENU
+════════════════════════════════════════════════════════ */
+function toggleMenu() {
+  const open = document.getElementById('mobile-menu').classList.toggle('open');
+  document.getElementById('hamburger').classList.toggle('open', open);
+  document.body.style.overflow = open ? 'hidden' : '';
+}
+function closeMenu() {
+  document.getElementById('mobile-menu').classList.remove('open');
+  document.getElementById('hamburger').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+/* ════════════════════════════════════════════════════════
+   LANGUAGE
+════════════════════════════════════════════════════════ */
+function setLang(l) {
+  lang = l;
+  localStorage.setItem('kcbd-lang', l);
+  document.documentElement.lang = l;
+  document.body.className = l === 'th' ? 'lang-th' : '';
+  ['de','en','th'].forEach(c => {
+    const d = document.getElementById('btn-'+c);
+    const m = document.getElementById('m-btn-'+c);
+    if (d) d.classList.toggle('active', c===l);
+    if (m) m.classList.toggle('active', c===l);
+  });
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const k = el.getAttribute('data-i18n');
+    if (tr[l][k] !== undefined) el.textContent = tr[l][k];
+  });
+  document.querySelectorAll('[data-i18n-ph]').forEach(el => {
+    const k = el.getAttribute('data-i18n-ph');
+    if (tr[l][k] !== undefined) el.placeholder = tr[l][k];
+  });
+  // Update dropdown options
+  document.querySelectorAll('[data-i18n-opt]').forEach(el => {
+    const k = el.getAttribute('data-i18n-opt');
+    if (tr[l][k] !== undefined) el.textContent = tr[l][k];
+  });
+  if (l === 'th') { updateRateStrip(); if (!rateFetched) fetchThbRate(); }
+  else document.getElementById('rate-strip').classList.remove('visible');
+  renderDomains();
+}
+
+/* ════════════════════════════════════════════════════════
+   RENDER DOMAINS  (reads from domains.js → DOMAINS + CATEGORIES)
+════════════════════════════════════════════════════════ */
+function renderDomains() {
+  const grid = document.getElementById('domain-grid');
+  const tx   = tr[lang];
+  const dLang = lang === 'th' ? 'en' : lang; // TH falls back to EN for uses/desc
+
+  const filtered = catFilter === 'all' ? DOMAINS : DOMAINS.filter(d => d.catKey === catFilter);
+
+  // Update results counter
+  const countEl = document.getElementById('results-count');
+  if (countEl) {
+    countEl.textContent = catFilter === 'all'
+      ? `${DOMAINS.length} ${tx.resultsDomains}`
+      : `${filtered.length} ${tx.resultsOf} ${DOMAINS.length} ${tx.resultsDomains}`;
+  }
+
+  grid.innerHTML = filtered.map((d, i) => {
+    const cat = CATEGORIES[d.catKey] || { de: d.catKey, en: d.catKey, th: d.catKey };
+    const catLabel = cat[lang] || cat.en;
+    // gradient wird nicht mehr gebraucht — CSS steuert den Kachel-Header
+    const uses = d.uses[dLang] || d.uses.en;
+
+    return `
+    <div class="domain-card" data-mode="${globalView}" style="animation-delay:${Math.min(i,15)*0.04}s">
+      <div class="card-image" onclick="toggleUseCase(this)" title="Klicken für Einsatzbeispiele">
+        <span class="card-img-emoji">${d.emoji}</span>
+        <div class="usecase-overlay">
+          <div class="usecase-line"><span class="usecase-dot">▸</span>${uses[0]}</div>
+          <div class="usecase-line"><span class="usecase-dot">▸</span>${uses[1]}</div>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="card-mode-toggle">
+          <button class="card-mode-btn sale-btn${globalView==='sale'?' active':''}" data-mode="sale" onclick="setCardMode(this,'sale')">${tx.cardToggleSale}</button>
+          <button class="card-mode-btn rent-btn${globalView==='rent'?' active':''}" data-mode="rent" onclick="setCardMode(this,'rent')">${tx.cardToggleRent}</button>
+        </div>
+        <div class="card-name">${d.name}</div>
+        <div class="card-cat">${catLabel}</div>
+        <div class="panel-sale">
+          <div class="card-price-onrequest">${tx.cardPriceOnRequest || 'Auf Anfrage'}</div>
+          <div class="card-price-range">${tx.cardPriceRange || 'Typisch: 250 – 5.000 €'}</div>
+          <div class="card-price-lbl" style="margin-top:0.3rem">${tx.cardLblSale}</div>
+        </div>
+        <div class="panel-rent">
+          <div class="card-price-onrequest">${tx.cardPriceOnRequest || 'Auf Anfrage'}</div>
+          <div class="card-price-range">${tx.cardPriceRange || 'Typisch: 250 – 5.000 €'}</div>
+          <div class="card-price-lbl" style="margin-top:0.3rem">${tx.cardLblRent}</div>
+          <p class="rent-note">${tx.rentNote}</p>
+        </div>
+      </div>
+      <div class="card-footer">
+        <button class="btn-offer btn-sale" onclick="openModal('${d.name}','sale')">${tx.cardBtnSale}</button>
+        <button class="btn-inquiry btn-rent" onclick="openModal('${d.name}','rent')">${tx.cardBtnRent}</button>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+/* ════════════════════════════════════════════════════════
+   USE CASE TOGGLE  (click image)
+════════════════════════════════════════════════════════ */
+function toggleUseCase(el) {
+  // Close all others first
+  document.querySelectorAll('.card-image.active').forEach(e => { if (e !== el) e.classList.remove('active'); });
+  el.classList.toggle('active');
+}
+// Close overlay when clicking outside
+document.addEventListener('click', e => {
+  if (!e.target.closest('.card-image')) {
+    document.querySelectorAll('.card-image.active').forEach(el => el.classList.remove('active'));
+  }
+});
+
+/* ════════════════════════════════════════════════════════
+   CARD MODE + FILTER
+════════════════════════════════════════════════════════ */
+function setCardMode(btn, mode) {
+  const card = btn.closest('.domain-card');
+  card.dataset.mode = mode;
+  card.querySelectorAll('.card-mode-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+}
+
+function setCatFilter(val) {
+  catFilter = val;
+  renderDomains();
+}
+
+document.getElementById('view-bar').addEventListener('click', e => {
+  const btn = e.target.closest('.view-btn');
+  if (!btn) return;
+  document.querySelectorAll('.view-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  globalView = btn.dataset.view;
+  document.querySelectorAll('.domain-card').forEach(card => {
+    card.dataset.mode = globalView;
+    card.querySelectorAll('.card-mode-btn').forEach(b => b.classList.toggle('active', b.dataset.mode === globalView));
+  });
+});
+
+/* ════════════════════════════════════════════════════════
+   MODAL
+════════════════════════════════════════════════════════ */
+function openModal(name, mode) {
+  const tx = tr[lang]; const isSale = mode === 'sale'; const isThai = lang === 'th';
+  const eyebrow = document.getElementById('m-eyebrow');
+  eyebrow.textContent = isSale ? tx.mEyebrowSale : tx.mEyebrowRent;
+  eyebrow.className = `modal-eyebrow ${isSale?'sale-mode':'rent-mode'}`;
+  document.getElementById('m-title').textContent = isSale ? tx.mTitleSale : tx.mTitleRent;
+  const domEl = document.getElementById('m-domain');
+  domEl.textContent = name; domEl.className = `modal-domain-display ${isSale?'sale-mode':'rent-mode'}`;
+  document.getElementById('m-rent-disclaimer').style.display = isSale ? 'none' : 'block';
+  const discEl = document.querySelector('#m-rent-disclaimer [data-i18n="rentDisclaimer"]');
+  if (discEl) discEl.textContent = tx.rentDisclaimer;
+  const offerField = document.getElementById('offer-field');
+  const offerInput = document.getElementById('offer-input');
+  offerField.style.display = isSale ? 'block' : 'none';
+  offerInput.required = isSale;
+  if (isSale) {
+    document.getElementById('offer-label').textContent = tx.fOffer;
+    offerInput.placeholder = tx.phOffer;
+    document.getElementById('offer-symbol').textContent = isThai ? '฿' : '€';
+    document.getElementById('f-currency').value = isThai ? 'THB' : 'EUR';
+    document.getElementById('offer-thb-hint').textContent = '';
+  }
+  const submitBtn = document.getElementById('modal-submit');
+  submitBtn.textContent = isSale ? tx.mSubmitSale : tx.mSubmitRent;
+  submitBtn.className   = `btn-submit ${isSale?'sale-submit':'rent-submit'}`;
+  submitBtn.disabled    = false;
+  document.getElementById('f-domain').value  = name;
+  document.getElementById('f-type').value    = mode;
+  document.getElementById('f-subject').value = `${isSale?'Kaufangebot':'Mietanfrage'}: ${name}`;
+  document.getElementById('modal-form').reset();
+  document.getElementById('modal-err').style.display     = 'none';
+  document.getElementById('modal-content').style.display = 'block';
+  document.getElementById('modal-ok').style.display      = 'none';
+  if (isSale) document.getElementById('offer-symbol').textContent = isThai ? '฿' : '€';
+  document.getElementById('modal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function updateThbHint() {
+  const hint = document.getElementById('offer-thb-hint');
+  if (lang === 'th' || !thbRate || !hint) { if (hint) hint.textContent = ''; return; }
+  const eur = parseFloat(document.getElementById('offer-input').value);
+  hint.textContent = eur > 0 ? `≈ ฿${Math.round(eur*thbRate).toLocaleString('th-TH')}` : '';
+}
+
+function closeModal() { document.getElementById('modal').classList.remove('open'); document.body.style.overflow = ''; }
+function onOverlayClick(e) { if (e.target === document.getElementById('modal')) closeModal(); }
+document.addEventListener('keydown', e => { if (e.key==='Escape') { closeModal(); closeMenu(); } });
+
+/* ════════════════════════════════════════════════════════
+   FORM SUBMIT
+════════════════════════════════════════════════════════ */
+async function submitModalForm(e) {
+  e.preventDefault();
+  const form = document.getElementById('modal-form'), errEl = document.getElementById('modal-err'), btn = document.getElementById('modal-submit'), orig = btn.textContent;
+  btn.disabled = true; btn.textContent = '…'; errEl.style.display = 'none';
+  try {
+    const res = await fetch(`https://formspree.io/f/${FORMSPREE_ID}`,{method:'POST',body:new FormData(form),headers:{Accept:'application/json'}});
+    if (!res.ok) throw 0;
+    document.getElementById('modal-content').style.display = 'none';
+    document.getElementById('modal-ok').style.display = 'block';
+    document.querySelectorAll('#modal-ok [data-i18n]').forEach(el => { const k=el.getAttribute('data-i18n'); if(tr[lang][k]) el.textContent=tr[lang][k]; });
+  } catch { errEl.textContent = tr[lang].errText; errEl.style.display = 'block'; btn.disabled = false; btn.textContent = orig; }
+}
+
+async function submitContactForm(e) {
+  e.preventDefault();
+  const form = document.getElementById('contact-form'), errEl = document.getElementById('contact-err'), btn = form.querySelector('.btn-submit');
+  btn.disabled = true; btn.textContent = '…'; errEl.style.display = 'none';
+  try {
+    const res = await fetch(`https://formspree.io/f/${FORMSPREE_ID}`,{method:'POST',body:new FormData(form),headers:{Accept:'application/json'}});
+    if (!res.ok) throw 0;
+    form.style.display = 'none'; document.getElementById('contact-ok').style.display = 'block';
+  } catch { errEl.textContent = tr[lang].errText; errEl.style.display = 'block'; btn.disabled = false; btn.textContent = tr[lang].fSend; }
+}
+
+/* ════════════════════════════════════════════════════════
+   SCROLL + REVEAL
+════════════════════════════════════════════════════════ */
+window.addEventListener('scroll', () => {
+  document.getElementById('site-header').classList.toggle('scrolled', scrollY > 60);
+  const btt = document.getElementById('back-to-top');
+  if (btt) btt.classList.toggle('visible', scrollY > 500);
+}, {passive:true});
+const revealObs = new IntersectionObserver(entries => entries.forEach(e => { if(e.isIntersecting){e.target.classList.add('visible');revealObs.unobserve(e.target);} }), {threshold:0.1});
+document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
+
+/* ════════════════════════════════════════════════════════
+   INIT
+════════════════════════════════════════════════════════ */
+fetchThbRate();
+setLang(lang);
+renderTransparency();
+initCookieBanner();
+
+/* ════════════════════════════════════════════════════════
+   SCROLL EXPANSION INTRO
+   Portiert von scroll-expansion-hero.tsx (React → Vanilla JS)
+   Logik: Wheel/Touch → progress 0→1 → Logo expandiert →
+          Overlay blendet aus → normale Seite scrollbar
+════════════════════════════════════════════════════════ */
+(function () {
+  const intro    = document.getElementById('scroll-intro');
+  const siMedia  = document.getElementById('si-media');
+  const siBg     = document.getElementById('si-bg');
+  const siHint   = document.getElementById('si-hint');
+  const siHintTxt= document.getElementById('si-hint-txt');
+
+  if (!intro || !siMedia) return;
+
+  /* Scroll-Hinweis in aktueller Sprache */
+  const hints = { de: 'Scrollen oder klicken zum Starten', en: 'Scroll or click to enter', th: 'เลื่อนหรือคลิกเพื่อเข้าชม' };
+  if (siHintTxt) siHintTxt.textContent = hints[lang] || hints.en;
+
+  let prog = 0, expanded = false, touchY = 0;
+  let mob  = window.innerWidth < 768;
+
+  function dismissIntro() {
+    if (expanded) return;
+    expanded = true;
+    prog = 1;
+    removeEvents();
+    /* Logo füllt kurz den Bildschirm, dann sanfter Übergang */
+    siMedia.style.width  = '100vw';
+    siMedia.style.height = '100vh';
+    if (siHint) siHint.style.opacity = '0';
+    setTimeout(() => {
+      intro.classList.add('fading');
+      document.body.style.overflow = '';
+      /* Smooth-Scroll zur Hauptseite */
+      setTimeout(() => {
+        intro.style.display = 'none';
+        document.getElementById('hero') && document.getElementById('hero').scrollIntoView({ behavior: 'smooth' });
+      }, 900);
+    }, 200);
+  }
+
+  function tick() {
+    /* Logo: startet groß (350px) und expandiert bis Vollbild */
+    const startW = mob ? 280 : 420;
+    const startH = mob ? 260 : 400;
+    const w = startW + prog * (mob ? 550 : 1100);
+    const h = startH + prog * (mob ? 200 : 380);
+    siMedia.style.width  = Math.min(w, window.innerWidth  * 0.97) + 'px';
+    siMedia.style.height = Math.min(h, window.innerHeight * 0.95) + 'px';
+
+    /* Hintergrund-Overlay dimmen */
+    if (siBg) siBg.style.opacity = String(Math.max(0, 1 - prog * 1.2));
+
+    /* Scroll-Hinweis ausblenden */
+    if (siHint) siHint.style.opacity = String(Math.max(0, 1 - prog * 3.5));
+
+    if (prog >= 1 && !expanded) dismissIntro();
+  }
+
+  /* Während Intro: Body-Scroll sperren */
+  document.body.style.overflow = 'hidden';
+
+  /* ── Event-Handler ─────────────────────────── */
+  function onWheel(e) {
+    if (expanded) return;
+    e.preventDefault();
+    prog = Math.min(Math.max(prog + e.deltaY * 0.0009, 0), 1);
+    tick();
+  }
+
+  function onTouchStart(e) {
+    touchY = e.touches[0].clientY;
+  }
+
+  function onTouchMove(e) {
+    if (expanded || !touchY) return;
+    e.preventDefault();
+    const delta = touchY - e.touches[0].clientY;
+    const factor = delta < 0 ? 0.008 : 0.005;
+    prog = Math.min(Math.max(prog + delta * factor, 0), 1);
+    touchY = e.touches[0].clientY;
+    tick();
+  }
+
+  function onTouchEnd() { touchY = 0; }
+
+  /* ESC → Intro überspringen */
+  function onKeyDown(e) {
+    if (e.key === 'Escape' && !expanded) {
+      prog = 1;
+      tick();
+    }
+  }
+
+  function addEvents() {
+    window.addEventListener('wheel',      onWheel,      { passive: false });
+    window.addEventListener('touchstart', onTouchStart, { passive: false });
+    window.addEventListener('touchmove',  onTouchMove,  { passive: false });
+    window.addEventListener('touchend',   onTouchEnd);
+    document.addEventListener('keydown',  onKeyDown);
+  }
+
+  function removeEvents() {
+    window.removeEventListener('wheel',      onWheel);
+    window.removeEventListener('touchstart', onTouchStart);
+    window.removeEventListener('touchmove',  onTouchMove);
+    window.removeEventListener('touchend',   onTouchEnd);
+    document.removeEventListener('keydown',  onKeyDown);
+  }
+
+  window.addEventListener('resize', () => { mob = window.innerWidth < 768; });
+
+  /* Klick oder Enter → Intro sofort auflösen + scroll */
+  intro.addEventListener('click', dismissIntro);
+  intro.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') dismissIntro(); });
+
+  addEvents();
+  tick();
+})();
+
+/* ════════════════════════════════════════════════════════
+   TRANSPARENCY & DONATIONS  (liest aus transparency.js)
+════════════════════════════════════════════════════════ */
+function renderTransparency() {
+  if (typeof TRANSPARENCY === 'undefined') return;
+  const s = TRANSPARENCY.stats;
+  const tx = tr[lang];
+
+  /* Stats */
+  const donated = document.getElementById('stat-donated');
+  const transEl = document.getElementById('stat-transactions');
+  if (donated) donated.textContent = s.totalDonatedEur > 0 ? `${s.totalDonatedEur.toLocaleString('de-DE')} €` : '0 €';
+  if (transEl) transEl.textContent = (s.totalDomainsSold + s.totalDomainsRented) || 0;
+
+  /* Progress ring */
+  const count = s.currentRound || 0;
+  const total = s.donateTrigger || 5;
+  const pct   = Math.min(count / total, 1);
+  const circ  = 2 * Math.PI * 45; // r=45
+  const ringFill  = document.getElementById('ring-fill');
+  const ringCount = document.getElementById('ring-count');
+  const ringOf    = document.getElementById('ring-of');
+  if (ringFill)  ringFill.style.strokeDashoffset = circ * (1 - pct);
+  if (ringCount) ringCount.textContent = count;
+  if (ringOf)    ringOf.textContent    = `von ${total}`;
+
+  /* Donation targets */
+  const targetsGrid = document.getElementById('targets-grid');
+  if (targetsGrid && TRANSPARENCY.donationTargets?.length) {
+    const l   = lang === 'th' ? 'th' : lang === 'en' ? 'en' : 'de';
+    const txl = tr[lang];
+    const totals = {};
+    (TRANSPARENCY.donations || []).forEach(d => {
+      if (d.targetId) totals[d.targetId] = (totals[d.targetId] || 0) + (d.amountEur || 0);
+    });
+    targetsGrid.innerHTML = TRANSPARENCY.donationTargets.map(t => {
+      const received = totals[t.id] || t.totalReceived || 0;
+      const linkHtml = t.website
+        ? `<a href="${t.website}" target="_blank" rel="noopener" class="target-link">↗ Website</a>`
+        : `<span class="target-link" style="opacity:0.4">${txl.spenTargetsNoLink || '—'}</span>`;
+      return `
+      <div class="target-card">
+        <div class="target-head">
+          <span class="target-emoji">${t.emoji}</span>
+          <span class="target-name">${t.name[l] || t.name.en}</span>
+        </div>
+        <p class="target-desc">${t.desc[l] || t.desc.en}</p>
+        <div class="target-received">
+          <div>
+            <div class="target-received-num">${received > 0 ? received.toLocaleString('de-DE') + ' €' : '–'}</div>
+            <div class="target-received-lbl">${txl.spenTargetsReceived || 'Gesamt'}</div>
+          </div>
+          ${linkHtml}
+        </div>
+      </div>`;
+    }).join('');
+  }
+
+  /* Transactions table */
+  const tbody  = document.getElementById('trans-tbody');
+  const empty  = document.getElementById('trans-empty');
+  const table  = document.getElementById('trans-table');
+  if (tbody && TRANSPARENCY.transactions.length > 0) {
+    table.style.display = 'table';
+    empty.style.display = 'none';
+    tbody.innerHTML = TRANSPARENCY.transactions.slice().reverse().map(t => `
+      <tr>
+        <td>${t.date}</td>
+        <td><strong>${t.domain}</strong></td>
+        <td><span class="trans-badge ${t.type}">${t.type === 'sale' ? (tx.spenTypeSale||'Verkauf') : (tx.spenTypeRent||'Miete')}</span></td>
+        <td>${t.amountEur.toLocaleString('de-DE')} €</td>
+        <td style="color:var(--gold)">${t.donationEur.toLocaleString('de-DE')} €</td>
+      </tr>`).join('');
+  }
+
+  /* Donation history */
+  const dList = document.getElementById('donation-list');
+  const dWrap = document.getElementById('donation-history-wrap');
+  if (dList && TRANSPARENCY.donations.length > 0) {
+    if (dWrap) dWrap.style.display = 'block';
+    dList.innerHTML = TRANSPARENCY.donations.slice().reverse().map(d => `
+      <div class="donation-item">
+        <span class="donation-icon">🌿</span>
+        <div>
+          <div class="donation-amount">${d.amountEur.toLocaleString('de-DE')} €</div>
+          <div class="donation-org">${d.organisation}</div>
+          <div class="donation-meta">${d.date}${d.note ? ' · ' + d.note : ''}${d.proof ? ' · <a href="'+d.proof+'" target="_blank">Nachweis</a>' : ''}</div>
+        </div>
+      </div>`).join('');
+  }
+}
+
+/* ════════════════════════════════════════════════════════
+   COOKIE BANNER (DSGVO)
+════════════════════════════════════════════════════════ */
+function initCookieBanner() {
+  if (localStorage.getItem('kcd-cookie-ok')) return;
+  setTimeout(() => document.getElementById('cookie-banner')?.classList.add('show'), 1500);
+}
+function acceptCookies() {
+  localStorage.setItem('kcd-cookie-ok', '1');
+  document.getElementById('cookie-banner')?.classList.remove('show');
+}
+
+/* ════════════════════════════════════════════════════════
+   LEGAL MODALS (Impressum / Datenschutz)
+════════════════════════════════════════════════════════ */
+function openLegal(which) {
+  const id = `modal-${which}`;
+  document.getElementById(id)?.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeLegal(which) {
+  document.getElementById(`modal-${which}`)?.classList.remove('open');
+  document.body.style.overflow = '';
+}
+function closeLegalIfOverlay(e, which) {
+  if (e.target === document.getElementById(`modal-${which}`)) closeLegal(which);
+}
+</script>
+</body>
+</html>

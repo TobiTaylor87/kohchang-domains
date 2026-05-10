@@ -1,0 +1,17 @@
+# Claude Code / Skills (nicht für Produktion)
+.agents/
+.claude/
+skills-lock.json
+
+# Dashboard ist ein privates Tool mit API-Key — NICHT veröffentlichen
+dashboard.html
+
+# System-Dateien
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editor
+.vscode/
+*.swp
+*.swo
