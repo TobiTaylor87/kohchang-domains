@@ -9,9 +9,10 @@
  *   2. Browser-Seite neu laden → Änderungen erscheinen sofort
  *
  * HINWEIS: Dieses Projekt ist ein privates Hobby-Projekt.
- * Mindestens 25% der Erlöse gehen an gemeinnützige Organisationen
- * auf Koh Chang (Rescue-Dienst, Tierwohl). Die verbleibenden
- * Erlöse decken Betriebskosten (Domains, Hosting, Website).
+ * Bis auf eigene Aufwände wie Pflege, Wartung der Website und
+ * Einkaufskosten der Domains geht der verbleibende Erlös abzüglich
+ * der Kosten komplett und ohne Umwege an gemeinnützige Organisationen
+ * auf Koh Chang. Ich erwirtschafte damit keinen Gewinn.
  */
 
 const CATEGORIES = {
@@ -47,12 +48,6 @@ const DOMAINS = [
     emoji: '🌴',
     uses: { de: ['Luxusvilla-Vermietung & Verkauf', 'Exklusive Ferienhäuser & Private Resorts'], en: ['Luxury villa rental & sales', 'Exclusive holiday homes & private resorts'] },
     desc: { de: 'Luxusvillen und hochwertige Ferienhäuser auf Koh Chang.', en: 'Luxury villas and high-end holiday homes on Koh Chang.' }
-  },
-  {
-    name: 'kohchang.domains', catKey: 'marketing', price: 0, yearlyRent: 0,
-    emoji: '🌐',
-    uses: { de: ['Domain-Marktplatz & digitale Beratung', 'Digital-Branding & Online-Präsenz'], en: ['Domain marketplace & digital consulting', 'Digital branding & online presence'] },
-    desc: { de: 'Marketing-Domain für Domain-Angebote und digitale Präsenz auf Koh Chang.', en: 'Marketing domain for domain listings and digital presence on Koh Chang.' }
   },
   {
     name: 'kohchang.spa', catKey: 'wellness', price: 0, yearlyRent: 0,

@@ -11,8 +11,8 @@
  *
  * TRIGGER FÜR SPENDE:
  *   Nach je 5 verkauften/gemieteten Domains werden die
- *   gesammelten Erlöse (mind. 25%) an lokale Non-Profits
- *   auf Koh Chang ausgezahlt.
+ *   verbleibenden Erlöse nach Abzug eigener Kosten an lokale
+ *   Non-Profits auf Koh Chang ausgezahlt.
  */
 
 const TRANSPARENCY = {
@@ -79,7 +79,7 @@ const TRANSPARENCY = {
       date:         '2025-06-01',
       organisation: 'Koh Chang Rescue',
       amountEur:    125,
-      note:         '25% aus 5 Domain-Transaktionen (Runde 1)',
+      note:         'Spende aus 5 Domain-Transaktionen (Runde 1)',
       proof:        ''   // optionaler Link zu Nachweis/Foto
     }
     */
@@ -96,7 +96,7 @@ const TRANSPARENCY = {
       domain:      'kohchang.spa',
       type:        'sale',            // 'sale' oder 'rent'
       amountEur:   500,
-      donationEur: 125,               // mind. 25%
+      donationEur: 125,               // Spende nach Kosten
       note:        'Verkauf an lokales Wellnessstudio'
     }
     */

@@ -30,6 +30,8 @@
       --gold:      #D4961E;                    /* Goldene Sonne                 */
       --border:    rgba(56,201,194,0.18);
       --glow:      rgba(56,201,194,0.30);
+      --a1:        #38C9C2;                    /* Alias → --accent1                */
+      --a2:        #D4A84B;                    /* Alias → --accent2                */
       --radius:    5px;
       --ease:      cubic-bezier(0.25,0.46,0.45,0.94);
       --touch:     44px;
@@ -140,8 +142,8 @@
     .hamburger.open span:nth-child(2) { opacity: 0; }
     .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
-    .mobile-menu { display: none; position: fixed; inset: 0; top: 64px; z-index: 999; background: rgba(13,31,26,0.97); backdrop-filter: blur(16px); padding: 2rem; flex-direction: column; gap: 0.5rem; transform: translateY(-10px); opacity: 0; transition: transform 0.3s var(--ease), opacity 0.3s; }
-    .mobile-menu.open { transform: translateY(0); opacity: 1; }
+    .mobile-menu { display: none; position: fixed; inset: 0; top: 64px; z-index: 999; background: rgba(13,31,26,0.97); backdrop-filter: blur(16px); padding: 2rem; flex-direction: column; gap: 0.5rem; transform: translateY(-10px); opacity: 0; pointer-events: none; transition: transform 0.3s var(--ease), opacity 0.3s; }
+    .mobile-menu.open { transform: translateY(0); opacity: 1; pointer-events: all; }
     .mobile-menu-link { display: flex; align-items: center; min-height: var(--touch); padding: 0 0.5rem; font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem; letter-spacing: 0.1em; color: var(--muted); border-bottom: 1px solid var(--border); transition: color 0.2s; }
     body.lang-th .mobile-menu-link { font-family: 'Sarabun', sans-serif; font-size: 1.1rem; letter-spacing: 0; font-weight: 500; }
     .mobile-menu-link:hover { color: var(--accent1); }
@@ -471,6 +473,17 @@
     .footer-links { display: flex; gap: 1.5rem; flex-wrap: wrap; }
     .footer-link  { font-size: 0.74rem; color: var(--muted); letter-spacing: 0.06em; transition: color 0.22s; min-height: var(--touch); display: flex; align-items: center; opacity: 0.7; }
     .footer-link:hover { color: var(--accent1); opacity: 1; }
+    .footer-marketplace { display: inline-flex; align-items: center; gap: 0.55rem; font-weight: 600; }
+    .footer-marketplace .marketplace-logo {
+      display: inline-flex;
+      width: 28px;
+      height: 28px;
+      min-width: 28px;
+      background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='none' d='M0 0h24v24H0z'/%3E%3Cpath fill='%23F8CC6F' d='M12 2l3.5 7.5L22 11l-5 4.8L17.5 22 12 18.2 6.5 22 7 15.8 2 11l6.5-1.5L12 2z'/%3E%3C/svg%3E") center / contain no-repeat;
+    }
+    .footer-marketplace:hover .marketplace-logo {
+      filter: brightness(0.9);
+    }
 
     /* ══ ANIMATIONS ══════════════════════════════════════ */
     @keyframes fadeUp { from { opacity: 0; transform: translateY(22px); } to { opacity: 1; transform: translateY(0); } }
@@ -500,7 +513,7 @@
       .footer-inner { flex-direction: column; align-items: flex-start; }
       .modal-box, .contact-form-wrap { padding: 1.5rem 1.25rem; }
       .hero { padding: 7rem 0 4rem; }
-      .domains-section, .about-section, .contact-section, .portals-section, .idea-section { padding: 4rem 0; }
+      .domains-section, .about-section, .contact-section, .portals-section, .idea-section, .spenden-section { padding: 4rem 0; }
       .idea-statement { padding: 1.5rem; }
       .idea-statement::before { font-size: 3.5rem; }
       .filter-controls { flex-direction: column; align-items: stretch; }
@@ -579,20 +592,66 @@
     .donation-org { font-size: 0.85rem; color: var(--text); }
     .donation-meta { font-size: 0.72rem; color: var(--muted); margin-top: 0.2rem; }
 
-    /* ══ GDPR COOKIE BANNER ══════════════════════════ */
-    #cookie-banner {
-      position: fixed; bottom: 0; left: 0; right: 0; z-index: 4500;
-      background: rgba(10,30,24,0.97); backdrop-filter: blur(12px);
-      border-top: 1px solid var(--border); padding: 1.25rem 2rem;
-      display: flex; align-items: center; gap: 1.5rem; flex-wrap: wrap;
-      transform: translateY(100%); transition: transform 0.4s var(--ease);
+    /* ══ GDPR EINWILLIGUNGSDIALOG ════════════════════ */
+    #gdpr-overlay {
+      position: fixed; inset: 0; z-index: 4700;
+      background: rgba(8,20,16,0.72); backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px);
+      opacity: 0; pointer-events: none; transition: opacity 0.4s var(--ease);
     }
-    #cookie-banner.show { transform: translateY(0); }
-    #cookie-banner p { font-size: 0.8rem; color: var(--muted); flex: 1; min-width: 200px; line-height: 1.55; }
-    #cookie-banner a { color: var(--a1); }
-    .cookie-btn { min-height: 38px; padding: 0 1.25rem; font-family: 'Bebas Neue', sans-serif; font-size: 0.88rem; letter-spacing: 0.1em; border-radius: var(--radius); white-space: nowrap; }
-    .cookie-accept { background: var(--a1); color: var(--bg); }
-    .cookie-info   { background: transparent; border: 1px solid var(--border); color: var(--muted); }
+    #gdpr-overlay.show { opacity: 1; pointer-events: all; }
+
+    #gdpr-dialog {
+      position: fixed; left: 50%; top: 50%; z-index: 4800;
+      transform: translate(-50%, -44%); opacity: 0; pointer-events: none;
+      width: min(560px, calc(100vw - 2rem));
+      background: rgba(14,44,36,0.98); backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px);
+      border: 1px solid var(--border); border-radius: var(--radius); padding: 2rem;
+      transition: transform 0.4s var(--ease), opacity 0.4s var(--ease);
+    }
+    #gdpr-dialog.show { transform: translate(-50%, -50%); opacity: 1; pointer-events: all; }
+
+    .gdpr-close-btn {
+      position: absolute; top: 0.85rem; right: 0.85rem;
+      width: var(--touch); height: var(--touch);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--muted); font-size: 1.1rem; border-radius: 50%;
+      transition: color 0.2s, background 0.2s;
+    }
+    .gdpr-close-btn:hover { color: var(--text); background: rgba(255,255,255,0.08); }
+
+    .gdpr-header { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem; padding-right: 2.5rem; }
+    .gdpr-header-icon { font-size: 1.6rem; flex-shrink: 0; }
+    .gdpr-header h3 { font-family: 'Bebas Neue', sans-serif; font-size: 1.5rem; letter-spacing: 0.05em; color: var(--text); margin: 0; }
+    body.lang-th .gdpr-header h3 { font-family: 'Sarabun', sans-serif; font-weight: 700; letter-spacing: 0; font-size: 1.3rem; }
+
+    #gdpr-body { font-size: 0.88rem; color: var(--muted); line-height: 1.7; margin-bottom: 0.75rem; }
+    #gdpr-body strong { color: var(--accent1); font-weight: 600; }
+
+    #gdpr-note-text {
+      font-size: 0.78rem; color: var(--muted); line-height: 1.55; margin-bottom: 1.5rem;
+      padding: 0.6rem 0.85rem;
+      border-left: 2px solid rgba(56,201,194,0.3);
+      border-radius: 0 var(--radius) var(--radius) 0;
+      background: rgba(56,201,194,0.04);
+    }
+    body.lang-th #gdpr-note-text { font-family: 'Sarabun', sans-serif; }
+
+    .gdpr-actions { display: flex; gap: 0.75rem; align-items: center; flex-wrap: wrap; }
+    .gdpr-btn-accept {
+      min-height: var(--touch); padding: 0 1.5rem;
+      background: var(--accent1); color: var(--bg);
+      font-family: 'Bebas Neue', sans-serif; font-size: 1rem;
+      letter-spacing: 0.1em; border-radius: var(--radius);
+      transition: opacity 0.2s, transform 0.2s; white-space: nowrap;
+    }
+    body.lang-th .gdpr-btn-accept { font-family: 'Sarabun', sans-serif; font-size: 0.9rem; letter-spacing: 0; font-weight: 600; }
+    .gdpr-btn-accept:hover { opacity: 0.88; transform: translateY(-1px); }
+    .gdpr-link-policy {
+      font-size: 0.8rem; color: var(--muted); text-decoration: underline;
+      text-underline-offset: 3px; transition: color 0.2s;
+      min-height: var(--touch); display: inline-flex; align-items: center;
+    }
+    .gdpr-link-policy:hover { color: var(--accent1); }
 
     /* ══ GDPR FORM CONSENT ═══════════════════════════ */
     .consent-row { display: flex; align-items: flex-start; gap: 0.65rem; margin-top: 0.5rem; }
@@ -617,8 +676,27 @@
       .spenden-grid { grid-template-columns: 1fr 1fr; }
     }
     @media (max-width: 580px) {
-      .spenden-grid { grid-template-columns: 1fr; }
-      #cookie-banner { padding: 1rem; }
+      .spenden-grid { grid-template-columns: 1fr; gap: 1rem; }
+      .footer-top { flex-direction: column; align-items: flex-start; gap: 1.25rem; }
+      .footer-donate-badge { width: 100%; }
+      /* Verhindert iOS-Zoom beim Antippen von Formularfeldern */
+      .form-input, .form-textarea, .cat-select { font-size: 16px; }
+      .targets-grid { grid-template-columns: 1fr; }
+      .idea-badge { flex-direction: column; gap: 0.75rem; text-align: center; }
+      .ring-svg { width: 90px; height: 90px; }
+      /* GDPR Dialog – mobile */
+      #gdpr-dialog { padding: 1.5rem 1.25rem; }
+      .gdpr-actions { flex-direction: column; align-items: stretch; }
+      .gdpr-btn-accept { text-align: center; }
+      .gdpr-link-policy { justify-content: center; }
+    }
+
+    /* ══ SAFE AREA (iPhone Notch / Dynamic Island) ═══════ */
+    @supports (padding: env(safe-area-inset-top)) {
+      header        { padding-left: env(safe-area-inset-left); padding-right: env(safe-area-inset-right); }
+      #gdpr-dialog { padding-bottom: max(2rem, calc(env(safe-area-inset-bottom) + 1rem)); }
+      #back-to-top  { bottom: max(1.75rem, calc(env(safe-area-inset-bottom) + 0.5rem)); right: max(1.75rem, env(safe-area-inset-right)); }
+      .mobile-menu  { padding-left: max(2rem, env(safe-area-inset-left)); padding-right: max(2rem, env(safe-area-inset-right)); padding-bottom: max(2rem, env(safe-area-inset-bottom)); }
     }
 
     /* ══ SCROLL EXPANSION INTRO ══════════════════════════ */
@@ -741,13 +819,13 @@
       <a href="#" class="nav-logo">
         <img src="Logo.png" alt="Koh Chang Domains" class="nav-logo-img">
       </a>
-      <nav class="nav-links" id="nav-links">
+      <div class="nav-links" id="nav-links">
         <a href="#domains"  class="nav-link" data-i18n="navDomains">Domains</a>
         <a href="#spenden"  class="nav-link" data-i18n="navSpenden" style="color:var(--gold)">Spenden</a>
         <a href="#idea"     class="nav-link" data-i18n="navIdea">Die Idee</a>
         <a href="#about"    class="nav-link" data-i18n="navAbout">Über mich</a>
         <a href="#contact"  class="nav-link" data-i18n="navContact">Kontakt</a>
-      </nav>
+      </div>
       <div class="nav-right">
         <div class="lang-toggle">
           <button class="lang-btn active" id="btn-de" onclick="setLang('de')">
@@ -819,7 +897,7 @@
         <a href="#contact" class="btn-ghost"   data-i18n="heroCta2">Kontakt aufnehmen</a>
       </div>
       <div class="hero-stats">
-        <div><div class="stat-num" id="stat-count">55</div><div class="stat-lbl" data-i18n="stat1">Verfügbare Domains</div></div>
+        <div><div class="stat-num" id="stat-count">54</div><div class="stat-lbl" data-i18n="stat1">Verfügbare Domains</div></div>
         <div><div class="stat-num">5</div><div class="stat-lbl" data-i18n="stat2">Kategorien</div></div>
         <div><div class="stat-num">48h</div><div class="stat-lbl" data-i18n="stat3">Transferzeit</div></div>
       </div>
@@ -839,7 +917,7 @@
     <div class="section-head reveal">
       <p class="section-eyebrow" data-i18n="spenEyebrow">Transparenz & Spenden</p>
       <h2 class="section-title" data-i18n="spenTitle">Was mit den Erlösen passiert</h2>
-      <p class="section-desc" data-i18n="spenDesc">Dieses Projekt ist kein gewinnorientiertes Unternehmen. Mindestens 25% der Erlöse fließen direkt an gemeinnützige Organisationen auf Koh Chang. Die verbleibenden Mittel decken ausschließlich Betriebskosten.</p>
+      <p class="section-desc" data-i18n="spenDesc">Dieses Projekt ist kein gewinnorientiertes Unternehmen. Bis auf eigene Aufwände für Pflege, Wartung der Website und Einkaufskosten der Domains geht der Erlös abzüglich der Kosten komplett und ohne Umwege an die entsprechenden Organisationen.</p>
     </div>
 
     <!-- Statistik-Kacheln -->
@@ -886,7 +964,7 @@
               <th data-i18n="spenColDomain">Domain</th>
               <th data-i18n="spenColType">Art</th>
               <th data-i18n="spenColAmount">Erlös</th>
-              <th data-i18n="spenColDonation">Spende (25%+)</th>
+              <th data-i18n="spenColDonation">Spende</th>
             </tr>
           </thead>
           <tbody id="trans-tbody"></tbody>
@@ -896,7 +974,7 @@
     </div>
 
     <!-- Spendenhistorie -->
-    <div class="reveal" style="margin-top:3rem" id="donation-history-wrap" style="display:none">
+    <div class="reveal" id="donation-history-wrap" style="margin-top:3rem;display:none">
       <h3 style="font-size:1.4rem;margin-bottom:0.5rem" data-i18n="spenHistTitle">Gespendete Beträge</h3>
       <p style="font-size:0.82rem;color:var(--muted);margin-bottom:1.25rem" data-i18n="spenHistDesc">Nach je 5 Transaktionen werden die Spendengelder direkt an lokale Organisationen übergeben.</p>
       <div class="donation-list" id="donation-list"></div>
@@ -954,18 +1032,17 @@
       <h2 class="section-title" data-i18n="porTitle">Gelistet auf führenden Marktplätzen</h2>
       <p class="section-desc" data-i18n="porDesc">Unsere Domains sind zusätzlich auf folgenden Plattformen gelistet.</p>
     </div>
-    <div class="portal-grid reveal" style="animation-delay:0.1s">
-      <div class="portal-card">
-        <div class="portal-logo-wrap">🌐</div>
-        <div><div class="portal-name">PORTAL_1_NAME</div><span class="portal-placeholder-badge" data-i18n="porPlaceholder">Name folgt</span></div>
-        <p class="portal-sub" data-i18n="porSub1">Internationaler Domain-Marktplatz mit globaler Reichweite.</p>
-        <a href="#contact" class="portal-link" data-i18n="porCta">Zum Portal</a>
-      </div>
-      <div class="portal-card">
-        <div class="portal-logo-wrap">🏷️</div>
-        <div><div class="portal-name">PORTAL_2_NAME</div><span class="portal-placeholder-badge" data-i18n="porPlaceholder">Name folgt</span></div>
-        <p class="portal-sub" data-i18n="porSub2">Spezialisierter Marktplatz für Premium-Domains in Asien.</p>
-        <a href="#contact" class="portal-link" data-i18n="porCta">Zum Portal</a>
+    <div class="portal-grid reveal" style="animation-delay:0.1s;display:flex;justify-content:center;">
+      <div class="portal-card" style="max-width:720px;padding:2.5rem;">
+        <div class="portal-logo-wrap" style="width:96px;height:96px;border-radius:14px;font-size:2.6rem;">🚀</div>
+        <div>
+          <div class="portal-name" style="font-size:1.6rem;font-weight:700;margin-top:0.25rem">Spaceship</div>
+        </div>
+        <p class="portal-sub" style="font-size:1rem;color:var(--muted);max-width:56ch;margin:0.6rem auto">Premium-Domain-Marktplatz mit internationaler Reichweite und einem Seller Hub für gezielte Käuferansprache. Neben Anfragen hier über diese Website könnt ihr auch über den offiziellen Store gehen.</p>
+        <div style="display:flex;gap:0.75rem;align-items:center;justify-content:center;margin-top:0.6rem">
+          <a href="https://www.spaceship.com/sellerhub/portfolio/kohchangdomains" class="portal-link" target="_blank" rel="noreferrer noopener" style="padding:0.9rem 1.25rem;border-radius:10px;background:linear-gradient(90deg,var(--accent1),var(--accent2));color:white;font-weight:700;box-shadow:0 10px 30px rgba(56,201,194,0.12);">Zum Spaceship Store</a>
+          <a href="#contact" class="portal-link" style="padding:0.7rem 1rem;border-radius:8px;border:1px solid var(--border);background:transparent;color:var(--text);">Anfrage über Website</a>
+        </div>
       </div>
     </div>
   </div>
@@ -996,10 +1073,10 @@
 
       <!-- Rechts: Badges -->
       <div class="reveal" style="animation-delay:0.12s">
-        <!-- 25% Spenden-Badge -->
+        <!-- Non-Profit-Badge -->
         <div class="idea-badge">
-          <span class="idea-badge-num">25%</span>
-          <span class="idea-badge-text" data-i18n="ideaBadgeText">der Erlöse fließen direkt in Non-Profits auf Koh Chang zurück — darunter der ehrenamtliche Rescue-Dienst und Projekte für das Tierwohl auf der Insel.</span>
+          <span class="idea-badge-num">NP</span>
+          <span class="idea-badge-text" data-i18n="ideaBadgeText">Der verbleibende Erlös fließt direkt in Non-Profits auf Koh Chang — ohne Umwege und nach Abzug eigener Kosten.</span>
         </div>
 
         <!-- Kontakt-Badge -->
@@ -1026,13 +1103,13 @@
         <h2 data-i18n="aboutTitle">Über mich</h2>
         <p data-i18n="aboutP1">Hallo Zusammen, mein Name ist Tobi, ich besuche Koh Chang seit 2013 — anfangs als Backpacker mit Rucksack und ohne großen Plan, heute um abzuschalten und dem Alltag zu entkommen. Die Art zu reisen hat sich verändert. Die Liebe zur Insel nicht.</p>
         <p data-i18n="aboutP2">KohChang Domains ist meine Idee. Ich stehe alleine dahinter. Mein Ansinnen war es, eine Plattform zu schaffen, auf der lokale Unternehmen und alle, die auf Koh Chang etwas aufbauen wollen, die richtigen digitalen Adressen finden — bevor es große, rein kommerziell orientierte Unternehmen tun.</p>
-        <p data-i18n="aboutP3">Mir ist dabei eins wichtig: Dieses Projekt ist kein Gewerbe. Ich agiere bewusst nicht gewinnorientiert. Mindestens 25% jedes Erlöses spende ich direkt zurück an die Insel — an den lokalen Rescue-Dienst und an Tierwohl-Projekte auf Koh Chang. Nicht weil ich muss, sondern weil mir die Insel etwas bedeutet.</p>
+        <p data-i18n="aboutP3">Mir ist dabei eins wichtig: Dieses Projekt ist kein Gewerbe. Ich agiere bewusst nicht gewinnorientiert. Bis auf eigene Aufwände für Pflege, Wartung der Website und Einkaufskosten der Domains geht der Erlös abzüglich der Kosten komplett und ohne Umwege an lokale Organisationen. Ich erwirtschafte mit diesem Projekt keinen Gewinn.</p>
       </div>
       <div class="trust-list reveal" style="animation-delay:0.12s">
         <div class="trust-item"><div class="trust-icon">👤</div><div><h4 data-i18n="t1h">Direkter Kontakt zu mir</h4><p data-i18n="t1p">Ihr erreicht mich persönlich — keine Agentur, kein Callcenter. Ich antworte selbst.</p></div></div>
         <div class="trust-item"><div class="trust-icon">⚡</div><div><h4 data-i18n="t2h">Schnelle Abwicklung</h4><p data-i18n="t2p">Von der ersten Nachricht bis zur Domain-Übergabe — ich halte die Wege kurz.</p></div></div>
         <div class="trust-item"><div class="trust-icon">🌐</div><div><h4 data-i18n="t3h">Mehrsprachig</h4><p data-i18n="t3p">Ich antworte auf Deutsch, Englisch und — mit etwas Geduld — auch auf Thai.</p></div></div>
-        <div class="trust-item"><div class="trust-icon">🌿</div><div><h4 data-i18n="t4h">25% für Koh Chang</h4><p data-i18n="t4p">Mindestens 25% jedes Erlöses spende ich direkt an lokale Non-Profits auf der Insel.</p></div></div>
+        <div class="trust-item"><div class="trust-icon">🌿</div><div><h4 data-i18n="t4h">Non-Profit-Projekt</h4><p data-i18n="t4p">Nach Abzug eigener Aufwände fließt der verbleibende Erlös vollständig und ohne Umwege an lokale Non-Profits; ich erwirtschafte keinen Gewinn.</p></div></div>
       </div>
     </div>
   </div>
@@ -1048,7 +1125,7 @@
         <p class="section-eyebrow" data-i18n="ctEyebrow">Kontakt</p>
         <h2 data-i18n="ctTitle">Redet mit uns — über eure Domain, euer Business, eure Idee.</h2>
         <p data-i18n="ctDesc">Ob ihr eine Domain sucht, euer Business auf Koh Chang digital aufstellen wollt oder gerade erst plant — schreibt uns. Lokale Business Owner, Webdesigner, Kreative & Entrepreneure auf der Insel: wir freuen uns auf den Austausch.</p>
-        <div class="contact-detail"><span class="contact-detail-icon">✉</span><span>info@kohchangbusiness.com</span></div>
+        <div class="contact-detail"><span class="contact-detail-icon">✉</span><span>info@kohchang.domains</span></div>
         <div class="contact-detail"><span class="contact-detail-icon">📍</span><span data-i18n="ctLocation">Koh Chang, Trat, Thailand</span></div>
       </div>
       <div class="contact-form-wrap reveal" style="animation-delay:0.12s">
@@ -1085,8 +1162,8 @@
         <p class="footer-tagline" data-i18n="footTagline">Lokales Business fördern. Non-Profits stärken. Koh Chang sichtbar machen.</p>
       </div>
       <div class="footer-donate-badge">
-        <span class="footer-donate-num">25%</span>
-        <span class="footer-donate-text" data-i18n="footDonate">der Erlöse für Non-Profits auf Koh Chang</span>
+        <span class="footer-donate-num">NP</span>
+        <span class="footer-donate-text" data-i18n="footDonate">der verbleibende Erlös geht nach Kosten direkt an Non-Profits auf Koh Chang</span>
       </div>
     </div>
     <!-- Footer Bottom: Copyright + Links -->
@@ -1096,6 +1173,10 @@
         <a href="#" class="footer-link" data-i18n="footImprint" onclick="openLegal('impressum');return false">Impressum</a>
         <a href="#" class="footer-link" data-i18n="footPrivacy" onclick="openLegal('datenschutz');return false">Datenschutz</a>
         <a href="#contact" class="footer-link" data-i18n="footContact">Kontakt</a>
+        <a href="https://www.spaceship.com/sellerhub/portfolio/kohchangdomains" class="footer-link footer-marketplace" target="_blank" rel="noreferrer noopener" title="Spaceship Seller Hub aufrufen">
+          <span class="marketplace-logo" aria-hidden="true"></span>
+          Spaceship Seller Hub
+        </a>
       </div>
     </div>
   </div>
@@ -1104,11 +1185,24 @@
 <!-- ══ SCROLL TO TOP ══════════════════════════════════════ -->
 <button id="back-to-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Nach oben">↑</button>
 
-<!-- ══ COOKIE BANNER (DSGVO) ══════════════════════════════ -->
-<div id="cookie-banner" role="dialog" aria-label="Cookie-Hinweis">
-  <p data-i18n="cookieText">Diese Website verwendet keine Tracking-Cookies. Kontaktformulare werden über Formspree (USA, DSGVO-konform) verarbeitet. Mit der Nutzung stimmt ihr der <a href="#" onclick="openLegal('datenschutz')">Datenschutzerklärung</a> zu.</p>
-  <button class="cookie-btn cookie-info" onclick="openLegal('datenschutz')" data-i18n="cookieInfo">Mehr erfahren</button>
-  <button class="cookie-btn cookie-accept" onclick="acceptCookies()" data-i18n="cookieAccept">Verstanden</button>
+<!-- ══ GDPR EINWILLIGUNGSDIALOG (DSGVO) ══════════════════
+     Erscheint beim ersten Besuch nach dem Intro-Screen.
+     Wegklickbar über Overlay, ✕-Button oder Akzeptieren.
+     Formular-Einwilligung wird separat per Checkbox eingeholt.
+═══════════════════════════════════════════════════════ -->
+<div id="gdpr-overlay" onclick="acceptGdpr()" aria-hidden="true"></div>
+<div id="gdpr-dialog" role="dialog" aria-modal="true" aria-labelledby="gdpr-dialog-title">
+  <button class="gdpr-close-btn" onclick="acceptGdpr()" aria-label="Schließen">✕</button>
+  <div class="gdpr-header">
+    <span class="gdpr-header-icon">🔒</span>
+    <h3 id="gdpr-dialog-title">Datenschutz &amp; Einwilligung</h3>
+  </div>
+  <p id="gdpr-body">Diese Website lädt Schriften (Google Fonts), Bilder (Unsplash) und nutzt Formspree für Kontaktformulare — dabei wird deine IP-Adresse übertragen. Es werden <strong>keine Tracking-Cookies</strong> eingesetzt.</p>
+  <p id="gdpr-note-text" class="gdpr-note-text">📝 Beim Absenden von Formularen wird deine Einwilligung separat per Checkbox eingeholt.</p>
+  <div class="gdpr-actions">
+    <button id="gdpr-accept-btn" class="gdpr-btn-accept" onclick="acceptGdpr()">Verstanden &amp; Weiter</button>
+    <a href="#" class="gdpr-link-policy" id="gdpr-info-link" onclick="openLegal('datenschutz');return false">Datenschutzerklärung lesen</a>
+  </div>
 </div>
 
 <!-- ══ IMPRESSUM MODAL ════════════════════════════════════ -->
@@ -1127,10 +1221,10 @@
          [LAND]</p>
 
       <h2 data-i18n="impressumContact">Kontakt</h2>
-      <p>E-Mail: info@kohchangbusiness.com</p>
+      <p>E-Mail: info@kohchang.domains</p>
 
       <h2 data-i18n="impressumHint">Hinweis</h2>
-      <p data-i18n="impressumHintText">Diese Website wird von einer Privatperson als nicht-gewerbliches Hobby-Projekt betrieben. Es handelt sich weder um ein Gewerbe noch um einen eingetragenen Verein oder eine gemeinnützige Organisation im Sinne des deutschen Steuerrechts. Mindestens 25% der erzielten Erlöse werden freiwillig an gemeinnützige Organisationen auf Koh Chang, Thailand, gespendet.</p>
+      <p data-i18n="impressumHintText">Diese Website wird von einer Privatperson als nicht-gewerbliches Hobby-Projekt betrieben. Es handelt sich weder um ein Gewerbe noch um einen eingetragenen Verein oder eine gemeinnützige Organisation im Sinne des deutschen Steuerrechts. Bis auf eigene Aufwände wie Pflege, Wartung der Website und Einkaufskosten der Domains geht der verbleibende Erlös nach Abzug der Kosten komplett an lokale Organisationen auf Koh Chang. Ich erwirtschafte damit keinen Gewinn.</p>
 
       <h2 data-i18n="impressumDisclaimerTitle">Haftungsausschluss</h2>
       <p data-i18n="impressumDisclaimerText">Trotz sorgfältiger inhaltlicher Kontrolle übernehmen wir keine Haftung für die Inhalte externer Links. Für den Inhalt der verlinkten Seiten sind ausschließlich deren Betreiber verantwortlich. Preise für Domains werden individuell auf Anfrage vereinbart. Typische Marktpreise liegen zwischen 250 und 5.000 €.</p>
@@ -1149,7 +1243,7 @@
       <p style="font-size:0.78rem;color:var(--muted);margin-bottom:1.5rem" data-i18n="dseSub">Gemäß DSGVO (EU) 2016/679</p>
 
       <h2>1. Verantwortliche Person</h2>
-      <p data-i18n="dse1">[VORNAME NACHNAME], [ADRESSE] — Kontakt: info@kohchangbusiness.com</p>
+      <p data-i18n="dse1">[VORNAME NACHNAME], [ADRESSE] — Kontakt: info@kohchang.domains</p>
 
       <h2>2. Welche Daten wir erheben</h2>
       <p data-i18n="dse2">Wenn ihr das Kontaktformular nutzt, werden folgende Daten erhoben: Name, E-Mail-Adresse, Telefonnummer (optional), Nachricht. Diese Daten werden ausschließlich zur Bearbeitung eurer Anfrage verwendet.</p>
@@ -1175,7 +1269,7 @@
         <li data-i18n="dseR5">Recht auf Datenübertragbarkeit</li>
         <li data-i18n="dseR6">Widerspruchsrecht gegen die Verarbeitung</li>
       </ul>
-      <p style="margin-top:0.85rem" data-i18n="dseRights">Zur Ausübung eurer Rechte: info@kohchangbusiness.com — Beschwerden können bei der zuständigen Datenschutzbehörde eingereicht werden.</p>
+      <p style="margin-top:0.85rem" data-i18n="dseRights">Zur Ausübung eurer Rechte: info@kohchang.domains — Beschwerden können bei der zuständigen Datenschutzbehörde eingereicht werden.</p>
 
       <h2>8. Zweck & Non-Profit-Charakter</h2>
       <p data-i18n="dse8">Daten werden ausschließlich zur Bearbeitung von Domain-Anfragen und zur Kommunikation mit Interessenten verwendet. Es findet keine Weitergabe an Dritte zu kommerziellen Zwecken statt. Dieses Projekt ist nicht gewerblich und nicht auf Gewinnerzielung ausgerichtet.</p>
@@ -1250,8 +1344,6 @@ const tr = {
     fRe:"Immobilien / Hotel / Resorts", fWell:"Wellness / Beauty / Health", fMkt:"Marketing",
     resultsOf:"von", resultsDomains:"Domains",
     bPremium:"PREMIUM",
-    cardBtnSale:"Angebot machen", cardBtnRent:"Miete anfragen",
-    cardLblSale:"Einmaliger Kaufpreis", cardLblRent:"Jahresmiete *",
     cardToggleSale:"KAUF", cardToggleRent:"MIETE",
     rentNote:"* Nur Domain-Rechte — kein Webspace oder E-Mail enthalten.",
     rentDisclaimer:"* Die Miete umfasst ausschließlich die Nutzungsrechte an der Domain. Kein Webspace, keine E-Mail-Konten oder sonstige Hosting-Dienste sind enthalten.",
@@ -1260,13 +1352,6 @@ const tr = {
     porDesc:"Unsere Domains sind zusätzlich auf folgenden Plattformen gelistet.",
     porPlaceholder:"Name folgt", porSub1:"Internationaler Domain-Marktplatz mit globaler Reichweite.",
     porSub2:"Spezialisierter Marktplatz für Premium-Domains in Asien.", porCta:"Zum Portal",
-    aboutEyebrow:"Über uns", aboutTitle:"Euer Partner für digitale Präsenz auf Koh Chang",
-    aboutP1:"KohChang Business Domains ist euer Anlaufpunkt für hochwertige Domain-Namen mit direktem Bezug zu Koh Chang und der Region Trat in Thailand.",
-    aboutP2:"Ob Kauf oder Miete — wir bieten flexible Lösungen für alle, die auf Koh Chang eine authentische digitale Identität aufbauen wollen.",
-    t1h:"Sichere Übertragung",    t1p:"Alle Domain-Transfers werden über akkreditierte Registrare abgewickelt.",
-    t2h:"Schnelle Abwicklung",    t2p:"Von der Anfrage bis zur Übergabe — in der Regel innerhalb von 48 Stunden.",
-    t3h:"Mehrsprachig",           t3p:"Ich antworte auf Deutsch, Englisch und — mit etwas Geduld — auch auf Thai.",
-    t4h:"25% für Koh Chang",      t4p:"Mindestens 25% jedes Erlöses spende ich direkt an lokale Non-Profits auf der Insel.",
     ctEyebrow:"Kontakt", ctTitle:"Schreibt mir — über eure Domain, euer Business, eure Idee.",
     ctDesc:"Ob ihr eine Domain sucht, euer Business auf Koh Chang digital aufstellen wollt oder gerade erst plant — schreibt mir. Lokale Business Owner, Webdesigner, Kreative & Entrepreneure auf der Insel: ich freue mich auf den Austausch. Wie stärken wir gemeinsam Koh Chang lokal — digital & sichtbar?",
     ctLocation:"Koh Chang, Trat, Thailand",
@@ -1278,8 +1363,8 @@ const tr = {
     mEyebrowSale:"Kaufangebot", mEyebrowRent:"Mietanfrage",
     mTitleSale:"Angebot unterbreiten", mTitleRent:"Miete anfragen",
     mSubmitSale:"Angebot absenden", mSubmitRent:"Anfrage absenden", mClose:"Schließen",
-    footTagline:"Domains für euch. Lokales Business fördern. Non-Profits stärken.",
-    footDonate:"der Erlöse für Non-Profits auf Koh Chang",
+    footTagline:"Domains für euch. Non-Profit. Kein Gewinn. Koh Chang stärken.",
+    footDonate:"der verbleibende Erlös geht nach Kosten direkt an Non-Profits auf Koh Chang",
     footCopy:"© 2025 KohChang Business Domains. Alle Rechte vorbehalten.",
     footImprint:"Impressum", footPrivacy:"Datenschutz", footContact:"Kontakt",
     priceLoading:"Kurs wird geladen…",
@@ -1293,23 +1378,23 @@ const tr = {
     aboutEyebrow:"Über mich",
     aboutP1:"Hallo Zusammen, mein Name ist Tobi, ich besuche Koh Chang seit 2013 — anfangs als Backpacker mit Rucksack und ohne großen Plan, heute um abzuschalten und dem Alltag zu entkommen. Die Art zu reisen hat sich verändert. Die Liebe zur Insel nicht.",
     aboutP2:"KohChang Domains ist meine Idee. Ich stehe alleine dahinter. Mein Ansinnen war es, eine Plattform zu schaffen, auf der lokale Unternehmen und alle, die auf Koh Chang etwas aufbauen wollen, die richtigen digitalen Adressen finden — bevor es große, rein kommerziell orientierte Unternehmen tun.",
-    aboutP3:"Mir ist dabei eins wichtig: Dieses Projekt ist kein Gewerbe. Ich agiere bewusst nicht gewinnorientiert. Mindestens 25% jedes Erlöses gehen direkt zurück an die Insel — an den lokalen Rescue-Dienst, der ehrenamtlich täglich Leben rettet, und an Projekte für das Tierwohl auf Koh Chang. Nicht weil ich muss, sondern weil mir Koh Chang etwas bedeutet.",
+    aboutP3:"Mir ist dabei eins wichtig: Dieses Projekt ist kein Gewerbe. Ich agiere bewusst nicht gewinnorientiert. Bis auf eigene Aufwände für Pflege, Wartung der Website und Einkaufskosten der Domains geht der verbleibende Erlös nach Abzug der Kosten komplett an lokale Organisationen. Ich erwirtschafte damit keinen Gewinn.",
     t1h:"Direkter Kontakt zu mir", t1p:"Ihr erreicht mich persönlich — keine Agentur, kein Callcenter. Ich antworte selbst.",
     t2h:"Schnelle Abwicklung",    t2p:"Von der ersten Nachricht bis zur Domain-Übergabe — ich halte die Wege kurz.",
     t3h:"Mehrsprachig",           t3p:"Ich antworte auf Deutsch, Englisch und — mit etwas Geduld — auch auf Thai.",
-    t4h:"Mindestens 25% für Koh Chang", t4p:"Ein fester Anteil jedes Erlöses geht direkt an lokale Non-Profits auf der Insel.",
+    t4h:"Non-Profit-Projekt", t4p:"Nach Abzug eigener Aufwände fließt der verbleibende Erlös vollständig und ohne Umwege an lokale Non-Profits; ich erwirtschafte keinen Gewinn.",
     /* Spenden */
     navSpenden:"Spenden",
     spenEyebrow:"Transparenz & Spenden", spenTitle:"Was mit den Erlösen passiert",
-    spenDesc:"Ich agiere bewusst nicht gewinnorientiert. Mindestens 25% jedes Erlöses gehen direkt an lokale Non-Profit-Organisationen auf Koh Chang. Die verbleibenden Mittel decken nachgewiesene Betriebskosten — Domain-Registrierungen, Hosting und Website.",
+    spenDesc:"Ich agiere bewusst nicht gewinnorientiert. Bis auf eigene Aufwände für Pflege, Wartung der Website und Einkaufskosten der Domains geht der Erlös abzüglich der Kosten komplett und ohne Umwege an die entsprechenden Organisationen.",
     spenNoteTitle:"⚠ Rechtlicher Hinweis:",
-    spenNoteText:" Ich betreibe diese Website als Privatperson und Hobby-Projekt — kein Gewerbe, kein eingetragener gemeinnütziger Verein. Domainpreise werden individuell vereinbart (typisch: 250 – 5.000 €). Mindestens 25% jeder Transaktion spende ich an lokale Organisationen auf Koh Chang.",
+    spenNoteText:" Ich betreibe diese Website als Privatperson und Hobby-Projekt — kein Gewerbe, kein eingetragener gemeinnütziger Verein. Domainpreise werden individuell vereinbart (typisch: 250 – 5.000 €). Der verbleibende Erlös nach eigenen Kosten geht vollständig an lokale Organisationen auf Koh Chang; ich erwirtschafte keinen Gewinn.",
     spenRoundLabel:"Domains bis zur nächsten Spende",
     spenTotalDonated:"Gesamt gespendet",
     spenTotalTrans:"Domains verkauft / vermietet",
     spenTransTitle:"Aktuelle Transaktionen",
     spenColDate:"Datum", spenColDomain:"Domain", spenColType:"Art",
-    spenColAmount:"Erlös", spenColDonation:"Spende (25%+)",
+    spenColAmount:"Erlös", spenColDonation:"Spende",
     spenTransEmpty:"Noch keine Transaktionen — alle Domains sind verfügbar.",
     spenHistTitle:"Gespendete Beträge",
     spenHistDesc:"Nach je 5 Transaktionen werden Spendengelder an lokale Organisationen übergeben.",
@@ -1319,19 +1404,17 @@ const tr = {
     spenTargetsReceived:"Gesamt erhalten",
     spenTargetsNoLink:"Kein Weblink hinterlegt",
     /* GDPR */
-    cookieText:"Diese Website verwendet keine Tracking-Cookies. Kontaktformulare werden über Formspree (DSGVO-konform) verarbeitet.",
-    cookieInfo:"Mehr erfahren", cookieAccept:"Verstanden",
     consentLabel:"Ich habe die Datenschutzerklärung gelesen und stimme der Verarbeitung meiner Daten zur Bearbeitung meiner Anfrage zu. *",
     /* Legal */
     impressumWarning:"⚠ Pflichtangaben gemäß § 5 TMG — bitte vollständig ausfüllen bevor die Website live geht.",
     impressumTitle:"Impressum", impressumSub:"Angaben gemäß § 5 TMG / § 55 Abs. 2 RStV",
     impressumOperator:"Betreiber", impressumContact:"Kontakt",
     impressumHint:"Hinweis zum Projektcharakter",
-    impressumHintText:"Diese Website wird von einer Privatperson als nicht-gewerbliches Hobby-Projekt betrieben. Kein Gewerbe, kein eingetragener Verein. Mindestens 25% der Erlöse werden freiwillig an gemeinnützige Organisationen auf Koh Chang gespendet.",
+    impressumHintText:"Diese Website wird von einer Privatperson als nicht-gewerbliches Hobby-Projekt betrieben. Kein Gewerbe, kein eingetragener Verein. Bis auf eigene Aufwände für Pflege, Wartung und Domainkosten geht der verbleibende Erlös nach Abzug der Kosten komplett an lokale Organisationen auf Koh Chang. Ich erwirtschafte damit keinen Gewinn.",
     impressumDisclaimerTitle:"Haftungsausschluss",
     impressumDisclaimerText:"Preise für Domains werden individuell auf Anfrage vereinbart. Typische Marktpreise liegen zwischen 250 und 5.000 €. Keine Haftung für externe Links.",
     dseTitle:"Datenschutzerklärung", dseSub:"Gemäß DSGVO (EU) 2016/679",
-    dse1:"[VORNAME NACHNAME], [ADRESSE] — Kontakt: info@kohchangbusiness.com",
+    dse1:"[VORNAME NACHNAME], [ADRESSE] — Kontakt: info@kohchang.domains",
     dse2:"Kontaktformulare erheben Name, E-Mail, Telefon (optional) und Nachricht — ausschließlich zur Bearbeitung eurer Anfrage.",
     dse3:"Formulardaten werden über Formspree, Inc. (USA) verarbeitet. Formspree ist EU-US Data Privacy Framework zertifiziert.",
     dse4:"Keine Tracking-Cookies, keine Analytics. Wechselkurse werden anonym via frankfurter.app abgerufen.",
@@ -1341,14 +1424,14 @@ const tr = {
     dseR1:"Recht auf Auskunft", dseR2:"Recht auf Berichtigung",
     dseR3:"Recht auf Löschung", dseR4:"Recht auf Einschränkung",
     dseR5:"Recht auf Datenübertragbarkeit", dseR6:"Widerspruchsrecht",
-    dseRights:"Anfragen: info@kohchangbusiness.com",
+    dseRights:"Anfragen: info@kohchang.domains",
     legalClose:"Schließen",
     heroQuote:"Sichert euch die passende Domain für eure Idee — für ein besseres, digitaleres & sichtbareres Koh Chang.",
     ideaEyebrow:"Die Idee", ideaTitle:"Wie alles begann",
-    ideaStatement:"Domains für euch — für alle, die auf Koh Chang etwas aufbauen wollen. Mein Ziel: digitale Sichtbarkeit fördern, lokales Business stärken und mit dem Erlös dort Gutes tun, wo es wirklich ankommt. Mindestens 25% jeder Transaktion spende ich direkt zurück an die Insel. Gleichgesinnte sind herzlich willkommen.",
+    ideaStatement:"Domains für euch — für alle, die auf Koh Chang etwas aufbauen wollen. Mein Ziel: digitale Sichtbarkeit fördern, lokales Business stärken und den verbleibenden Erlös nach Kosten direkt an gemeinnützige Projekte weiterzureichen. Das ist ein Non-Profit-Projekt.",
     ideaP1:"Ich besuche Koh Chang seit 2013 — anfangs als Backpacker, heute um abzuschalten. Was sich verändert hat: die Art zu reisen. Was geblieben ist: die Leidenschaft für diese Insel und ihre Menschen.",
     ideaP2:"Ich habe die Domains auf dieser Plattform bewusst gesichert — nicht primär um sie zu verkaufen, sondern um sie vor großen, rein kommerziell orientierten Unternehmen zu schützen. Koh Chang verdient eine digitale Identität, die zur Insel passt.",
-    ideaP3:"KohChang Domains ist mein Hobby-Projekt — ich, Tobi, stehe alleine dahinter. Mein Ziel: lokale Unternehmen mit den richtigen Web-Adressen ausstatten, damit ihr online sichtbar werdet. Und mindestens 25% jedes Erlöses gehen zurück an die Insel — weil mir Koh Chang am Herzen liegt.",
+    ideaP3:"KohChang Domains ist mein Hobby-Projekt — ich, Tobi, stehe alleine dahinter. Mein Ziel: lokale Unternehmen mit den richtigen Web-Adressen ausstatten, damit ihr online sichtbar werdet. Nach Abzug meiner eigenen Kosten geht der verbleibende Erlös komplett an gemeinnützige Organisationen — ich mache keinen Gewinn damit.",
     ideaBadgeText:"der Erlöse fließen direkt in Non-Profits auf Koh Chang zurück — darunter der ehrenamtliche Rescue-Dienst und Projekte für das Tierwohl auf der Insel.",
     ideaContactTitle:"Mitmachen?",
     ideaContactText:"Media-Agenturen, Business Owner, lokale Profis oder einfach Fans der Insel — ich freue mich über jede Nachricht. Lasst uns gemeinsam etwas für Koh Chang tun.",
@@ -1369,8 +1452,6 @@ const tr = {
     fRe:"Real Estate / Hotel / Resorts", fWell:"Wellness / Beauty / Health", fMkt:"Marketing",
     resultsOf:"of", resultsDomains:"Domains",
     bPremium:"PREMIUM",
-    cardBtnSale:"Make an Offer", cardBtnRent:"Enquire Rental",
-    cardLblSale:"One-time purchase price", cardLblRent:"Annual rental fee *",
     cardToggleSale:"BUY", cardToggleRent:"RENT",
     rentNote:"* Domain rights only — no webspace or email included.",
     rentDisclaimer:"* The rental covers domain usage rights only. No webspace, email accounts or hosting services are included.",
@@ -1379,13 +1460,6 @@ const tr = {
     porDesc:"Our domains are additionally listed on the following platforms.",
     porPlaceholder:"Name pending", porSub1:"International domain marketplace with global reach.",
     porSub2:"Specialised marketplace for premium domains in Asia.", porCta:"Visit Portal",
-    aboutEyebrow:"About Us", aboutTitle:"Your Partner for Digital Presence on Koh Chang",
-    aboutP1:"KohChang Business Domains is your specialised provider of premium domain names for Koh Chang island and the Trat region of Thailand.",
-    aboutP2:"KohChang Domains is my idea — I'm the only person behind it. My goal was to build a platform where local businesses and those who want to become one can find the right digital addresses before large, purely commercial companies do.",
-    t1h:"Direct contact with me",  t1p:"You reach me personally — no agency, no call centre. I reply myself.",
-    t2h:"Fast processing",         t2p:"From your first message to domain handover — I keep things simple and quick.",
-    t3h:"Multilingual",            t3p:"I reply in German, English and — with a little patience — Thai.",
-    t4h:"25% back to Koh Chang",   t4p:"At least 25% of every transaction goes directly to local non-profits on the island.",
     ctEyebrow:"Contact", ctTitle:"Write to me — about your domain, your business, your idea.",
     ctDesc:"Looking for a domain, want to build your digital presence on Koh Chang, or just starting to plan? Write to me. Local business owners, web designers, creatives and entrepreneurs on the island — I look forward to hearing from you. How do we strengthen Koh Chang together — locally, digitally, visibly?",
     ctLocation:"Koh Chang, Trat, Thailand",
@@ -1397,8 +1471,8 @@ const tr = {
     mEyebrowSale:"Purchase Offer", mEyebrowRent:"Rental Inquiry",
     mTitleSale:"Make an Offer", mTitleRent:"Enquire about Rental",
     mSubmitSale:"Submit Offer", mSubmitRent:"Send Inquiry", mClose:"Close",
-    footTagline:"Supporting local business. Empowering non-profits. Putting Koh Chang on the map.",
-    footDonate:"of proceeds go to non-profits on Koh Chang",
+    footTagline:"Supporting local business. Non-profit project. No profit generated.",
+    footDonate:"remaining proceeds go to non-profits on Koh Chang after costs",
     footCopy:"© 2025 KohChang Business Domains. All rights reserved.",
     footImprint:"Legal Notice", footPrivacy:"Privacy Policy", footContact:"Contact",
     priceLoading:"Loading rate…",
@@ -1409,22 +1483,22 @@ const tr = {
     navAbout:"About Me", aboutTitle:"About Me", aboutEyebrow:"About Me",
     aboutP1:"Hi everyone, my name is Tobi, I've been coming to Koh Chang since 2013 — first as a backpacker with no real plan, these days to slow down and recharge. The way I travel has changed. The love for the island hasn't.",
     aboutP2:"KohChang Domains is my idea. I'm the only person behind it. My goal was to build a platform where local businesses — and those who want to become one — can find the right digital addresses before large, purely commercial companies do.",
-    aboutP3:"Something that matters deeply to me: this project is not a business. I operate deliberately without a profit motive. At least 25% of every transaction I donate directly back to the island — to the local Rescue Service that saves lives every day on a voluntary basis, and to projects supporting animal welfare on Koh Chang. Not because I have to. Because Koh Chang means something to me.",
+    aboutP3:"Something that matters deeply to me: this project is not a business. I operate deliberately without a profit motive. After deducting my own costs for maintenance, website upkeep and domain purchases, the remaining proceeds go entirely and directly to local organisations. I do not generate profit with this project.",
     t1h:"Direct contact with me",  t1p:"You reach me personally — no agency, no call centre. I reply myself.",
     t2h:"Fast processing",         t2p:"From your first message to domain handover — I keep things simple and quick.",
     t3h:"Multilingual",            t3p:"I reply in German, English and — with a little patience — Thai.",
-    t4h:"25% back to Koh Chang",   t4p:"At least 25% of every transaction goes directly to local non-profits on the island.",
+    t4h:"Non-profit project",   t4p:"After deducting my own costs, the remaining proceeds go entirely and directly to local non-profit organisations; I do not generate profit.",
     navSpenden:"Donate",
     spenEyebrow:"Transparency & Donations", spenTitle:"Where the proceeds go",
-    spenDesc:"I operate without a profit motive. At least 25% of every transaction I donate directly to non-profit organisations on Koh Chang. The rest covers documented operating costs — domain registrations, hosting and website.",
+    spenDesc:"I operate without a profit motive. After deducting my own costs for maintenance, website upkeep and domain purchases, the remaining proceeds go completely and directly to local non-profit organisations on Koh Chang.",
     spenNoteTitle:"⚠ Legal notice:",
-    spenNoteText:" I run this website as a private individual and hobby project — not a registered business or charity. Domain prices are agreed individually on request (typical: €250 – €5,000). I donate at least 25% of each transaction to local organisations on Koh Chang.",
+    spenNoteText:" I run this website as a private individual and hobby project — not a registered business or charity. Domain prices are agreed individually on request (typical: €250 – €5,000). After costs, the remaining proceeds are donated directly to local organisations on Koh Chang; I do not generate profit.",
     spenRoundLabel:"Domains until next donation",
     spenTotalDonated:"Total donated",
     spenTotalTrans:"Domains sold / rented",
     spenTransTitle:"Recent Transactions",
     spenColDate:"Date", spenColDomain:"Domain", spenColType:"Type",
-    spenColAmount:"Amount", spenColDonation:"Donation (25%+)",
+    spenColAmount:"Amount", spenColDonation:"Donation",
     spenTransEmpty:"No transactions yet — all domains are available.",
     spenHistTitle:"Donation History",
     spenHistDesc:"After every 5 transactions, donations are passed on to local organisations.",
@@ -1433,18 +1507,16 @@ const tr = {
     spenTargetsDesc:"These are the organisations I support with proceeds from domain sales.",
     spenTargetsReceived:"Total received",
     spenTargetsNoLink:"No website listed",
-    cookieText:"This website uses no tracking cookies. Contact forms are processed via Formspree (GDPR-compliant).",
-    cookieInfo:"Learn more", cookieAccept:"Got it",
     consentLabel:"I have read the Privacy Policy and agree to the processing of my data to handle my enquiry. *",
     impressumWarning:"⚠ Required by §5 TMG — fill in real data before going live.",
     impressumTitle:"Legal Notice", impressumSub:"According to § 5 TMG / § 55 RStV",
     impressumOperator:"Operator", impressumContact:"Contact",
     impressumHint:"Project nature",
-    impressumHintText:"This website is operated by a private individual as a non-commercial hobby project. Not a registered business or non-profit. At least 25% of proceeds are voluntarily donated to non-profit organisations on Koh Chang.",
+    impressumHintText:"This website is operated by a private individual as a non-commercial hobby project. Not a registered business or non-profit. After my own costs for maintenance and domain purchasing, the remaining proceeds are donated in full to local organisations on Koh Chang. I do not generate profit with this project.",
     impressumDisclaimerTitle:"Disclaimer",
     impressumDisclaimerText:"Domain prices are agreed individually on request. Typical market prices range from €250 to €5,000. No liability for external links.",
     dseTitle:"Privacy Policy", dseSub:"According to GDPR (EU) 2016/679",
-    dse1:"[FIRST LAST NAME], [ADDRESS] — Contact: info@kohchangbusiness.com",
+    dse1:"[FIRST LAST NAME], [ADDRESS] — Contact: info@kohchang.domains",
     dse2:"Contact forms collect name, email, phone (optional) and message — solely to handle your enquiry.",
     dse3:"Form data is processed via Formspree, Inc. (USA). Formspree is EU-US Data Privacy Framework certified.",
     dse4:"No tracking cookies, no analytics. Exchange rates are fetched anonymously via frankfurter.app.",
@@ -1454,15 +1526,15 @@ const tr = {
     dseR1:"Right of access", dseR2:"Right to rectification",
     dseR3:"Right to erasure", dseR4:"Right to restriction",
     dseR5:"Right to data portability", dseR6:"Right to object",
-    dseRights:"Contact: info@kohchangbusiness.com",
+    dseRights:"Contact: info@kohchang.domains",
     legalClose:"Close",
     heroQuote:"The right domains for Koh Chang's local businesses — and those who want to become one.",
     ideaEyebrow:"The Idea", ideaTitle:"How It All Started",
-    ideaStatement:"Domains for you — for everyone who wants to build something on Koh Chang. My goal: build digital visibility, support local business and do something good with the proceeds — where it counts. At least 25% of every transaction I donate directly back to the island. Like-minded people are very welcome.",
+    ideaStatement:"Domains for you — for everyone who wants to build something on Koh Chang. My goal: build digital visibility, support local business and pass on the remaining proceeds after costs directly to non-profit projects. This is a non-profit project.",
     ideaP1:"I've been coming to Koh Chang since 2013 — first as a backpacker, these days to slow down. What's changed: the way I travel. What hasn't: the passion for this island and its people.",
     ideaP2:"I secured the domains on this platform deliberately — not primarily to sell them, but to protect them from large, purely commercial companies. Koh Chang deserves a digital identity that reflects the island.",
-    ideaP3:"KohChang Domains is my hobby project — I'm Tobi, and I'm the only person behind it. My goal: give local businesses the right web addresses so you can be found online. And at least 25% of every transaction goes back to the island — because Koh Chang matters to me.",
-    ideaBadgeText:"of all proceeds go directly back to non-profits on Koh Chang — including the volunteer Rescue Service and projects supporting animal welfare on the island.",
+    ideaP3:"KohChang Domains is my hobby project — I'm Tobi, and I'm the only person behind it. My goal: give local businesses the right web addresses so you can be found online. After deducting my own costs, the remaining proceeds go completely to local non-profits — I do not generate profit from this project.",
+    ideaBadgeText:"of remaining proceeds go directly to non-profits on Koh Chang — without detours and after costs.",
     ideaContactTitle:"Want to get involved?",
     ideaContactText:"Media agencies, business owners, local professionals or simply fans of the island — get in touch. Together we can put Koh Chang on the digital map.",
     ideaContactCta:"GET IN TOUCH →"
@@ -1522,22 +1594,22 @@ const tr = {
     navAbout:"เกี่ยวกับฉัน", aboutTitle:"เกี่ยวกับฉัน", aboutEyebrow:"เกี่ยวกับฉัน",
     aboutP1:"สวัสดีทุกคน ผมชื่อโทบี้ ผมมาเยือนเกาะช้างตั้งแต่ปี 2013 — แรกเริ่มมาพร้อมเป้สะพายหลัง วันนี้มาเพื่อพักผ่อนและชาร์จพลัง วิธีการเดินทางเปลี่ยนไป แต่ความรักต่อเกาะแห่งนี้ไม่เคยเปลี่ยน",
     aboutP2:"KohChang Domains คือไอเดียของฉัน ฉันเป็นคนเดียวที่อยู่เบื้องหลัง เป้าหมายของฉันคือสร้างแพลตฟอร์มที่ธุรกิจท้องถิ่นและผู้ที่อยากเริ่มธุรกิจบนเกาะช้างสามารถหาที่อยู่เว็บที่เหมาะสมได้",
-    aboutP3:"สิ่งสำคัญสำหรับฉัน: โปรเจกต์นี้ไม่ใช่ธุรกิจ ฉันดำเนินการโดยไม่มุ่งหากำไร อย่างน้อย 25% ของทุกธุรกรรมฉันบริจาคตรงกลับสู่เกาะ ให้หน่วยกู้ภัยอาสาสมัครและโครงการสวัสดิภาพสัตว์ ไม่ใช่เพราะต้องทำ แต่เพราะเกาะช้างมีความหมายสำหรับฉัน",
+    aboutP3:"สิ่งสำคัญสำหรับฉัน: โปรเจกต์นี้ไม่ใช่ธุรกิจ ฉันดำเนินการโดยไม่มุ่งหากำไร หลังหักค่าใช้จ่ายของตัวเอง เช่น การดูแลเว็บไซต์ การบำรุงรักษา และค่าซื้อโดเมน รายได้ที่เหลือจะมอบให้กับองค์กรไม่แสวงกำไรบนเกาะช้างโดยตรง ฉันไม่ได้สร้างกำไรจากโปรเจกต์นี้",
     t1h:"ติดต่อฉันโดยตรง",    t1p:"คุณติดต่อฉันได้โดยตรง ไม่ผ่านเอเจนซี่ ฉันตอบเอง",
     t2h:"ดำเนินการรวดเร็ว",   t2p:"จากข้อความแรกถึงการโอนโดเมน — ฉันทำให้กระบวนการง่ายและรวดเร็ว",
     t3h:"หลายภาษา",           t3p:"ฉันตอบเป็นภาษาเยอรมัน อังกฤษ และไทย",
-    t4h:"25% คืนสู่เกาะช้าง", t4p:"อย่างน้อย 25% ของทุกธุรกรรมไปสู่องค์กรไม่แสวงกำไรท้องถิ่นบนเกาะโดยตรง",
+    t4h:"โปรเจกต์ไม่แสวงกำไร", t4p:"หลังหักค่าใช้จ่ายของตัวเอง รายได้ที่เหลือจะไปยังองค์กรไม่แสวงกำไรบนเกาะช้างโดยตรง",
     navSpenden:"บริจาค",
     spenEyebrow:"ความโปร่งใส & การบริจาค", spenTitle:"รายได้ไปไหน",
-    spenDesc:"โปรเจกต์นี้ไม่ได้มุ่งหากำไร อย่างน้อย 25% ของรายได้ทั้งหมดส่งตรงไปยังองค์กรไม่แสวงกำไรบนเกาะช้าง ส่วนที่เหลือครอบคลุมค่าใช้จ่ายในการดำเนินงานเท่านั้น",
+    spenDesc:"โปรเจกต์นี้ไม่ได้มุ่งหากำไร หลังหักค่าใช้จ่ายของตัวเอง เช่น การดูแลเว็บไซต์ การบำรุงรักษา และค่าซื้อโดเมน รายได้ที่เหลือจะมอบให้กับองค์กรไม่แสวงกำไรบนเกาะช้างโดยตรง",
     spenNoteTitle:"⚠ หมายเหตุสำคัญ:",
-    spenNoteText:" เว็บไซต์นี้ดำเนินการโดยบุคคลธรรมดาในฐานะงานอดิเรก ไม่ใช่ธุรกิจหรือองค์กรไม่แสวงกำไรที่จดทะเบียน ราคาโดเมนตกลงกันเป็นรายกรณี ราคาตลาดทั่วไปอยู่ระหว่าง 250 ถึง 5,000 ยูโร",
+    spenNoteText:" เว็บไซต์นี้ดำเนินการโดยบุคคลธรรมดาในฐานะงานอดิเรก ไม่ใช่ธุรกิจหรือองค์กรไม่แสวงกำไรที่จดทะเบียน หลังหักค่าใช้จ่าย รายได้ที่เหลือจะมอบให้กับองค์กรในท้องถิ่นบนเกาะช้างโดยตรง ฉันไม่ได้สร้างกำไรจากโปรเจกต์นี้",
     spenRoundLabel:"โดเมนจนถึงการบริจาคครั้งถัดไป",
     spenTotalDonated:"บริจาครวมทั้งหมด",
     spenTotalTrans:"โดเมนที่ขาย / เช่า",
     spenTransTitle:"ธุรกรรมล่าสุด",
     spenColDate:"วันที่", spenColDomain:"โดเมน", spenColType:"ประเภท",
-    spenColAmount:"รายได้", spenColDonation:"บริจาค (25%+)",
+    spenColAmount:"รายได้", spenColDonation:"บริจาค",
     spenTransEmpty:"ยังไม่มีธุรกรรม — โดเมนทั้งหมดยังพร้อมให้บริการ",
     spenHistTitle:"ประวัติการบริจาค",
     spenHistDesc:"หลังจากทุก 5 ธุรกรรม เงินบริจาคจะถูกส่งให้องค์กรท้องถิ่น",
@@ -1546,18 +1618,16 @@ const tr = {
     spenTargetsDesc:"นี่คือองค์กรที่ฉันสนับสนุนด้วยรายได้จากการขายโดเมน",
     spenTargetsReceived:"ได้รับรวมทั้งหมด",
     spenTargetsNoLink:"ไม่มีเว็บไซต์",
-    cookieText:"เว็บไซต์นี้ไม่ใช้คุกกี้ติดตาม แบบฟอร์มติดต่อดำเนินการผ่าน Formspree (สอดคล้อง GDPR)",
-    cookieInfo:"เรียนรู้เพิ่มเติม", cookieAccept:"เข้าใจแล้ว",
     consentLabel:"ฉันได้อ่านนโยบายความเป็นส่วนตัวและยินยอมให้ประมวลผลข้อมูลเพื่อจัดการคำถามของฉัน *",
     impressumWarning:"⚠ ข้อมูลที่จำเป็น — กรอกข้อมูลจริงก่อนเผยแพร่",
     impressumTitle:"ข้อมูลทางกฎหมาย", impressumSub:"ตาม § 5 TMG",
     impressumOperator:"ผู้ดำเนินการ", impressumContact:"ติดต่อ",
     impressumHint:"ลักษณะของโปรเจกต์",
-    impressumHintText:"เว็บไซต์นี้ดำเนินการโดยบุคคลธรรมดาเป็นงานอดิเรก ไม่ใช่ธุรกิจหรือองค์กรไม่แสวงกำไร อย่างน้อย 25% ของรายได้บริจาคให้องค์กรบนเกาะช้าง",
+    impressumHintText:"เว็บไซต์นี้ดำเนินการโดยบุคคลธรรมดาเป็นงานอดิเรก ไม่ใช่ธุรกิจหรือองค์กรไม่แสวงกำไร หลังหักค่าใช้จ่ายของตัวเอง เช่น การดูแลเว็บไซต์ การบำรุงรักษา และค่าซื้อโดเมน รายได้ที่เหลือจะมอบให้กับองค์กรในท้องถิ่นบนเกาะช้างโดยตรง ฉันไม่ได้สร้างกำไรจากโปรเจกต์นี้",
     impressumDisclaimerTitle:"ข้อจำกัดความรับผิดชอบ",
     impressumDisclaimerText:"ราคาโดเมนตกลงกันเป็นรายกรณีตามคำขอ ราคาตลาดทั่วไป 250 – 5,000 ยูโร",
     dseTitle:"นโยบายความเป็นส่วนตัว", dseSub:"ตาม GDPR (EU) 2016/679",
-    dse1:"[ชื่อ-นามสกุล], [ที่อยู่] — ติดต่อ: info@kohchangbusiness.com",
+    dse1:"[ชื่อ-นามสกุล], [ที่อยู่] — ติดต่อ: info@kohchang.domains",
     dse2:"แบบฟอร์มติดต่อเก็บชื่อ อีเมล โทรศัพท์ (ไม่บังคับ) และข้อความ เพื่อจัดการคำถามของคุณเท่านั้น",
     dse3:"ข้อมูลแบบฟอร์มประมวลผลผ่าน Formspree, Inc. (สหรัฐ) ที่สอดคล้อง GDPR",
     dse4:"ไม่มีคุกกี้ติดตาม ไม่มี Analytics อัตราแลกเปลี่ยนดึงแบบไม่ระบุตัวตนผ่าน frankfurter.app",
@@ -1567,7 +1637,7 @@ const tr = {
     dseR1:"สิทธิ์เข้าถึง", dseR2:"สิทธิ์แก้ไข",
     dseR3:"สิทธิ์ลบ", dseR4:"สิทธิ์จำกัดการประมวลผล",
     dseR5:"สิทธิ์พกพาข้อมูล", dseR6:"สิทธิ์คัดค้าน",
-    dseRights:"ติดต่อ: info@kohchangbusiness.com",
+    dseRights:"ติดต่อ: info@kohchang.domains",
     legalClose:"ปิด",
     heroQuote:"โดเมนที่ใช่สำหรับธุรกิจท้องถิ่นของเกาะช้าง — และผู้ที่อยากเป็น",
     ideaEyebrow:"แนวคิด", ideaTitle:"จุดเริ่มต้น",
@@ -1596,7 +1666,12 @@ const catGradients = {
 /* ════════════════════════════════════════════════════════
    STATE
 ════════════════════════════════════════════════════════ */
-let lang       = localStorage.getItem('kcbd-lang') || 'de';
+let lang = localStorage.getItem('kcbd-lang') || (() => {
+  const n = (navigator.language || navigator.userLanguage || '').toLowerCase();
+  if (n.startsWith('de')) return 'de';
+  if (n.startsWith('th')) return 'th';
+  return 'en';
+})();
 let globalView = 'sale';
 let catFilter  = 'all';
 
@@ -1633,6 +1708,30 @@ function updateRateStrip() {
   if (!thbRate) { content.innerHTML = `<span class="rate-spinner"></span> ${tr.th.priceLoading}`; return; }
   const dateStr = thbRateDate ? new Date(thbRateDate).toLocaleDateString('th-TH',{day:'numeric',month:'long',year:'numeric'}) : '';
   content.innerHTML = `1 EUR = <span class="rate-pill">฿${thbRate.toFixed(2)}</span>${dateStr ? ` <span style="font-size:.7rem">(${dateStr})</span>` : ''}`;
+}
+
+/* ════════════════════════════════════════════════════════
+   IP-BASIERTE SPRACHERKENNUNG
+   Nutzt Browser-Sprache als sofortigen Startwert,
+   bestätigt per IP-Geolokation (ipapi.co) asynchron.
+   Wird nur ausgeführt wenn der Nutzer keine Sprache
+   manuell gesetzt hat (kein localStorage-Eintrag).
+════════════════════════════════════════════════════════ */
+async function autoDetectLanguage() {
+  if (localStorage.getItem('kcbd-lang')) return; // Nutzereinstellung hat Vorrang
+  const ctrl = new AbortController();
+  const t = setTimeout(() => ctrl.abort(), 4000);
+  try {
+    const r = await fetch('https://ipapi.co/json/', { signal: ctrl.signal });
+    clearTimeout(t);
+    if (!r.ok) return;
+    const j = await r.json();
+    const cc = (j.country_code || '').toUpperCase();
+    let detected = 'en';
+    if (['DE', 'AT', 'CH', 'LI'].includes(cc)) detected = 'de';
+    else if (cc === 'TH') detected = 'th';
+    if (detected !== lang) setLang(detected);
+  } catch { clearTimeout(t); }
 }
 
 /* ════════════════════════════════════════════════════════
@@ -1679,6 +1778,8 @@ function setLang(l) {
   if (l === 'th') { updateRateStrip(); if (!rateFetched) fetchThbRate(); }
   else document.getElementById('rate-strip').classList.remove('visible');
   renderDomains();
+  renderTransparency();
+  updateGdprTexts();
 }
 
 /* ════════════════════════════════════════════════════════
@@ -1688,6 +1789,8 @@ function renderDomains() {
   const grid = document.getElementById('domain-grid');
   const tx   = tr[lang];
   const dLang = lang === 'th' ? 'en' : lang; // TH falls back to EN for uses/desc
+  const statCount = document.getElementById('stat-count');
+  if (statCount) statCount.textContent = DOMAINS.length;
 
   const filtered = catFilter === 'all' ? DOMAINS : DOMAINS.filter(d => d.catKey === catFilter);
 
@@ -1833,7 +1936,13 @@ function updateThbHint() {
 
 function closeModal() { document.getElementById('modal').classList.remove('open'); document.body.style.overflow = ''; }
 function onOverlayClick(e) { if (e.target === document.getElementById('modal')) closeModal(); }
-document.addEventListener('keydown', e => { if (e.key==='Escape') { closeModal(); closeMenu(); } });
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') {
+    closeModal();
+    closeMenu();
+    if (document.getElementById('gdpr-dialog')?.classList.contains('show')) acceptGdpr();
+  }
+});
 
 /* ════════════════════════════════════════════════════════
    FORM SUBMIT
@@ -1879,7 +1988,7 @@ document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
 fetchThbRate();
 setLang(lang);
 renderTransparency();
-initCookieBanner();
+autoDetectLanguage();
 
 /* ════════════════════════════════════════════════════════
    SCROLL EXPANSION INTRO
@@ -1915,10 +2024,11 @@ initCookieBanner();
     setTimeout(() => {
       intro.classList.add('fading');
       document.body.style.overflow = '';
-      /* Smooth-Scroll zur Hauptseite */
+      /* Smooth-Scroll zur Hauptseite, dann GDPR-Dialog */
       setTimeout(() => {
         intro.style.display = 'none';
         document.getElementById('hero') && document.getElementById('hero').scrollIntoView({ behavior: 'smooth' });
+        setTimeout(initGdprDialog, 350);
       }, 900);
     }, 200);
   }
@@ -2026,7 +2136,8 @@ function renderTransparency() {
   const ringOf    = document.getElementById('ring-of');
   if (ringFill)  ringFill.style.strokeDashoffset = circ * (1 - pct);
   if (ringCount) ringCount.textContent = count;
-  if (ringOf)    ringOf.textContent    = `von ${total}`;
+  const ofWord = { de: 'von', en: 'of', th: 'จาก' };
+  if (ringOf)    ringOf.textContent    = `${ofWord[lang] || 'von'} ${total}`;
 
   /* Donation targets */
   const targetsGrid = document.getElementById('targets-grid');
@@ -2095,15 +2206,57 @@ function renderTransparency() {
 }
 
 /* ════════════════════════════════════════════════════════
-   COOKIE BANNER (DSGVO)
+   GDPR EINWILLIGUNGSDIALOG (DSGVO)
+   — erscheint nach dem Intro, wegklickbar über Overlay / ✕
+   — Formular-Einwilligung bleibt als separate Checkbox
 ════════════════════════════════════════════════════════ */
-function initCookieBanner() {
-  if (localStorage.getItem('kcd-cookie-ok')) return;
-  setTimeout(() => document.getElementById('cookie-banner')?.classList.add('show'), 1500);
+const GDPR_TEXTS = {
+  de: {
+    title:  'Datenschutz & Einwilligung',
+    body:   'Diese Website lädt Schriften (Google Fonts), Bilder (Unsplash) und nutzt Formspree für Kontaktformulare — dabei wird deine IP-Adresse übertragen. Es werden <strong>keine Tracking-Cookies</strong> eingesetzt.',
+    note:   '📝 Beim Absenden von Formularen wird deine Einwilligung separat per Checkbox eingeholt.',
+    link:   'Datenschutzerklärung lesen',
+    accept: 'Verstanden & Weiter'
+  },
+  en: {
+    title:  'Privacy & Consent',
+    body:   'This site loads fonts (Google Fonts), images (Unsplash) and uses Formspree for contact forms — your IP address is transmitted to these services. <strong>No tracking cookies</strong> are used.',
+    note:   '📝 Forms require separate consent via checkbox before submission.',
+    link:   'Read Privacy Policy',
+    accept: 'Got it & Continue'
+  },
+  th: {
+    title:  'ความเป็นส่วนตัว & ความยินยอม',
+    body:   'เว็บไซต์นี้โหลดแบบอักษร (Google Fonts) รูปภาพ (Unsplash) และใช้ Formspree — IP ของคุณจะถูกส่งไปยังบริการเหล่านี้ <strong>ไม่มีคุกกี้ติดตาม</strong>',
+    note:   '📝 แบบฟอร์มต้องได้รับความยินยอมแยกต่างหากผ่านช่องทำเครื่องหมาย',
+    link:   'อ่านนโยบายความเป็นส่วนตัว',
+    accept: 'เข้าใจแล้ว & ดำเนินการต่อ'
+  }
+};
+
+function updateGdprTexts() {
+  const d = GDPR_TEXTS[lang] || GDPR_TEXTS.en;
+  const $ = id => document.getElementById(id);
+  const h = $('gdpr-dialog-title'), b = $('gdpr-body'),
+        n = $('gdpr-note-text'),    l = $('gdpr-info-link'), a = $('gdpr-accept-btn');
+  if (h) h.textContent = d.title;
+  if (b) b.innerHTML   = d.body;   // safe — content is hardcoded, not user input
+  if (n) n.textContent = d.note;
+  if (l) l.textContent = d.link;
+  if (a) a.textContent = d.accept;
 }
-function acceptCookies() {
+
+function initGdprDialog() {
+  if (localStorage.getItem('kcd-cookie-ok')) return;
+  updateGdprTexts();
+  document.getElementById('gdpr-overlay')?.classList.add('show');
+  document.getElementById('gdpr-dialog')?.classList.add('show');
+}
+
+function acceptGdpr() {
   localStorage.setItem('kcd-cookie-ok', '1');
-  document.getElementById('cookie-banner')?.classList.remove('show');
+  document.getElementById('gdpr-overlay')?.classList.remove('show');
+  document.getElementById('gdpr-dialog')?.classList.remove('show');
 }
 
 /* ════════════════════════════════════════════════════════

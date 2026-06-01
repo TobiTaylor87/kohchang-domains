@@ -506,10 +506,14 @@
     </div>
 
     <div class="modal-section">
-      <h4>Kontakt-E-Mail</h4>
+      <h4>Mailboxen</h4>
       <div class="field">
-        <label>Eure E-Mail-Adresse (für Antworten)</label>
-        <input type="email" id="set-email" placeholder="info@kohchangbusiness.com">
+        <label>Allgemeine Kontaktadresse (Impressum, Info)</label>
+        <input type="email" id="set-email-info" placeholder="info@kohchang.domains">
+      </div>
+      <div class="field">
+        <label>Dashboard-Anfragen (Inbox)</label>
+        <input type="email" id="set-email-request" placeholder="request@kohchang.domains">
       </div>
     </div>
 
@@ -624,7 +628,7 @@ let STATE = {
   previewLang:'en',     // Vorschau-Zielsprache
   viewLang:   'original',
   encKey:     null,     // AES-GCM Key (nach Login)
-  settings:   { email: '', deeplKey: '', formspreeKey: '', formspreeId: '' },
+  settings:   { infoEmail: '', requestEmail: '', deeplKey: '', formspreeKey: '', formspreeId: '' },
   replyTimer: null
 };
 
@@ -725,7 +729,8 @@ function detectLang(text) {
    Danach kann der Klartext hier entfernt werden.
 ════════════════════════════════════════════════════ */
 const DEFAULT_SETTINGS = {
-  email:        'info@kohchangbusiness.com',
+  infoEmail:    'info@kohchang.domains',
+  requestEmail: 'request@kohchang.domains',
   deeplKey:     '',   /* DeepL-Key nach Login unter ⚙ Einstellungen eintragen */
   formspreeKey: '',
   formspreeId:  'YOUR_FORM_ID'
@@ -753,7 +758,8 @@ async function loadMsgs() {
 
 async function saveSettings() {
   const s = STATE.settings;
-  s.email       = document.getElementById('set-email')?.value || s.email;
+  s.infoEmail   = document.getElementById('set-email-info')?.value || s.infoEmail;
+  s.requestEmail= document.getElementById('set-email-request')?.value || s.requestEmail;
   s.deeplKey    = document.getElementById('set-deepl')?.value || s.deeplKey;
   s.formspreeKey= document.getElementById('set-formspree-key')?.value || s.formspreeKey;
   s.formspreeId = document.getElementById('set-formspree-id')?.value || s.formspreeId;
@@ -855,7 +861,8 @@ async function initSession(password) {
   updateUnreadBadge();
   /* Settings-Felder vorausfüllen */
   const s = STATE.settings;
-  document.getElementById('set-email').value          = s.email        || DEFAULT_SETTINGS.email        || '';
+  document.getElementById('set-email-info').value     = s.infoEmail    || DEFAULT_SETTINGS.infoEmail    || '';
+  document.getElementById('set-email-request').value  = s.requestEmail || DEFAULT_SETTINGS.requestEmail || '';
   document.getElementById('set-deepl').value          = s.deeplKey     || DEFAULT_SETTINGS.deeplKey     || '';
   document.getElementById('set-formspree-key').value  = s.formspreeKey || DEFAULT_SETTINGS.formspreeKey || '';
   document.getElementById('set-formspree-id').value   = s.formspreeId  || DEFAULT_SETTINGS.formspreeId  || '';
@@ -1122,7 +1129,8 @@ async function addInquiry() {
 ════════════════════════════════════════════════════ */
 function openSettings() {
   /* Felder befüllen */
-  document.getElementById('set-email').value         = STATE.settings.email || '';
+  document.getElementById('set-email-info').value    = STATE.settings.infoEmail || DEFAULT_SETTINGS.infoEmail || '';
+  document.getElementById('set-email-request').value = STATE.settings.requestEmail || DEFAULT_SETTINGS.requestEmail || '';
   document.getElementById('set-deepl').value         = STATE.settings.deeplKey || '';
   document.getElementById('set-formspree-key').value = STATE.settings.formspreeKey || '';
   document.getElementById('set-formspree-id').value  = STATE.settings.formspreeId || '';
